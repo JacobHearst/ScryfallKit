@@ -71,7 +71,7 @@ final class SmokeTests: XCTestCase {
             }
         }
 
-        waitForExpectations(timeout: 3)
+        waitForExpectations(timeout: 6)
     }
 
     func testGetCardByExactName() {
