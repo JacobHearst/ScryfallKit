@@ -12,7 +12,7 @@ public enum Color: String, Codable {
 }
 
 public enum Layout: String, CaseIterable, Codable {
-    case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard, token, emblem, augment, host
+    case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard, token, emblem, augment, host, `class`
     case modalDfc = "modal_dfc"
     case doubleSided = "double_sided"
     case doubleFacedToken = "double_faced_token"
