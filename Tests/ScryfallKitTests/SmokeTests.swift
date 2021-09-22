@@ -239,8 +239,8 @@ final class SmokeTests: XCTestCase {
             switch result {
             case .failure(let error):
                 XCTFail("Received error: \(error)")
-            default:
-                break
+            case .success(let rulings):
+                print("Received: \(rulings.data.count) rulings")
             }
             exp.fulfill()
         }
