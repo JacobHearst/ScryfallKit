@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Ruling: Codable {
+public struct Ruling: Codable, Identifiable {
     public enum Identifier {
         case scryfallID(id: String)
         case mtgoID(id: Int)
@@ -19,4 +19,7 @@ public struct Ruling: Codable {
     public var source: String
     public var publishedAt: String
     public var comment: String
+    public var oracleId: String
+
+    public var id: String { oracleId }
 }
