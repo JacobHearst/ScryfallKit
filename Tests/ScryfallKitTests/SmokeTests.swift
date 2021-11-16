@@ -277,4 +277,25 @@ final class SmokeTests: XCTestCase {
 
         waitForExpectations(timeout: 3)
     }
+
+    func testGetCardCollection() {
+        let exp = expectation(description: "\(#function)")
+        let identifiers: [Card.CollectionIdentifier] = [
+            .scryfallID(id: "683a5707-cddb-494d-9b41-51b4584ded69"),
+            .name("Ancient Tomb"),
+            .collectorNoAndSet(collectorNo: "150", set: "mrd")
+        ]
+
+        client.getCardCollection(identifiers: identifiers) { result in
+            switch result {
+            case .failure(let error):
+                XCTFail("Received error: \(error)")
+            default:
+                break
+            }
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 3)
+    }
 }

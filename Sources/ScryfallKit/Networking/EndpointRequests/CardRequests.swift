@@ -193,3 +193,25 @@ struct GetCard: EndpointRequest {
         ]
     }
 }
+
+struct GetCardCollection: EndpointRequest {
+    var identifiers: [Card.CollectionIdentifier]
+
+    var path: String? = "cards/collection"
+    var queryParams: [URLQueryItem] = []
+    var requestMethod: RequestMethod = .POST
+    var body: Data? = nil
+
+    init(identifiers: [Card.CollectionIdentifier]) {
+        self.identifiers = identifiers
+
+        let identifierJSON = identifiers.map { $0.json }
+        let requestBody: [String: [[String:String]]] = [ "identifiers": identifierJSON ]
+
+        do {
+            body = try JSONSerialization.data(withJSONObject: requestBody)
+        } catch {
+            print("Errored serializing dict to JSON for GetCardCollection request")
+        }
+    }
+}

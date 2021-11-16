@@ -22,7 +22,9 @@ extension EndpointRequest {
         }
 
         var urlComponents = URLComponents(string: "https://api.scryfall.com/\(path)")
-        urlComponents?.queryItems = queryParams.compactMap { $0.value == nil ? nil : $0 }
+        if !queryParams.isEmpty {
+            urlComponents?.queryItems = queryParams.compactMap { $0.value == nil ? nil : $0 }
+        }
 
         guard let url = urlComponents?.url else {
             print("Couldn't make url")
@@ -32,9 +34,8 @@ extension EndpointRequest {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = requestMethod.rawValue
         urlRequest.httpBody = body
-        if let bod = body {
-            print(String(data: bod, encoding: .utf8)!)
-        }
+        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+
         return urlRequest
     }
 }
