@@ -22,7 +22,9 @@ public enum CardFieldFilter {
 
     // Types and oracle text
     case type(String)
-    case cardText(String)
+    case oracleText(String)
+    case fullOracleText(String)
+    case keyword(String)
 
     // Mana costs
     case mana(String, ComparisonType = .equal)
@@ -79,6 +81,10 @@ public enum CardFieldFilter {
 
     public var filterString: String {
         switch self {
+        case .fullOracleText(let value):
+            return "fo:\(value)"
+        case .keyword(let value):
+            return "keyword:\(value)"
         case .compoundOr(let filters):
             return "(\(filters.map { $0.filterString }.joined(separator: " or ")))"
         case .compoundAnd(let filters):
@@ -91,7 +97,7 @@ public enum CardFieldFilter {
             return "identity\(comparison.rawValue)\(value)"
         case .type(let value):
             return "type:\(value)"
-        case .cardText(let value):
+        case .oracleText(let value):
             return "oracle\(value)"
         case .mana(let value, let comparison):
             return "mana\(comparison.rawValue)\(value)"
