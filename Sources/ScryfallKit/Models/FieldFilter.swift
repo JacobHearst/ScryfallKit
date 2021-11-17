@@ -98,7 +98,7 @@ public enum CardFieldFilter {
         case .type(let value):
             return "type:\(value)"
         case .oracleText(let value):
-            return "oracle\(value)"
+            return "oracle:\(value)"
         case .mana(let value, let comparison):
             return "mana\(comparison.rawValue)\(value)"
         case .devotion(let value, let comparison):
