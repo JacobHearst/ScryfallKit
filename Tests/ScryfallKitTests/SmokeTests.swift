@@ -280,9 +280,9 @@ final class SmokeTests: XCTestCase {
 
     func testSearchWithFieldFilters() {
         let exp = expectation(description: "\(#function)")
-        let filters: [FieldFilter] = [
-            CardFieldFilter.cardType("forest"),
-            CardFieldFilter.cardType("creature")
+        let filters: [CardFieldFilter] = [
+            CardFieldFilter.type("forest"),
+            CardFieldFilter.type("creature")
         ]
         client.searchCards(filters: filters) { result in
             switch result {
@@ -299,9 +299,9 @@ final class SmokeTests: XCTestCase {
 
     func testSearchWithFieldFiltersWithComparison() {
         let exp = expectation(description: "\(#function)")
-        let filters: [FieldFilter] = [
+        let filters: [CardFieldFilter] = [
             CardFieldFilter.cmc("0", .lessThanOrEqual),
-            CardFieldFilter.cardType("Creature"),
+            CardFieldFilter.type("Creature"),
             CardFieldFilter.colors("0", .equal)
         ]
 
@@ -320,12 +320,12 @@ final class SmokeTests: XCTestCase {
 
     func testSearchWithCompoundFieldFilters() {
         let exp = expectation(description: "\(#function)")
-        let filters: [FieldFilter] = [
-            CardFieldFilter.cardType("forest"),
-            CardFieldFilter.cardType("creature")
+        let filters: [CardFieldFilter] = [
+            CardFieldFilter.type("forest"),
+            CardFieldFilter.type("creature")
         ]
 
-        let compoundFilter = CompoundCardFieldFilter.or(filters)
+        let compoundFilter = CardFieldFilter.compoundOr(filters)
 
         client.searchCards(filters: [compoundFilter]) { result in
             switch result {

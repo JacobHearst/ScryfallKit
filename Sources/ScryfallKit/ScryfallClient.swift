@@ -10,7 +10,7 @@ public struct ScryfallClient {
     }
 
     public func searchCards(
-        filters: [FieldFilter],
+        filters: [CardFieldFilter],
         unique: UniqueMode? = nil,
         order: SortMode? = nil,
         sortDirection: SortDirection? = nil,

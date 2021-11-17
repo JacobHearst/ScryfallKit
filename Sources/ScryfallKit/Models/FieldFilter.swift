@@ -15,25 +15,7 @@ public enum ComparisonType: String {
     case including = ":"
 }
 
-public protocol FieldFilter {
-    var filterString: String { get }
-}
-
-public enum CompoundCardFieldFilter: FieldFilter {
-    case and([FieldFilter])
-    case or([FieldFilter])
-
-    public var filterString: String {
-        switch self {
-        case .and(let filters):
-            return "(\(filters.map { $0.filterString }.joined(separator: " and ")))"
-        case .or(let filters):
-            return "(\(filters.map { $0.filterString }.joined(separator: " or ")))"
-        }
-    }
-}
-
-public enum CardFieldFilter: FieldFilter {
+public enum CardFieldFilter {
     // Colors and Identity
     case colors(String, ComparisonType = .including)
     case colorIdentity(String, ComparisonType = .including)
@@ -92,16 +74,22 @@ public enum CardFieldFilter: FieldFilter {
     case include(String)
     case rarity(String, ComparisonType = .equal)
     case `in`(String)
+    case compoundOr([CardFieldFilter])
+    case compoundAnd([CardFieldFilter])
 
     public var filterString: String {
         switch self {
+        case .compoundOr(let filters):
+            return "(\(filters.map { $0.filterString }.joined(separator: " or ")))"
+        case .compoundAnd(let filters):
+            return "(\(filters.map { $0.filterString }.joined(separator: " and ")))"
         case .name(let value):
             return "name:\(value)"
         case .colors(let value, let comparison):
             return "color\(comparison.rawValue)\(value)"
         case .colorIdentity(let value, let comparison):
             return "identity\(comparison.rawValue)\(value)"
-        case .cardType(let value):
+        case .type(let value):
             return "type:\(value)"
         case .cardText(let value):
             return "oracle\(value)"
