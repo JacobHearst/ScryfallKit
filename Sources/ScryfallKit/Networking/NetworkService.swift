@@ -25,6 +25,11 @@ struct NetworkService: NetworkServiceProtocol {
             return
         }
 
+        if let body = urlRequest.httpBody, let JSONString = String(data: body, encoding: String.Encoding.utf8) {
+            print("Sending request with body:")
+            print(JSONString)
+        }
+
         let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
             guard error == nil else {
                 print("Error: \(String(describing: error))")

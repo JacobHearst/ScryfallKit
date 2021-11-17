@@ -174,6 +174,22 @@ public struct ScryfallClient {
         }
     }
 
+    public func getCardCollection(
+        identifiers: [Card.CollectionIdentifier],
+        completion: @escaping (Result<List<Card>, Error>) -> Void) {
+
+        let request = GetCardCollection(identifiers: identifiers)
+
+        networkService.request(request, as: List<Card>.self) { result in
+            switch result {
+            case .success(let card):
+                completion(.success(card))
+            case.failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
     public func getCatalog(catalogType: Catalog.`Type`, completion: @escaping (Result<Catalog, Error>) -> Void) {
         let request = GetCatalog(catalogType: catalogType)
 

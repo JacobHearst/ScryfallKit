@@ -55,6 +55,38 @@ public struct Card: Codable, Identifiable {
         }
     }
 
+    public enum CollectionIdentifier {
+        case scryfallID(id: String)
+        case mtgoID(id: Int)
+        case multiverseID(id: Int)
+        case oracleID(id: String)
+        case illustrationID(id: String)
+        case name(_: String)
+        case nameAndSet(name: String, set: String)
+        case collectorNoAndSet(collectorNo: String, set: String)
+
+        internal var json: [String: String] {
+            switch self {
+            case .scryfallID(let id):
+                return ["id": id]
+            case .mtgoID(let id):
+                return ["mtgo_id": "\(id)"]
+            case .multiverseID(let id):
+                return ["multiverse_id": "\(id)"]
+            case .oracleID(let id):
+                return ["oracle_id": id]
+            case .illustrationID(let id):
+                return ["illustration_id": id]
+            case .name(let name):
+                return ["name": name]
+            case .nameAndSet(let name, let set):
+                return ["name": name, "set": set]
+            case .collectorNoAndSet(let collectorNo, let set):
+                return ["collector_number": collectorNo, "set": set]
+            }
+        }
+    }
+
     public enum Finish: String, Codable {
         case nonfoil, foil, etched, glossy
     }
