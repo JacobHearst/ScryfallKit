@@ -39,7 +39,7 @@ public enum CardFieldFilter: FieldFilter {
     case colorIdentity(String, ComparisonType = .including)
 
     // Types and oracle text
-    case cardType(String)
+    case type(String)
     case cardText(String)
 
     // Mana costs
