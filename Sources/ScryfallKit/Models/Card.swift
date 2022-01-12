@@ -151,7 +151,7 @@ public struct Card: Codable, Identifiable {
     public var artist: String?
     public var booster: Bool
     public var borderColor: BorderColor
-    public var cardBackId: UUID
+    public var cardBackId: UUID? // Scryfall's documentation lists this as required but it's nil for multi-faced cards
     public var collectorNumber: String
     public var contentWarning: Bool?
     public var digital: Bool
