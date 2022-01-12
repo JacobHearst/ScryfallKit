@@ -10,6 +10,39 @@ public struct ScryfallClient {
     }
 
     public func searchCards(
+        filters: [CardFieldFilter],
+        unique: UniqueMode? = nil,
+        order: SortMode? = nil,
+        sortDirection: SortDirection? = nil,
+        include_extras: Bool? = nil,
+        include_multilingual: Bool? = nil,
+        include_variations: Bool? = nil,
+        page: Int? = nil,
+        completion: @escaping (Result<List<Card>, Error>) -> Void) {
+
+        let query = filters.map { $0.filterString }.joined(separator: " ")
+
+        let request = SearchCards(
+            query: query,
+            unique: unique,
+            order: order,
+            dir: sortDirection,
+            include_extras: include_extras,
+            include_multilingual: include_multilingual,
+            include_variations: include_variations,
+            page: page)
+
+        networkService.request(request, as: List<Card>.self) { result in
+            switch result {
+            case .success(let cards):
+                completion(.success(cards))
+            case.failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    public func searchCards(
         query: String,
         unique: UniqueMode? = nil,
         order: SortMode? = nil,

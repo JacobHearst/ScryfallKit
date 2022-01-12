@@ -278,6 +278,68 @@ final class SmokeTests: XCTestCase {
         waitForExpectations(timeout: 3)
     }
 
+    func testSearchWithFieldFilters() {
+        let exp = expectation(description: "\(#function)")
+        let filters: [CardFieldFilter] = [
+            CardFieldFilter.type("forest"),
+            CardFieldFilter.type("creature")
+        ]
+        client.searchCards(filters: filters) { result in
+            switch result {
+            case .failure(let error):
+                XCTFail("Received error: \(error)")
+            case .success(let cards):
+                XCTAssertEqual(cards.totalCards, 1)
+            }
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 3)
+    }
+
+    func testSearchWithFieldFiltersWithComparison() {
+        let exp = expectation(description: "\(#function)")
+        let filters: [CardFieldFilter] = [
+            CardFieldFilter.cmc("0", .lessThanOrEqual),
+            CardFieldFilter.type("Creature"),
+            CardFieldFilter.colors("0", .equal)
+        ]
+
+        client.searchCards(filters: filters) { result in
+            switch result {
+            case .failure(let error):
+                XCTFail("Received error: \(error)")
+            case .success(let cards):
+                XCTAssert(cards.totalCards ?? 0 > 1)
+            }
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 3)
+    }
+
+    func testSearchWithCompoundFieldFilters() {
+        let exp = expectation(description: "\(#function)")
+        let filters: [CardFieldFilter] = [
+            CardFieldFilter.type("forest"),
+            CardFieldFilter.type("creature")
+        ]
+
+        let compoundFilter = CardFieldFilter.compoundOr(filters)
+
+        client.searchCards(filters: [compoundFilter]) { result in
+            switch result {
+            case .failure(let error):
+                XCTFail("Received error: \(error)")
+            case .success(let cards):
+                XCTAssert(cards.totalCards ?? 0 > 1)
+            }
+            exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 3)
+    }
+
     func testGetCardCollection() {
         let exp = expectation(description: "\(#function)")
         let identifiers: [Card.CollectionIdentifier] = [
