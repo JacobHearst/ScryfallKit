@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "ScryfallKit",
-    platforms: [.macOS(.v11), .iOS(.v13)],
+    platforms: [.macOS(.v10_10), .iOS(.v8)],
     products: [
         .library(
             name: "ScryfallKit",
