@@ -26,7 +26,7 @@ public struct Set: Codable {
     }
 
     public enum `Type`: String, Codable {
-        case core, expansion, masters, masterpiece, spellbook, commander, planechase, archenemy, vanguard, funny, starter, box, promo, token, memorabilia
+        case core, expansion, masters, masterpiece, spellbook, commander, planechase, archenemy, vanguard, funny, starter, box, promo, token, memorabilia, arsenal
         case fromTheVault = "from_the_vault"
         case premiumDeck = "premium_deck"
         case duelDeck = "duel_deck"
