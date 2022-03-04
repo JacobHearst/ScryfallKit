@@ -4,6 +4,8 @@ name: Build and test
 
 # Controls when the workflow will run
 on:
+  schedule:
+    - cron: 0 0 * * 0
   push:
     branches: [ main ]
   pull_request:
