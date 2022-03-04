@@ -50,7 +50,8 @@ struct NetworkService: NetworkServiceProtocol {
                 if (200..<300).contains(httpStatus) {
                     print("Received response")
                     if logLevel == .verbose {
-                        print(String(data: content, encoding: .utf8) ?? "Couldn't represent response body as string")
+                        let responseBody = String(data: content, encoding: .utf8)
+                        print(responseBody ?? "Couldn't represent response body as string")
                     }
 
                     let result = try decoder.decode(type, from: content)

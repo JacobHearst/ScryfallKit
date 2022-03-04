@@ -172,7 +172,7 @@ public struct Card: Codable, Identifiable {
     public var printedTypeLine: String?
     public var promo: Bool
     public var promoTypes: [String]?
-    public var purchaseUris: [String : String]
+    public var purchaseUris: [String : String]?
     public var rarity: Rarity
     public var relatedUris: [String : String]
     public var releasedAt: String
