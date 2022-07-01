@@ -2,7 +2,7 @@ import Foundation
 
 public struct ScryfallClient {
     private var networkLogLevel: NetworkLogLevel
-    private var networkService: NetworkServiceProtocol
+    internal var networkService: NetworkServiceProtocol
 
     public init(networkLogLevel: NetworkLogLevel = .minimal) {
         self.networkLogLevel = networkLogLevel
