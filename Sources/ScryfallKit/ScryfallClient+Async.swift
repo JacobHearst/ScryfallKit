@@ -7,7 +7,7 @@
 
 import Foundation
 
-@available(macOS 10.15.0, *)
+@available(macOS 10.15.0, *, iOS 13.0.0, *)
 extension ScryfallClient {
     public func searchCards(filters: [CardFieldFilter],
                             unique: UniqueMode? = nil,

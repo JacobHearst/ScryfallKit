@@ -13,7 +13,7 @@ public enum NetworkLogLevel {
 
 protocol NetworkServiceProtocol {
     func request<T : Decodable>(_ request: EndpointRequest, as type: T.Type, completion: @escaping (Result<T, Error>) -> Void)
-    @available(macOS 10.15.0, *)
+    @available(macOS 10.15.0, *, iOS 13.0.0, *)
     func request<T : Decodable>(_ request: EndpointRequest, as type: T.Type) async throws -> T
 }
 
@@ -81,7 +81,7 @@ struct NetworkService: NetworkServiceProtocol {
         task.resume()
     }
 
-    @available(macOS 10.15.0, *)
+    @available(macOS 10.15.0, *, iOS 13.0.0, *)
     func request<T : Decodable>(_ request: EndpointRequest, as type: T.Type) async throws -> T {
         try await withCheckedThrowingContinuation { continuation in
             self.request(request, as: type) { result in
