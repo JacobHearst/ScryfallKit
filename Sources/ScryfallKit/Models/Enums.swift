@@ -55,3 +55,7 @@ public enum SortMode: String, Codable {
 public enum SortDirection: String, Codable {
     case auto, asc, desc
 }
+
+public enum Format: String, CaseIterable {
+    case standard, historic, pioneer, modern, legacy, pauper, vintage, penny, commander, brawl
+}
