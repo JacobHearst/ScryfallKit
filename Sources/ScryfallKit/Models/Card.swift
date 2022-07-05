@@ -18,7 +18,7 @@ public struct Card: Codable, Identifiable {
         case cardMarketID(id: Int)
         case setCodeCollectorNo(setCode: String, collectorNo: String, lang: String? = nil)
 
-        var provider: String? {
+        public var provider: String? {
             switch self {
             case .mtgoID:
                 return "mtgo"
@@ -35,7 +35,7 @@ public struct Card: Codable, Identifiable {
             }
         }
 
-        var id: String? {
+        public var id: String? {
             switch self {
             case .scryfallID(let id):
                 return id
@@ -275,14 +275,14 @@ public struct ImageUris: Codable {
 }
 
 public struct CardLegality: Codable {
-    let standard: Legality?
-    let historic: Legality?
-    let pioneer: Legality?
-    let modern: Legality?
-    let legacy: Legality?
-    let pauper: Legality?
-    let vintage: Legality?
-    let penny: Legality?
-    let commander: Legality?
-    let brawl: Legality?
+    public let standard: Legality?
+    public let historic: Legality?
+    public let pioneer: Legality?
+    public let modern: Legality?
+    public let legacy: Legality?
+    public let pauper: Legality?
+    public let vintage: Legality?
+    public let penny: Legality?
+    public let commander: Legality?
+    public let brawl: Legality?
 }
