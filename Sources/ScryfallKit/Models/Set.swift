@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Set: Codable {
+public struct Set: Codable, Identifiable {
     public enum Identifier {
         case code(code: String)
         case scryfallID(id: String)

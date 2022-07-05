@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CardSymbol: Codable {
+public struct CardSymbol: Codable, Identifiable {
     public var symbol: String
     public var looseVariant: String?
     public var english: String
@@ -19,4 +19,6 @@ public struct CardSymbol: Codable {
     public var colors: [Color]
     public var gathererAlternates: [String]?
     public var svgUri: String?
+
+    public var id: String { symbol }
 }
