@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Enums.swift
 //  
 //
 //  Created by Jacob Hearst on 6/8/21.
@@ -22,6 +22,13 @@ public enum Layout: String, CaseIterable, Codable {
 public enum Legality: String, Codable {
     case legal, restricted, banned
     case notLegal = "not_legal"
+
+    public var label: String {
+        switch self {
+            case .notLegal: return "Not Legal"
+            default: return rawValue.capitalized
+        }
+    }
 }
 
 public enum BorderColor: String, Codable {
