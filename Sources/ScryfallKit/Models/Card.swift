@@ -87,22 +87,22 @@ public struct Card: Codable, Identifiable {
         }
     }
 
-    public enum Finish: String, Codable {
+    public enum Finish: String, Codable, CaseIterable {
         case nonfoil, foil, etched, glossy
     }
 
-    public enum ImageStatus: String, Codable {
+    public enum ImageStatus: String, Codable, CaseIterable {
         case missing, placeholder, lowres
         case highresScan = "highres_scan"
     }
 
-    public enum ImageType: String, Codable {
+    public enum ImageType: String, Codable, CaseIterable {
         case png, large, normal, small
         case artCrop = "art_crop"
         case borderCrop = "border_crop"
     }
 
-    public enum Rarity: String, Codable {
+    public enum Rarity: String, Codable, CaseIterable {
         case common, uncommon, rare, special, mythic, bonus
     }
 
@@ -199,7 +199,7 @@ public struct CardPrices: Codable {
 }
 
 public struct RelatedCard: Codable {
-    public enum Component: String, Codable {
+    public enum Component: String, Codable, CaseIterable {
         case token
         case meldPart = "meld_part"
         case meldResult = "meld_result"

@@ -8,7 +8,7 @@
 import Foundation
 
 public struct Catalog: Codable {
-    public enum `Type`: String, Codable {
+    public enum `Type`: String, Codable, CaseIterable {
         case powers, toughnesses, loyalties, watermarks
         case cardNames = "card-names"
         case artistNames = "artist-names"

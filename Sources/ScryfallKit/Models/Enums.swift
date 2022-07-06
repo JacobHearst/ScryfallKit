@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Color: String, Codable {
+public enum Color: String, Codable, CaseIterable {
     case W, U, B, R, G, C
 }
 
@@ -19,7 +19,7 @@ public enum Layout: String, CaseIterable, Codable {
     case artSeries = "art_series"
 }
 
-public enum Legality: String, Codable {
+public enum Legality: String, Codable, CaseIterable {
     case legal, restricted, banned
     case notLegal = "not_legal"
 
@@ -31,11 +31,11 @@ public enum Legality: String, Codable {
     }
 }
 
-public enum BorderColor: String, Codable {
+public enum BorderColor: String, Codable, CaseIterable {
     case black, borderless, gold, silver, white
 }
 
-public enum Frame: String, Codable {
+public enum Frame: String, Codable, CaseIterable {
     case v1993 = "1993"
     case v1997 = "1997"
     case v2003 = "2003"
@@ -43,23 +43,23 @@ public enum Frame: String, Codable {
     case future
 }
 
-public enum FrameEffect: String, Codable {
+public enum FrameEffect: String, Codable, CaseIterable {
     case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted, sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase, extendedart, companion, etched, snow, lesson
 }
 
-public enum Game: String, Codable {
+public enum Game: String, Codable, CaseIterable {
     case paper, mtgo, arena
 }
 
-public enum UniqueMode: String, Codable {
+public enum UniqueMode: String, Codable, CaseIterable {
     case cards, art, prints
 }
 
-public enum SortMode: String, Codable {
+public enum SortMode: String, Codable, CaseIterable {
     case name, set, released, rarity, color, usd, tix, eur, cmc, power, toughness, edhrec, artist
 }
 
-public enum SortDirection: String, Codable {
+public enum SortDirection: String, Codable, CaseIterable {
     case auto, asc, desc
 }
 

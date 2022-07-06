@@ -5,7 +5,7 @@
 //  Created by Jacob Hearst on 11/16/21.
 //
 
-public enum ComparisonType: String {
+public enum ComparisonType: String, CaseIterable {
     case lessThan = "<"
     case lessThanOrEqual = "<="
     case greaterThan = ">"
