@@ -12,6 +12,7 @@ enum ScryfallKitError: Error, CustomStringConvertible {
     case scryfallError(error: ScryfallError)
     case networkTimedOut(time: Int)
     case unexpectedNilResult
+    case singleFacedCard
 
     var description: String {
         switch self {
@@ -23,6 +24,8 @@ enum ScryfallKitError: Error, CustomStringConvertible {
             return "Network request timed out after \(time) seconds"
         case .unexpectedNilResult:
             return "Received unexpected nil result from network service"
+        case .singleFacedCard:
+            return "Tried to access card faces on card with a single face"
         }
     }
 }
