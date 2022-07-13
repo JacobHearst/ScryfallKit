@@ -7,105 +7,7 @@
 
 import Foundation
 
-public struct Card: Codable, Identifiable {
-    // MARK: Enums
-    public enum Identifier {
-        case scryfallID(id: String)
-        case mtgoID(id: Int)
-        case multiverseID(id: Int)
-        case arenaID(id: Int)
-        case tcgPlayerID(id: Int)
-        case cardMarketID(id: Int)
-        case setCodeCollectorNo(setCode: String, collectorNo: String, lang: String? = nil)
-
-        public var provider: String? {
-            switch self {
-            case .mtgoID:
-                return "mtgo"
-            case .multiverseID:
-                return "multiverse"
-            case .arenaID:
-                return "arena"
-            case .tcgPlayerID:
-                return "tcgplayer"
-            case .cardMarketID:
-                return "cardmarket"
-            default:
-                return nil
-            }
-        }
-
-        public var id: String? {
-            switch self {
-            case .scryfallID(let id):
-                return id
-            case .mtgoID(let id):
-                return String(id)
-            case .multiverseID(let id):
-                return String(id)
-            case .arenaID(let id):
-                return String(id)
-            case .tcgPlayerID(let id):
-                return String(id)
-            case .cardMarketID(let id):
-                return String(id)
-            default:
-                return nil
-            }
-        }
-    }
-
-    public enum CollectionIdentifier {
-        case scryfallID(id: String)
-        case mtgoID(id: Int)
-        case multiverseID(id: Int)
-        case oracleID(id: String)
-        case illustrationID(id: String)
-        case name(_: String)
-        case nameAndSet(name: String, set: String)
-        case collectorNoAndSet(collectorNo: String, set: String)
-
-        internal var json: [String: String] {
-            switch self {
-            case .scryfallID(let id):
-                return ["id": id]
-            case .mtgoID(let id):
-                return ["mtgo_id": "\(id)"]
-            case .multiverseID(let id):
-                return ["multiverse_id": "\(id)"]
-            case .oracleID(let id):
-                return ["oracle_id": id]
-            case .illustrationID(let id):
-                return ["illustration_id": id]
-            case .name(let name):
-                return ["name": name]
-            case .nameAndSet(let name, let set):
-                return ["name": name, "set": set]
-            case .collectorNoAndSet(let collectorNo, let set):
-                return ["collector_number": collectorNo, "set": set]
-            }
-        }
-    }
-
-    public enum Finish: String, Codable, CaseIterable {
-        case nonfoil, foil, etched, glossy
-    }
-
-    public enum ImageStatus: String, Codable, CaseIterable {
-        case missing, placeholder, lowres
-        case highresScan = "highres_scan"
-    }
-
-    public enum ImageType: String, Codable, CaseIterable {
-        case png, large, normal, small
-        case artCrop = "art_crop"
-        case borderCrop = "border_crop"
-    }
-
-    public enum Rarity: String, Codable, CaseIterable {
-        case common, uncommon, rare, special, mythic, bonus
-    }
-
+public struct Card: Codable, Identifiable, Hashable {
     // MARK: Fields
     // Core fields
     public var arenaId: Int?
@@ -191,15 +93,15 @@ public struct Card: Codable, Identifiable {
     public var preview: Preview?
 }
 
-public struct CardPrices: Codable {
+public struct CardPrices: Codable, Hashable {
     public var tix: String?
     public var usd: String?
     public var usdFoil: String?
     public var eur: String?
 }
 
-public struct RelatedCard: Codable {
-    public enum Component: String, Codable, CaseIterable {
+public struct RelatedCard: Codable, Hashable {
+    public enum Component: String, Codable, CaseIterable, Hashable {
         case token
         case meldPart = "meld_part"
         case meldResult = "meld_result"
@@ -213,7 +115,7 @@ public struct RelatedCard: Codable {
     public var uri: String
 }
 
-public struct CardFace: Codable {
+public struct CardFace: Codable, Hashable {
     public var artist: String?
     public var colorIndicator: [Color]?
     public var colors: [Color]?
@@ -233,13 +135,13 @@ public struct CardFace: Codable {
     public var watermark: String?
 }
 
-public struct Preview: Codable {
+public struct Preview: Codable, Hashable {
     public var source: String
     public var sourceUri: String
     public var previewedAt: String
 }
 
-public struct ImageUris: Codable {
+public struct ImageUris: Codable, Hashable {
     public let small: String?
     public let normal: String?
     public let large: String?
@@ -274,7 +176,7 @@ public struct ImageUris: Codable {
     }
 }
 
-public struct CardLegality: Codable {
+public struct CardLegality: Codable, Hashable {
     public let standard: Legality?
     public let historic: Legality?
     public let pioneer: Legality?

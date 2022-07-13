@@ -19,7 +19,7 @@ public enum Layout: String, CaseIterable, Codable {
     case artSeries = "art_series"
 }
 
-public enum Legality: String, Codable, CaseIterable {
+public enum Legality: String, Codable, CaseIterable, Hashable {
     case legal, restricted, banned
     case notLegal = "not_legal"
 
