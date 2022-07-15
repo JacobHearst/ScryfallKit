@@ -13,6 +13,14 @@ public struct ScryfallError: Codable, CustomStringConvertible {
     public var details: String
     public var type: String?
     public var warnings: [String]?
+    
+    public init(status: Int, code: String, details: String, type: String? = nil, warnings: [String]? = nil) {
+        self.status = status
+        self.code = code
+        self.details = details
+        self.type = type
+        self.warnings = warnings
+    }
 
     public var description: String {
         return """

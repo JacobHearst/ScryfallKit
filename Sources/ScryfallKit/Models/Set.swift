@@ -53,4 +53,44 @@ public struct Set: Codable, Identifiable {
     public var uri: String
     public var iconSvgUri: String
     public var searchUri: String
+    
+    public init(id: UUID,
+                code: String,
+                mtgoCode: String? = nil,
+                tcgplayerId: Int? = nil,
+                name: String,
+                setType: Set.`Type`,
+                releasedAt: String? = nil,
+                blockCode: String? = nil,
+                block: String? = nil,
+                parentSetCode: String? = nil,
+                cardCount: Int,
+                printedSize: Int? = nil,
+                digital: Bool,
+                foilOnly: Bool,
+                nonfoilOnly: Bool,
+                scryfallUri: String,
+                uri: String,
+                iconSvgUri: String,
+                searchUri: String) {
+        self.id = id
+        self.code = code
+        self.mtgoCode = mtgoCode
+        self.tcgplayerId = tcgplayerId
+        self.name = name
+        self.setType = setType
+        self.releasedAt = releasedAt
+        self.blockCode = blockCode
+        self.block = block
+        self.parentSetCode = parentSetCode
+        self.cardCount = cardCount
+        self.printedSize = printedSize
+        self.digital = digital
+        self.foilOnly = foilOnly
+        self.nonfoilOnly = nonfoilOnly
+        self.scryfallUri = scryfallUri
+        self.uri = uri
+        self.iconSvgUri = iconSvgUri
+        self.searchUri = searchUri
+    }
 }

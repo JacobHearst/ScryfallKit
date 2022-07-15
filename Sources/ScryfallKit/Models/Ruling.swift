@@ -21,5 +21,12 @@ public struct Ruling: Codable, Identifiable {
     public var comment: String
     public var oracleId: String
 
-    public var id: String { oracleId }
+    public var id: String { oracleId + comment }
+    
+    public init(source: String, publishedAt: String, comment: String, oracleId: String) {
+        self.source = source
+        self.publishedAt = publishedAt
+        self.comment = comment
+        self.oracleId = oracleId
+    }
 }

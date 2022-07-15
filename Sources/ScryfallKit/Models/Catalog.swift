@@ -27,4 +27,10 @@ public struct Catalog: Codable {
     public var uri: String?
     public var totalValues: Int
     public var data: [String]
+    
+    public init(uri: String? = nil, totalValues: Int, data: [String]) {
+        self.uri = uri
+        self.totalValues = totalValues
+        self.data = data
+    }
 }
