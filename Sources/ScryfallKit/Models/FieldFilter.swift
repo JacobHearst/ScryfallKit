@@ -165,4 +165,8 @@ public enum CardFieldFilter {
             return "in:\(value)"
         }
     }
+    
+    var negated: String {
+        "-\(filterString)"
+    }
 }
