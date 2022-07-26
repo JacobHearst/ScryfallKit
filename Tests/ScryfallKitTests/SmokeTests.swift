@@ -15,311 +15,110 @@ final class SmokeTests: XCTestCase {
         self.client = ScryfallClient()
     }
 
-    func testLayouts() {
+    func testLayouts() async throws {
         // Verify that we can handle all layout types
         for layout in Layout.allCases {
             // There aren't any double_sided cards being returned by Scryfall
             guard layout != .doubleSided else { continue }
 
-            let exp = expectation(description: "\(#function)")
-            client.searchCards(query: "layout:\(layout.rawValue)") { result in
-                switch result {
-                case .failure(let error):
-                    XCTFail("Received error: \(error)")
-                default:
-                    break
-                }
-                exp.fulfill()
-            }
-
-            waitForExpectations(timeout: 3)
+            let _ = try await client.searchCards(query: "layout:\(layout.rawValue)")
         }
     }
 
-    func testSearchCards() {
-        let exp = expectation(description: "\(#function)")
-        client.searchCards(query: "Sigarda") { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            default:
-                break
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+    func testSearchCards() async throws {
+        let _ = try await client.searchCards(query: "Sigarda")
     }
 
-    func testSearchCardsMultiplePages() {
-        let exp1 = expectation(description: "\(#function)")
+    func testSearchCardsMultiplePages() async throws {
         let query = "a" // Some broad query that will return multiple pages
-        client.searchCards(query: query) { firstPageResult in
-            switch firstPageResult {
-            case .failure(let error):
-                XCTFail("Received error on first page: \(error)")
-            case .success(let firstPage):
-                self.client.searchCards(query: query, page: 2) { secondPageResult in
-                    switch secondPageResult {
-                    case .failure(let error):
-                        XCTFail("Received error on second page: \(error)")
-                    case .success(let secondPage):
-                        XCTAssertNotEqual(firstPage.data[0].name, secondPage.data[0].name)
-                    }
-                    exp1.fulfill()
-                }
-            }
-        }
+        let firstPage = try await client.searchCards(query: query)
+        let secondPage = try await client.searchCards(query: query, page: 2)
 
-        waitForExpectations(timeout: 6)
+        XCTAssertNotEqual(firstPage.data[0].name, secondPage.data[0].name)
     }
 
-    func testGetCardByExactName() {
-        let exp = expectation(description: "\(#function)")
-        client.getCardByName(exact: "Narset, Enlightened Master") { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            default:
-                break
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+    func testGetCardByExactName() async throws {
+        let _ = try await client.getCardByName(exact: "Narset, Enlightened Master")
     }
 
-    func testGetCardByFuzzyName() {
-        let exp = expectation(description: "\(#function)")
-        client.getCardByName(fuzzy: "Narset, Master") { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            default:
-                break
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+    func testGetCardByFuzzyName() async throws {
+        let _ = try await client.getCardByName(fuzzy: "Narset, Master")
     }
 
-    func testGetCardBackFaceByExactName() {
-        let exp = expectation(description: "\(#function)")
-        client.getCardByName(fuzzy: "Birgi", backFace: true) { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            case .success(let card):
-                XCTAssertNotNil(card.cardFaces)
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+    func testGetCardBackFaceByExactName() async throws {
+        let card = try await client.getCardByName(fuzzy: "Birgi", backFace: true)
+        XCTAssertNotNil(card.cardFaces)
     }
 
-    func testGetCardNameAutocomplete() {
-        let exp = expectation(description: "\(#function)")
-        client.getCardNameAutocomplete(query: "Nars") { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            default:
-                break
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+    func testGetCardNameAutocomplete() async throws {
+        let results = try await client.getCardNameAutocomplete(query: "Nars")
+        XCTAssertFalse(results.isEmpty)
     }
 
-    func testGetRandomCard() {
-        let exp = expectation(description: "\(#function)")
-        client.getRandomCard() { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            default:
-                break
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+    func testGetRandomCard() async throws {
+        let _ = try await client.getRandomCard()
     }
 
-    func testGetCardById() {
-        let exp = expectation(description: "\(#function)")
-
+    func testGetCardById() async throws {
         // Flumph
         let identifier = Card.Identifier.scryfallID(id: "cdc86e78-8911-4a0d-ba3a-7802f8d991ef")
-        client.getCard(identifier: identifier) { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            default:
-                break
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+        let _ = try await client.getCard(identifier: identifier)
     }
 
-    func testGetCatalog() {
-        let exp = expectation(description: "\(#function)")
-        client.getCatalog(catalogType: .cardNames) { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            default:
-                break
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+    func testGetCatalog() async throws {
+        let _ = try await client.getCatalog(catalogType: .cardNames)
     }
 
-    func testGetSets() {
-        let exp = expectation(description: "\(#function)")
-        client.getSets() { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            default:
-                break
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+    func testGetSets() async throws {
+        let _ = try await client.getSets()
     }
 
-    func testGetSetByCode() {
-        let exp = expectation(description: "\(#function)")
+    func testGetSetByCode() async throws {
         let identifier = Set.Identifier.code(code: "afr")
-        client.getSet(identifier: identifier) { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            default:
-                break
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+        let _ = try await client.getSet(identifier: identifier)
     }
 
-    func testGetSet() {
-        let exp = expectation(description: "\(#function)")
-
+    func testGetSet() async throws {
         // Ultimate Masters
         let identifier = Set.Identifier.scryfallID(id: "2ec77b94-6d47-4891-a480-5d0b4e5c9372")
-        client.getSet(identifier: identifier) { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            default:
-                break
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+        let _ = try await client.getSet(identifier: identifier)
     }
 
-    func testGetRulings() {
-        let exp = expectation(description: "\(#function)")
-
+    func testGetRulings() async throws {
         let identifier = Ruling.Identifier.scryfallID(id: "cdc86e78-8911-4a0d-ba3a-7802f8d991ef")
-        client.getRulings(identifier) { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            case .success(let rulings):
-                print("Received: \(rulings.data.count) rulings")
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+        let _ = try await client.getRulings(identifier)
     }
 
-    func testGetSymbology() {
-        let exp = expectation(description: "\(#function)")
-        client.getSymbology() { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            default:
-                break
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+    func testGetSymbology() async throws {
+        let _ = try await client.getSymbology()
     }
 
-    func testParseManaCost() {
-        let exp = expectation(description: "\(#function)")
-        client.parseManaCost("{X}{W}{U}{R}") { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            default:
-                break
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+    func testParseManaCost() async throws {
+        let _ = try await client.parseManaCost("{X}{W}{U}{R}")
     }
 
-    func testSearchWithFieldFilters() {
-        let exp = expectation(description: "\(#function)")
+    func testSearchWithFieldFilters() async throws {
         let filters: [CardFieldFilter] = [
             CardFieldFilter.type("forest"),
             CardFieldFilter.type("creature")
         ]
-        client.searchCards(filters: filters) { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            case .success(let cards):
-                XCTAssertEqual(cards.totalCards, 1)
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+        let cards = try await client.searchCards(filters: filters)
+        
+        XCTAssertEqual(cards.totalCards, 1)
     }
 
-    func testSearchWithFieldFiltersWithComparison() {
-        let exp = expectation(description: "\(#function)")
+    func testSearchWithFieldFiltersWithComparison() async throws {
         let filters: [CardFieldFilter] = [
             CardFieldFilter.cmc("0", .lessThanOrEqual),
             CardFieldFilter.type("Creature"),
             CardFieldFilter.colors("0", .equal)
         ]
 
-        client.searchCards(filters: filters) { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            case .success(let cards):
-                XCTAssert(cards.totalCards ?? 0 > 1)
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+        let cards = try await client.searchCards(filters: filters)
+        XCTAssert(cards.totalCards ?? 0 > 1)
     }
 
-    func testSearchWithCompoundFieldFilters() {
-        let exp = expectation(description: "\(#function)")
+    func testSearchWithCompoundFieldFilters() async throws {
         let filters: [CardFieldFilter] = [
             CardFieldFilter.type("forest"),
             CardFieldFilter.type("creature")
@@ -327,37 +126,17 @@ final class SmokeTests: XCTestCase {
 
         let compoundFilter = CardFieldFilter.compoundOr(filters)
 
-        client.searchCards(filters: [compoundFilter]) { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            case .success(let cards):
-                XCTAssert(cards.totalCards ?? 0 > 1)
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+        let cards = try await client.searchCards(filters: [compoundFilter])
+        XCTAssert(cards.totalCards ?? 0 > 1)
     }
 
-    func testGetCardCollection() {
-        let exp = expectation(description: "\(#function)")
+    func testGetCardCollection() async throws {
         let identifiers: [Card.CollectionIdentifier] = [
             .scryfallID(id: "683a5707-cddb-494d-9b41-51b4584ded69"),
             .name("Ancient Tomb"),
             .collectorNoAndSet(collectorNo: "150", set: "mrd")
         ]
 
-        client.getCardCollection(identifiers: identifiers) { result in
-            switch result {
-            case .failure(let error):
-                XCTFail("Received error: \(error)")
-            default:
-                break
-            }
-            exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3)
+        let _ = try await client.getCardCollection(identifiers: identifiers)
     }
 }
