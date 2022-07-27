@@ -66,3 +66,7 @@ public enum SortDirection: String, Codable, CaseIterable {
 public enum Format: String, CaseIterable {
     case standard, historic, pioneer, modern, legacy, pauper, vintage, penny, commander, brawl
 }
+
+public enum Currency: String, CaseIterable {
+    case usd, eur, tix, usdFoil
+}

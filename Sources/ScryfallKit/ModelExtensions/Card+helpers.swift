@@ -96,4 +96,16 @@ extension Card {
         guard let faces = cardFaces else { throw ScryfallKitError.singleFacedCard }
         return useSecondFace ? faces[1][keyPath: keyPath] : faces[0][keyPath: keyPath]
     }
+    
+    /// Get the price string for a given currency
+    /// - Parameter type: The currency you want the price string for
+    /// - Returns: The price string, if present. Nil if not
+    public func getPrice(for currency: Currency) -> String? {
+        switch currency {
+        case .usd: return prices.usd
+        case .eur: return prices.eur
+        case .tix: return prices.tix
+        case .usdFoil: return prices.usdFoil
+        }
+    }
 }
