@@ -8,6 +8,7 @@
 import XCTest
 @testable import ScryfallKit
 
+@available(iOS 13.0.0, *)
 final class SmokeTests: XCTestCase {
     var client: ScryfallClient!
 

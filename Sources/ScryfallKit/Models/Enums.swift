@@ -7,8 +7,19 @@
 
 import Foundation
 
-public enum Color: String, Codable, CaseIterable {
+public enum Color: String, Codable, CaseIterable, Comparable {
     case W, U, B, R, G, C
+    
+    public static func < (lhs: Color, rhs: Color) -> Bool {
+        switch lhs {
+        case .W: return true
+        case .U: return rhs != .W
+        case .B: return ![.W, .U].contains(rhs)
+        case .R: return ![.W, .U, .B].contains(rhs)
+        case .G: return rhs == .C
+        case .C: return false
+        }
+    }
 }
 
 public enum Layout: String, CaseIterable, Codable {

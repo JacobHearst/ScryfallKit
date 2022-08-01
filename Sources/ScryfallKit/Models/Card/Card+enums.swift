@@ -109,10 +109,10 @@ extension Card {
             switch lhs {
             case .bonus: return true // "Smallest"
             case .special: return rhs != .bonus // Only "larger" than bonus
-            case .common: return ![.uncommon, .rare, .mythic].contains(rhs)
-            case .uncommon: return ![.rare, .mythic].contains(rhs)
-            case .rare: return rhs != .mythic // Only "smaller" than mythic
-            case .mythic: false // "Largest"
+            case .common: return ![.bonus, .special].contains(rhs)
+            case .uncommon: return ![.bonus, .special, .common].contains(rhs)
+            case .rare: return rhs == .mythic // Only "smaller" than mythic
+            case .mythic: return false // "Largest"
             }
         }
     }
