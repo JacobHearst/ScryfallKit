@@ -101,7 +101,19 @@ extension Card {
         case borderCrop = "border_crop"
     }
 
-    public enum Rarity: String, Codable, CaseIterable {
+    public enum Rarity: String, Codable, CaseIterable, Comparable {
         case common, uncommon, rare, special, mythic, bonus
+        
+        /// Order according to Scryfall
+        public static func < (lhs: Card.Rarity, rhs: Card.Rarity) -> Bool {
+            switch lhs {
+            case .bonus: return true // "Smallest"
+            case .special: return rhs != .bonus // Only "larger" than bonus
+            case .common: return ![.uncommon, .rare, .mythic].contains(rhs)
+            case .uncommon: return ![.rare, .mythic].contains(rhs)
+            case .rare: return rhs != .mythic // Only "smaller" than mythic
+            case .mythic: false // "Largest"
+            }
+        }
     }
 }
