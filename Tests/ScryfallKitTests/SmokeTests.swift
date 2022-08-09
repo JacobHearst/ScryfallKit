@@ -75,13 +75,13 @@ final class SmokeTests: XCTestCase {
     }
 
     func testGetSetByCode() async throws {
-        let identifier = Set.Identifier.code(code: "afr")
+        let identifier = MTGSet.Identifier.code(code: "afr")
         let _ = try await client.getSet(identifier: identifier)
     }
 
     func testGetSet() async throws {
         // Ultimate Masters
-        let identifier = Set.Identifier.scryfallID(id: "2ec77b94-6d47-4891-a480-5d0b4e5c9372")
+        let identifier = MTGSet.Identifier.scryfallID(id: "2ec77b94-6d47-4891-a480-5d0b4e5c9372")
         let _ = try await client.getSet(identifier: identifier)
     }
 

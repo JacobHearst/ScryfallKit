@@ -16,7 +16,7 @@ extension ScryfallClient {
                             include_extras: Bool? = nil,
                             include_multilingual: Bool? = nil,
                             include_variations: Bool? = nil,
-                            page: Int? = nil) async throws -> List<Card> {
+                            page: Int? = nil) async throws -> ObjectList<Card> {
         let query = filters.map { $0.filterString }.joined(separator: " ")
 
         let request = SearchCards(
@@ -29,7 +29,7 @@ extension ScryfallClient {
             include_variations: include_variations,
             page: page)
 
-        return try await networkService.request(request, as: List<Card>.self)
+        return try await networkService.request(request, as: ObjectList<Card>.self)
     }
 
     public func searchCards(query: String,
@@ -39,7 +39,7 @@ extension ScryfallClient {
                             include_extras: Bool? = nil,
                             include_multilingual: Bool? = nil,
                             include_variations: Bool? = nil,
-                            page: Int? = nil) async throws -> List<Card> {
+                            page: Int? = nil) async throws -> ObjectList<Card> {
         let request = SearchCards(
             query: query,
             unique: unique,
@@ -50,7 +50,7 @@ extension ScryfallClient {
             include_variations: include_variations,
             page: page)
 
-        return try await networkService.request(request, as: List<Card>.self)
+        return try await networkService.request(request, as: ObjectList<Card>.self)
     }
 
     public func getCardByName(exact: String,
@@ -101,9 +101,9 @@ extension ScryfallClient {
         return try await networkService.request(request, as: Card.self)
     }
 
-    public func getCardCollection(identifiers: [Card.CollectionIdentifier]) async throws -> List<Card> {
+    public func getCardCollection(identifiers: [Card.CollectionIdentifier]) async throws -> ObjectList<Card> {
         let request = GetCardCollection(identifiers: identifiers)
-        return try await networkService.request(request, as: List<Card>.self)
+        return try await networkService.request(request, as: ObjectList<Card>.self)
     }
 
     public func getCatalog(catalogType: Catalog.`Type`) async throws -> Catalog {
@@ -111,22 +111,22 @@ extension ScryfallClient {
         return try await networkService.request(request, as: Catalog.self)
     }
 
-    public func getSets() async throws -> List<Set> {
-        try await networkService.request(GetSets(), as: List<Set>.self)
+    public func getSets() async throws -> ObjectList<MTGSet> {
+        try await networkService.request(GetSets(), as: ObjectList<MTGSet>.self)
     }
 
-    public func getSet(identifier: Set.Identifier) async throws -> Set {
+    public func getSet(identifier: MTGSet.Identifier) async throws -> MTGSet {
         let request = GetSet(identifier: identifier)
-        return try await networkService.request(request, as: Set.self)
+        return try await networkService.request(request, as: MTGSet.self)
     }
 
-    public func getRulings(_ identifier: Ruling.Identifier) async throws -> List<Ruling> {
+    public func getRulings(_ identifier: Ruling.Identifier) async throws -> ObjectList<Ruling> {
         let request = GetRulings(identifier: identifier)
-        return try await networkService.request(request, as: List<Ruling>.self)
+        return try await networkService.request(request, as: ObjectList<Ruling>.self)
     }
 
-    public func getSymbology() async throws -> List<CardSymbol> {
-        try await networkService.request(GetSymbology(), as: List<CardSymbol>.self)
+    public func getSymbology() async throws -> ObjectList<CardSymbol> {
+        try await networkService.request(GetSymbology(), as: ObjectList<CardSymbol>.self)
     }
 
     public func parseManaCost(_ cost: String) async throws -> ManaCost {

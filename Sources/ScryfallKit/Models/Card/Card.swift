@@ -29,9 +29,9 @@ public struct Card: Codable, Identifiable, Hashable {
     public var allParts: [RelatedCard]?
     public var cardFaces: [CardFace]?
     public var cmc: Double
-    public var colorIdentity: [Color]
-    public var colorIndicator: [Color]?
-    public var colors: [Color]?
+    public var colorIdentity: [CardColor]
+    public var colorIndicator: [CardColor]?
+    public var colors: [CardColor]?
     public var edhrecRank: Int?
     public var handModifier: String?
     public var keywords: [String]
@@ -44,7 +44,7 @@ public struct Card: Codable, Identifiable, Hashable {
     public var oracleText: String?
     public var oversized: Bool
     public var power: String?
-    public var producedMana: [Color]?
+    public var producedMana: [CardColor]?
     public var reserved: Bool
     public var toughness: String?
     public var typeLine: String? // Tokens don't have type lines
@@ -82,7 +82,7 @@ public struct Card: Codable, Identifiable, Hashable {
     public var scryfallSetUri: String
     public var setName: String
     public var setSearchUri: URL
-    public var setType: Set.`Type`
+    public var setType: MTGSet.`Type`
     public var setUri: String
     public var set: String
     public var storySpotlight: Bool
@@ -109,9 +109,9 @@ public struct Card: Codable, Identifiable, Hashable {
                 allParts: [RelatedCard]? = nil,
                 cardFaces: [CardFace]? = nil,
                 cmc: Double,
-                colorIdentity: [Color],
-                colorIndicator: [Color]? = nil,
-                colors: [Color]? = nil,
+                colorIdentity: [CardColor],
+                colorIndicator: [CardColor]? = nil,
+                colors: [CardColor]? = nil,
                 edhrecRank: Int? = nil,
                 handModifier: String? = nil,
                 keywords: [String],
@@ -124,7 +124,7 @@ public struct Card: Codable, Identifiable, Hashable {
                 oracleText: String? = nil,
                 oversized: Bool,
                 power: String? = nil,
-                producedMana: [Color]? = nil,
+                producedMana: [CardColor]? = nil,
                 reserved: Bool,
                 toughness: String? = nil,
                 typeLine: String? = nil,
@@ -160,7 +160,7 @@ public struct Card: Codable, Identifiable, Hashable {
                 scryfallSetUri: String,
                 setName: String,
                 setSearchUri: URL,
-                setType: Set.`Type`,
+                setType: MTGSet.`Type`,
                 setUri: String,
                 set: String,
                 storySpotlight: Bool,

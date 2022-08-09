@@ -16,7 +16,7 @@ public struct CardSymbol: Codable, Identifiable {
     public var cmc: Double?
     public var appearsInManaCosts: Bool
     public var funny: Bool
-    public var colors: [Color]
+    public var colors: [CardColor]
     public var gathererAlternates: [String]?
     public var svgUri: String?
 
@@ -30,7 +30,7 @@ public struct CardSymbol: Codable, Identifiable {
                 cmc: Double? = nil,
                 appearsInManaCosts: Bool,
                 funny: Bool,
-                colors: [Color],
+                colors: [CardColor],
                 gathererAlternates: [String]? = nil,
                 svgUri: String? = nil) {
         self.symbol = symbol

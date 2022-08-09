@@ -10,12 +10,12 @@ import Foundation
 public struct ManaCost: Codable {
     public var cost: String
     public var cmc: Double
-    public var colors: [Color]
+    public var colors: [CardColor]
     public var colorless: Bool
     public var monocolored: Bool
     public var multicolored: Bool
     
-    public init(cost: String, cmc: Double, colors: [Color], colorless: Bool, monocolored: Bool, multicolored: Bool) {
+    public init(cost: String, cmc: Double, colors: [CardColor], colorless: Bool, monocolored: Bool, multicolored: Bool) {
         self.cost = cost
         self.cmc = cmc
         self.colors = colors

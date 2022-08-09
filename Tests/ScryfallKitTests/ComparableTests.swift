@@ -11,13 +11,13 @@ import XCTest
 class ComparableTests: XCTestCase {
     func testColorSort() {
         // Given
-        let colors: [Color] = [.B, .C, .W, .U, .G, .R]
+        let colors: [CardColor] = [.B, .C, .W, .U, .G, .R]
         
         // When
         let result = colors.sorted()
         
         // Then
-        let expected: [Color] = [.W, .U, .B, .R, .G, .C]
+        let expected: [CardColor] = [.W, .U, .B, .R, .G, .C]
         XCTAssertEqual(result, expected)
     }
     

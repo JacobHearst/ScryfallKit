@@ -7,10 +7,10 @@
 
 import Foundation
 
-public enum Color: String, Codable, CaseIterable, Comparable {
+public enum CardColor: String, Codable, CaseIterable, Comparable {
     case W, U, B, R, G, C
     
-    public static func < (lhs: Color, rhs: Color) -> Bool {
+    public static func < (lhs: CardColor, rhs: CardColor) -> Bool {
         switch lhs {
         case .W: return true
         case .U: return rhs != .W

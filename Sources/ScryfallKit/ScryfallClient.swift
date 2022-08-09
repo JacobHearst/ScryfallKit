@@ -18,7 +18,7 @@ public struct ScryfallClient {
         include_multilingual: Bool? = nil,
         include_variations: Bool? = nil,
         page: Int? = nil,
-        completion: @escaping (Result<List<Card>, Error>) -> Void) {
+        completion: @escaping (Result<ObjectList<Card>, Error>) -> Void) {
 
         let query = filters.map { $0.filterString }.joined(separator: " ")
 
@@ -32,7 +32,7 @@ public struct ScryfallClient {
             include_variations: include_variations,
             page: page)
 
-        networkService.request(request, as: List<Card>.self) { result in
+        networkService.request(request, as: ObjectList<Card>.self) { result in
             switch result {
             case .success(let cards):
                 completion(.success(cards))
@@ -51,7 +51,7 @@ public struct ScryfallClient {
         include_multilingual: Bool? = nil,
         include_variations: Bool? = nil,
         page: Int? = nil,
-        completion: @escaping (Result<List<Card>, Error>) -> Void) {
+        completion: @escaping (Result<ObjectList<Card>, Error>) -> Void) {
 
         let request = SearchCards(
             query: query,
@@ -63,7 +63,7 @@ public struct ScryfallClient {
             include_variations: include_variations,
             page: page)
 
-        networkService.request(request, as: List<Card>.self) { result in
+        networkService.request(request, as: ObjectList<Card>.self) { result in
             switch result {
             case .success(let cards):
                 completion(.success(cards))
@@ -176,11 +176,11 @@ public struct ScryfallClient {
 
     public func getCardCollection(
         identifiers: [Card.CollectionIdentifier],
-        completion: @escaping (Result<List<Card>, Error>) -> Void) {
+        completion: @escaping (Result<ObjectList<Card>, Error>) -> Void) {
 
         let request = GetCardCollection(identifiers: identifiers)
 
-        networkService.request(request, as: List<Card>.self) { result in
+        networkService.request(request, as: ObjectList<Card>.self) { result in
             switch result {
             case .success(let card):
                 completion(.success(card))
@@ -203,8 +203,8 @@ public struct ScryfallClient {
         }
     }
 
-    public func getSets(completion: @escaping (Result<List<Set>, Error>) -> Void) {
-        networkService.request(GetSets(), as: List<Set>.self) { result in
+    public func getSets(completion: @escaping (Result<ObjectList<MTGSet>, Error>) -> Void) {
+        networkService.request(GetSets(), as: ObjectList<MTGSet>.self) { result in
             switch result {
             case .success(let sets):
                 completion(.success(sets))
@@ -214,10 +214,10 @@ public struct ScryfallClient {
         }
     }
 
-    public func getSet(identifier: Set.Identifier, completion: @escaping (Result<Set, Error>) -> Void) {
+    public func getSet(identifier: MTGSet.Identifier, completion: @escaping (Result<MTGSet, Error>) -> Void) {
         let request = GetSet(identifier: identifier)
 
-        networkService.request(request, as: Set.self) { result in
+        networkService.request(request, as: MTGSet.self) { result in
             switch result {
             case .success(let set):
                 completion(.success(set))
@@ -227,10 +227,10 @@ public struct ScryfallClient {
         }
     }
 
-    public func getRulings(_ identifier: Ruling.Identifier, completion: @escaping (Result<List<Ruling>, Error>) -> Void) {
+    public func getRulings(_ identifier: Ruling.Identifier, completion: @escaping (Result<ObjectList<Ruling>, Error>) -> Void) {
         let request = GetRulings(identifier: identifier)
 
-        networkService.request(request, as: List<Ruling>.self) { result in
+        networkService.request(request, as: ObjectList<Ruling>.self) { result in
             switch result {
             case .success(let rulings):
                 completion(.success(rulings))
@@ -240,8 +240,8 @@ public struct ScryfallClient {
         }
     }
 
-    public func getSymbology(completion: @escaping (Result<List<CardSymbol>, Error>) -> Void) {
-        networkService.request(GetSymbology(), as: List<CardSymbol>.self) { result in
+    public func getSymbology(completion: @escaping (Result<ObjectList<CardSymbol>, Error>) -> Void) {
+        networkService.request(GetSymbology(), as: ObjectList<CardSymbol>.self) { result in
             switch result {
             case .success(let symbols):
                 completion(.success(symbols))

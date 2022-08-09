@@ -15,7 +15,7 @@ struct GetSets: EndpointRequest {
 }
 
 struct GetSet: EndpointRequest {
-    var identifier: Set.Identifier
+    var identifier: MTGSet.Identifier
 
     var path: String? {
         switch self.identifier {

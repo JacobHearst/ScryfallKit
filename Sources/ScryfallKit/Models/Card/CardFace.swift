@@ -9,8 +9,8 @@ import Foundation
 
 public struct CardFace: Codable, Hashable {
     public var artist: String?
-    public var colorIndicator: [Color]?
-    public var colors: [Color]?
+    public var colorIndicator: [CardColor]?
+    public var colors: [CardColor]?
     public var flavorText: String?
     public var illustrationId: UUID?
     public var imageUris: ImageUris?
@@ -27,8 +27,8 @@ public struct CardFace: Codable, Hashable {
     public var watermark: String?
     
     public init(artist: String? = nil,
-         colorIndicator: [Color]? = nil,
-         colors: [Color]? = nil,
+         colorIndicator: [CardColor]? = nil,
+         colors: [CardColor]? = nil,
          flavorText: String? = nil,
          illustrationId: UUID? = nil,
          imageUris: ImageUris? = nil,
