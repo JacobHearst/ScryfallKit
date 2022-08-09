@@ -32,6 +32,14 @@ Add ScryfallKit to your project either through the Xcode UI, or through the proc
         }
     }
     
+    // Or using async
+    do {
+        let doomBlade = try await client.getCardByName(exact: "Doom Blade", set: "STA")
+        print(doomBlade.cmc)
+    } catch {
+        print("Received error: \(error)")
+    }
+    
 ## Network Logging
 The ScryfallClient has a configurable level of network logging with two options: minimal and verbose. Enabling verbose logging will print the HTTP body of each request and response. Minimal logging will log that a request was made (and the URL it's made to) as well as that a response was received.
 
