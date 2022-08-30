@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct MTGSet: Codable, Identifiable {
+public struct MTGSet: Codable, Identifiable, Hashable {
     public enum Identifier {
         case code(code: String)
         case scryfallID(id: String)
