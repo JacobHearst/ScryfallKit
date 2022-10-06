@@ -1,11 +1,11 @@
 //
-//  File.swift
+//  FieldFilter.swift
 //  
 //
 //  Created by Jacob Hearst on 11/16/21.
 //
 
-public enum ComparisonType: String, CaseIterable {
+public enum ComparisonType: String, CaseIterable, Codable {
     case lessThan = "<"
     case lessThanOrEqual = "<="
     case greaterThan = ">"

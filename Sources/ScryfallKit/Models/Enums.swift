@@ -55,7 +55,14 @@ public enum Frame: String, Codable, CaseIterable {
 }
 
 public enum FrameEffect: String, Codable, CaseIterable {
-    case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted, sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase, extendedart, companion, etched, snow, lesson
+    case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted, sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase, extendedart, companion, etched, snow, lesson, convertdfc, fandfc, unknown
+
+    public init(from decoder: Decoder) throws {
+        self = try FrameEffect(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
+        if self == .unknown, let rawValue = try? String(from: decoder) {
+            print("Decoded unknown FrameEffect: \(rawValue)")
+        }
+    }
 }
 
 public enum Game: String, Codable, CaseIterable {
