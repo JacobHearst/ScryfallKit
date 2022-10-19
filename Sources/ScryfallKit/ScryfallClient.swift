@@ -235,4 +235,51 @@ public final class ScryfallClient {
         let request = ParseManaCost(cost: cost)
         networkService.request(request, as: Card.ManaCost.self, completion: completion)
     }
+
+    /// Get all the sets currently in preview based on the supplied date range.
+    ///
+    /// This function merely retrieves all sets and then filters them based on release date and the set type:
+    ///
+    /// A set is considered to be "in preview season" if the release date is less than or equal to `daysUntilRelease` days before the current date AND is less than or equal to `daysSinceRelease` days past the current date
+    ///
+    /// Sets of type `token`, `promo`, `box`, and `memorabilia` are excluded as they generally don't have a "preview season". "The List" sets are excluded for the same reason
+    ///
+    /// - Parameters:
+    ///   - daysUntilRelease: The minimum number of days until release for a set to be considered "in preview"
+    ///   - daysSinceRelease: The maximum number of days since release for a set to be considered "in preview"
+    ///   - completion: A function/block to call when the request is complete
+    public func getSetsInPreview(daysUntilRelease: Int = 30, daysSinceRelease: Int = 30, completion: @escaping (Result<[MTGSet], Error>) -> Void) {
+        getSets { result in
+            switch result {
+            case .success(let sets):
+                let filteredSets = self.previews(from: sets.data, daysUntilRelease: daysUntilRelease, daysSinceRelease: daysSinceRelease)
+                completion(.success(filteredSets))
+            case .failure(let err):
+                completion(.failure(err))
+            }
+        }
+    }
+
+    func previews(from sets: [MTGSet], daysUntilRelease: Int, daysSinceRelease: Int) -> [MTGSet] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+
+        return sets.filter { set in
+            guard let releasedAt = set.releasedAt, let date = dateFormatter.date(from: releasedAt) else {
+                return false
+            }
+
+            // Construct the range of days that a set could be considered "in preview"
+            let secondsInADay = 60 * 60 * 24
+            let minDate = date.addingTimeInterval(Double(secondsInADay * -daysUntilRelease))
+            let maxDate = date.addingTimeInterval(Double(secondsInADay * daysSinceRelease))
+
+            // Return whether the current date falls within that range
+            let withinDateRange = (minDate...maxDate).contains(Date())
+            let isRightSetType = ![.token, .promo, .box, .memorabilia, .masterpiece].contains(set.setType)
+            let isList = set.name.contains("The List")
+
+            return withinDateRange && isRightSetType && !isList
+        }
+    }
 }

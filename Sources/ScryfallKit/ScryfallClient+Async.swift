@@ -118,4 +118,13 @@ extension ScryfallClient {
         let request = ParseManaCost(cost: cost)
         return try await networkService.request(request, as: Card.ManaCost.self)
     }
+
+    /// Equivalent to ``getSetsInPreview(daysUntilRelease:daysSinceRelease:completion:)`` but with async/await syntax
+    public func getSetsInPreview(daysUntilRelease: Int = 30, daysSinceRelease: Int = 30) async throws -> [MTGSet] {
+        try await withCheckedThrowingContinuation { continuation in
+            getSetsInPreview(daysUntilRelease: daysUntilRelease, daysSinceRelease: daysSinceRelease) { result in
+                continuation.resume(with: result)
+            }
+        }
+    }
 }
