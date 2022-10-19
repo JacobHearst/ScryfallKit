@@ -4,6 +4,7 @@
 
 import Foundation
 
+/// A client for interacting with the Scryfall API
 public final class ScryfallClient {
     private var networkLogLevel: NetworkLogLevel
     var networkService: NetworkServiceProtocol
