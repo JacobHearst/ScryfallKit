@@ -1,12 +1,13 @@
 //
-//  File.swift
+//  Card.swift
 //  
-//
-//  Created by Jacob Hearst on 6/8/21.
-//
 
 import Foundation
 
+// swiftlint:disable type_body_length
+/// A Magic: the Gathering card
+///
+/// Full reference: https://scryfall.com/docs/api/cards
 public struct Card: Codable, Identifiable, Hashable {
     // MARK: Fields
     // Core fields
@@ -27,16 +28,16 @@ public struct Card: Codable, Identifiable, Hashable {
 
     // Gameplay fields
     public var allParts: [RelatedCard]?
-    public var cardFaces: [CardFace]?
+    public var cardFaces: [Face]?
     public var cmc: Double
-    public var colorIdentity: [CardColor]
-    public var colorIndicator: [CardColor]?
-    public var colors: [CardColor]?
+    public var colorIdentity: [Color]
+    public var colorIndicator: [Color]?
+    public var colors: [Color]?
     public var edhrecRank: Int?
     public var handModifier: String?
     public var keywords: [String]
     public var layout: Layout
-    public var legalities: CardLegality
+    public var legalities: Legalities
     public var lifeModifier: String?
     public var loyalty: String?
     public var manaCost: String?
@@ -44,7 +45,7 @@ public struct Card: Codable, Identifiable, Hashable {
     public var oracleText: String?
     public var oversized: Bool
     public var power: String?
-    public var producedMana: [CardColor]?
+    public var producedMana: [Color]?
     public var reserved: Bool
     public var toughness: String?
     public var typeLine: String? // Tokens don't have type lines
@@ -68,15 +69,15 @@ public struct Card: Codable, Identifiable, Hashable {
     public var illustrationId: UUID?
     public var imageStatus: ImageStatus
     public var imageUris: ImageUris?
-    public var prices: CardPrices
+    public var prices: Prices
     public var printedName: String?
     public var printedText: String?
     public var printedTypeLine: String?
     public var promo: Bool
     public var promoTypes: [String]?
-    public var purchaseUris: [String : String]?
+    public var purchaseUris: [String: String]?
     public var rarity: Rarity
-    public var relatedUris: [String : String]
+    public var relatedUris: [String: String]
     public var releasedAt: String
     public var reprint: Bool
     public var scryfallSetUri: String
@@ -91,7 +92,8 @@ public struct Card: Codable, Identifiable, Hashable {
     public var variationOf: UUID?
     public var watermark: String?
     public var preview: Preview?
-    
+
+    // swiftlint:disable function_body_length
     public init(arenaId: Int? = nil,
                 mtgoId: Int? = nil,
                 mtgoFoilId: Int? = nil,
@@ -107,16 +109,16 @@ public struct Card: Codable, Identifiable, Hashable {
                 scryfallUri: String,
                 uri: String,
                 allParts: [RelatedCard]? = nil,
-                cardFaces: [CardFace]? = nil,
+                cardFaces: [Face]? = nil,
                 cmc: Double,
-                colorIdentity: [CardColor],
-                colorIndicator: [CardColor]? = nil,
-                colors: [CardColor]? = nil,
+                colorIdentity: [Color],
+                colorIndicator: [Color]? = nil,
+                colors: [Color]? = nil,
                 edhrecRank: Int? = nil,
                 handModifier: String? = nil,
                 keywords: [String],
                 layout: Layout,
-                legalities: CardLegality,
+                legalities: Legalities,
                 lifeModifier: String? = nil,
                 loyalty: String? = nil,
                 manaCost: String? = nil,
@@ -124,7 +126,7 @@ public struct Card: Codable, Identifiable, Hashable {
                 oracleText: String? = nil,
                 oversized: Bool,
                 power: String? = nil,
-                producedMana: [CardColor]? = nil,
+                producedMana: [Color]? = nil,
                 reserved: Bool,
                 toughness: String? = nil,
                 typeLine: String? = nil,
@@ -135,7 +137,7 @@ public struct Card: Codable, Identifiable, Hashable {
                 collectorNumber: String,
                 contentWarning: Bool? = nil,
                 digital: Bool,
-                finishes: [Card.Finish],
+                finishes: [Finish],
                 flavorName: String? = nil,
                 flavorText: String? = nil,
                 frameEffects: [FrameEffect]? = nil,
@@ -144,17 +146,17 @@ public struct Card: Codable, Identifiable, Hashable {
                 games: [Game],
                 highresImage: Bool,
                 illustrationId: UUID? = nil,
-                imageStatus: Card.ImageStatus,
+                imageStatus: ImageStatus,
                 imageUris: ImageUris? = nil,
-                prices: CardPrices,
+                prices: Prices,
                 printedName: String? = nil,
                 printedText: String? = nil,
                 printedTypeLine: String? = nil,
                 promo: Bool,
                 promoTypes: [String]? = nil,
-                purchaseUris: [String : String]? = nil,
+                purchaseUris: [String: String]? = nil,
                 rarity: Card.Rarity,
-                relatedUris: [String : String],
+                relatedUris: [String: String],
                 releasedAt: String,
                 reprint: Bool,
                 scryfallSetUri: String,

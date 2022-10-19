@@ -1,13 +1,11 @@
 //
 //  Card+enums.swift
 //  
-//
-//  Created by Jacob Hearst on 7/13/22.
-//
 
 import Foundation
 
 extension Card {
+    /// A value or combination of values that uniquely identify a Magic card
     public enum Identifier {
         case scryfallID(id: String)
         case mtgoID(id: Int)
@@ -17,7 +15,8 @@ extension Card {
         case cardMarketID(id: Int)
         case setCodeCollectorNo(setCode: String, collectorNo: String, lang: String? = nil)
 
-        public var provider: String? {
+        /// The name of the service that the identifer is linked to
+        var provider: String {
             switch self {
             case .mtgoID:
                 return "mtgo"
@@ -30,11 +29,12 @@ extension Card {
             case .cardMarketID:
                 return "cardmarket"
             default:
-                return nil
+                return "scryfall"
             }
         }
 
-        public var id: String? {
+        /// The id value of the identifier, if present. Only not present for set code + collector number
+        var id: String? {
             switch self {
             case .scryfallID(let id):
                 return id
@@ -54,6 +54,7 @@ extension Card {
         }
     }
 
+    /// A value or combination of values that uniquely identifies a Magic card for the purposes of retrieving a collection of cards.
     public enum CollectionIdentifier {
         case scryfallID(id: String)
         case mtgoID(id: Int)
@@ -64,7 +65,7 @@ extension Card {
         case nameAndSet(name: String, set: String)
         case collectorNoAndSet(collectorNo: String, set: String)
 
-        internal var json: [String: String] {
+        var json: [String: String] {
             switch self {
             case .scryfallID(let id):
                 return ["id": id]
@@ -86,33 +87,107 @@ extension Card {
         }
     }
 
+    /// Finishes for a printed card
     public enum Finish: String, Codable, CaseIterable {
         case nonfoil, foil, etched, glossy
     }
 
+    /// Status of Scryfall's image asset for this card
+    ///
+    /// Full reference: https://scryfall.com/docs/api/images#image-statuses
     public enum ImageStatus: String, Codable, CaseIterable {
         case missing, placeholder, lowres
         case highresScan = "highres_scan"
     }
 
+    /// Types of images provided by Scryfall
+    ///
+    /// Full reference: https://scryfall.com/docs/api/images
     public enum ImageType: String, Codable, CaseIterable {
         case png, large, normal, small
         case artCrop = "art_crop"
         case borderCrop = "border_crop"
     }
 
+    /// Card rarities
     public enum Rarity: String, Codable, CaseIterable, Comparable {
         case common, uncommon, rare, special, mythic, bonus
-        
+
         /// Order according to Scryfall
         public static func < (lhs: Card.Rarity, rhs: Card.Rarity) -> Bool {
-            switch lhs {
-            case .bonus: return true // "Smallest"
-            case .special: return rhs != .bonus // Only "larger" than bonus
-            case .common: return ![.bonus, .special].contains(rhs)
-            case .uncommon: return ![.bonus, .special, .common].contains(rhs)
-            case .rare: return rhs == .mythic // Only "smaller" than mythic
-            case .mythic: return false // "Largest"
+            let order: [Card.Rarity] = [.bonus, .special, .common, .uncommon, .rare, .mythic]
+            return order.firstIndex(of: lhs)! < order.firstIndex(of: rhs)!
+        }
+    }
+
+    /// Layouts for a Magic card
+    ///
+    /// Full reference: https://scryfall.com/docs/api/layouts
+    public enum Layout: String, CaseIterable, Codable {
+        case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard, token, emblem, augment, host, `class`, unknown
+        case modalDfc = "modal_dfc"
+        case doubleSided = "double_sided"
+        case doubleFacedToken = "double_faced_token"
+        case artSeries = "art_series"
+
+        public init(from decoder: Decoder) throws {
+            self = try Layout(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
+            if self == .unknown, let rawValue = try? String(from: decoder) {
+                print("Decoded unknown FrameEffect: \(rawValue)")
+            }
+        }
+    }
+
+    /// Legality status strings
+    public enum Legality: String, Codable, CaseIterable, Hashable {
+        case legal, restricted, banned
+        case notLegal = "not_legal"
+
+        public var label: String {
+            switch self {
+            case .notLegal: return "Not Legal"
+            default: return rawValue.capitalized
+            }
+        }
+    }
+
+    /// A string representing one of the colors (and colorless) in Magic
+    public enum Color: String, Codable, CaseIterable, Comparable {
+        // swiftlint:disable:next identifier_name
+        case W, U, B, R, G, C
+
+        public static func < (lhs: Color, rhs: Color) -> Bool {
+            let order: [Color] = [.W, .U, .B, .R, .G, .C]
+            return order.firstIndex(of: lhs)! < order.firstIndex(of: rhs)!
+        }
+    }
+
+    /// Card border colors
+    public enum BorderColor: String, Codable, CaseIterable {
+        case black, borderless, gold, silver, white
+    }
+
+    /// Card frames
+    ///
+    /// Full reference: https://scryfall.com/docs/api/frames
+    public enum Frame: String, Codable, CaseIterable {
+        case v1993 = "1993"
+        case v1997 = "1997"
+        case v2003 = "2003"
+        case v2015 = "2015"
+        case future
+    }
+
+    /// Effects applied to a Magic card frame
+    ///
+    /// https://scryfall.com/docs/api/frames#frame-effects
+    public enum FrameEffect: String, Codable, CaseIterable {
+        case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted, sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase, extendedart, companion, etched, snow, lesson, convertdfc, fandfc, unknown
+
+        public init(from decoder: Decoder) throws {
+            self = try FrameEffect(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
+            if self == .unknown, let rawValue = try? String(from: decoder) {
+                print("Decoded unknown FrameEffect: \(rawValue)")
             }
         }
     }

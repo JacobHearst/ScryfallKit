@@ -1,13 +1,14 @@
 //
-//  File.swift
-//  
-//
-//  Created by Jacob Hearst on 6/9/21.
+//  Catalog.swift
 //
 
 import Foundation
 
+/// A struct containing an array of Magic datapoints
+///
+/// Full reference: https://scryfall.com/docs/api/catalogs
 public struct Catalog: Codable {
+    /// The catalog type. Each of these types represents a different `/catalogs` endpoint
     public enum `Type`: String, Codable, CaseIterable {
         case powers, toughnesses, loyalties, watermarks
         case cardNames = "card-names"
@@ -24,12 +25,13 @@ public struct Catalog: Codable {
         case abilityWords = "ability-words"
     }
 
-    public var uri: String?
+    /// The number of items in the `data` array
     public var totalValues: Int
+
+    /// An array of data points
     public var data: [String]
-    
-    public init(uri: String? = nil, totalValues: Int, data: [String]) {
-        self.uri = uri
+
+    public init(totalValues: Int, data: [String]) {
         self.totalValues = totalValues
         self.data = data
     }

@@ -1,14 +1,11 @@
 //
 //  RulingsRequests.swift
-//  ScryfallKit
-//
-//  Created by Jacob Hearst on 8/22/21.
-//
+//  
 
 import Foundation
 
-public struct GetRulings: EndpointRequest {
-    var identifier: Ruling.Identifier
+struct GetRulings: EndpointRequest {
+    var identifier: Card.Ruling.Identifier
 
     var path: String? {
         switch identifier {
@@ -26,5 +23,5 @@ public struct GetRulings: EndpointRequest {
     }
     var queryParams: [URLQueryItem] = []
     var requestMethod: RequestMethod = .GET
-    var body: Data? = nil
+    var body: Data?
 }

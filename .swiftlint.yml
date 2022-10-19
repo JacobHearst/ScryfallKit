@@ -1,0 +1,9 @@
+identifier_name:
+  min_length: 2
+
+disabled_rules:
+  - line_length
+  - nesting
+
+excluded:
+  - .build

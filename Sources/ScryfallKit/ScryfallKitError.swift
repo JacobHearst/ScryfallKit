@@ -1,18 +1,19 @@
 //
-//  File.swift
+//  ScryfallKitError.swift
 //  
-//
-//  Created by Jacob Hearst on 6/8/21.
-//
 
 import Foundation
 
+/// An error thrown by the `ScryfallKit` module
 enum ScryfallKitError: Error, CustomStringConvertible {
+    /// Internal error, a request was tried with an invalid URL
     case invalidUrl
-    case scryfallError(error: ScryfallError)
-    case networkTimedOut(time: Int)
+    case scryfallError(ScryfallError)
+    case networkTimedOut(Int)
     case unexpectedNilResult
     case singleFacedCard
+    case noDataReturned
+    case failedToCast(String)
 
     var description: String {
         switch self {
@@ -26,6 +27,10 @@ enum ScryfallKitError: Error, CustomStringConvertible {
             return "Received unexpected nil result from network service"
         case .singleFacedCard:
             return "Tried to access card faces on card with a single face"
+        case .noDataReturned:
+            return "No data was returned by the server"
+        case .failedToCast(let details):
+            return "Failed to cast \(details)"
         }
     }
 }

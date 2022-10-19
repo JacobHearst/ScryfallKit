@@ -1,9 +1,6 @@
 //
 //  SetEndpointRequest.swift
-//  ScryfallKit
-//
-//  Created by Jacob Hearst on 8/22/21.
-//
+//  
 
 import Foundation
 
@@ -11,7 +8,7 @@ struct GetSets: EndpointRequest {
     var path: String? = "sets"
     var queryParams: [URLQueryItem] = []
     var requestMethod: RequestMethod = .GET
-    var body: Data? = nil
+    var body: Data?
 }
 
 struct GetSet: EndpointRequest {
@@ -29,5 +26,5 @@ struct GetSet: EndpointRequest {
     }
     var queryParams: [URLQueryItem] = []
     var requestMethod: RequestMethod = .GET
-    var body: Data? = nil
+    var body: Data?
 }

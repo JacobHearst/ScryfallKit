@@ -1,9 +1,6 @@
 //
-//  File.swift
+//  ScryfallError.swift
 //  
-//
-//  Created by Jacob Hearst on 6/13/21.
-//
 
 import Foundation
 
@@ -13,7 +10,7 @@ public struct ScryfallError: Codable, CustomStringConvertible {
     public var details: String
     public var type: String?
     public var warnings: [String]?
-    
+
     public init(status: Int, code: String, details: String, type: String? = nil, warnings: [String]? = nil) {
         self.status = status
         self.code = code

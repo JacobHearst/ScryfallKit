@@ -1,9 +1,6 @@
 //
-//  File.swift
+//  EndpointRequest.swift
 //  
-//
-//  Created by Jacob Hearst on 6/8/21.
-//
 
 import Foundation
 

@@ -1,12 +1,12 @@
 //
-//  Set.swift
-//  ScryfallKit
-//
-//  Created by Jacob Hearst on 8/22/21.
+//  MTGSet.swift
 //
 
 import Foundation
 
+/// A set represents a group of related Magic cards
+///
+/// Full reference: https://scryfall.com/docs/api/sets
 public struct MTGSet: Codable, Identifiable, Hashable {
     public enum Identifier {
         case code(code: String)
@@ -26,6 +26,8 @@ public struct MTGSet: Codable, Identifiable, Hashable {
     }
 
     public enum `Type`: String, Codable {
+        // While "masters" is in fact not inclusive, it's also a name that we can't control
+        // swiftlint:disable:next inclusive_language
         case core, expansion, masters, masterpiece, spellbook, commander, planechase, archenemy, vanguard, funny, starter, box, promo, token, memorabilia, arsenal, alchemy
         case fromTheVault = "from_the_vault"
         case premiumDeck = "premium_deck"
@@ -53,7 +55,7 @@ public struct MTGSet: Codable, Identifiable, Hashable {
     public var uri: String
     public var iconSvgUri: String
     public var searchUri: String
-    
+
     public init(id: UUID,
                 code: String,
                 mtgoCode: String? = nil,

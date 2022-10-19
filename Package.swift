@@ -9,7 +9,10 @@ let package = Package(
     products: [
         .library(
             name: "ScryfallKit",
-            targets: ["ScryfallKit"]),
+            targets: ["ScryfallKit"])
+    ],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
     ],
     targets: [
         .target(
@@ -17,6 +20,6 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "ScryfallKitTests",
-            dependencies: ["ScryfallKit"]),
+            dependencies: ["ScryfallKit"])
     ]
 )

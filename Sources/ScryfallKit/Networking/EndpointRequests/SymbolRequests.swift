@@ -1,9 +1,6 @@
 //
 //  SymbolRequests.swift
-//  ScryfallKit
-//
-//  Created by Jacob Hearst on 8/22/21.
-//
+//  
 
 import Foundation
 
@@ -11,7 +8,7 @@ struct GetSymbology: EndpointRequest {
     var path: String? = "symbology"
     var queryParams: [URLQueryItem] = []
     var requestMethod: RequestMethod = .GET
-    var body: Data? = nil
+    var body: Data?
 }
 
 struct ParseManaCost: EndpointRequest {
@@ -22,7 +19,7 @@ struct ParseManaCost: EndpointRequest {
     var path: String? = "symbology/parse-mana"
     var queryParams: [URLQueryItem]
     var requestMethod: RequestMethod = .GET
-    var body: Data? = nil
+    var body: Data?
 
     init(cost: String) {
         self.cost = cost

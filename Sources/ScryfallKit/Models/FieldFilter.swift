@@ -1,10 +1,8 @@
 //
 //  FieldFilter.swift
 //  
-//
-//  Created by Jacob Hearst on 11/16/21.
-//
 
+/// A comparison operator for card metadata
 public enum ComparisonType: String, CaseIterable, Codable {
     case lessThan = "<"
     case lessThanOrEqual = "<="
@@ -15,6 +13,7 @@ public enum ComparisonType: String, CaseIterable, Codable {
     case including = ":"
 }
 
+/// An enum representing a search filter
 public enum CardFieldFilter {
     // Colors and Identity
     case colors(String, ComparisonType = .including)
@@ -58,8 +57,8 @@ public enum CardFieldFilter {
     case watermark(String)
 
     // Border, Frame
-    case border(BorderColor)
-    case frame(Frame)
+    case border(Card.BorderColor)
+    case frame(Card.Frame)
 
     // Tagger tags
     case art(String)
@@ -79,6 +78,7 @@ public enum CardFieldFilter {
     case compoundOr([CardFieldFilter])
     case compoundAnd([CardFieldFilter])
 
+    /// The Scryfall syntax query string representing the filter
     public var filterString: String {
         switch self {
         case .fullOracleText(let value):
@@ -165,8 +165,9 @@ public enum CardFieldFilter {
             return "in:\(value)"
         }
     }
-    
-    var negated: String {
+
+    /// The Scryfall syntax query string representing the filter, negated
+    public var negated: String {
         "-\(filterString)"
     }
 }

@@ -1,90 +1,41 @@
 //
 //  Enums.swift
-//  
-//
-//  Created by Jacob Hearst on 6/8/21.
 //
 
 import Foundation
 
-public enum CardColor: String, Codable, CaseIterable, Comparable {
-    case W, U, B, R, G, C
-    
-    public static func < (lhs: CardColor, rhs: CardColor) -> Bool {
-        switch lhs {
-        case .W: return true
-        case .U: return rhs != .W
-        case .B: return ![.W, .U].contains(rhs)
-        case .R: return ![.W, .U, .B].contains(rhs)
-        case .G: return rhs == .C
-        case .C: return false
-        }
-    }
-}
-
-public enum Layout: String, CaseIterable, Codable {
-    case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard, token, emblem, augment, host, `class`
-    case modalDfc = "modal_dfc"
-    case doubleSided = "double_sided"
-    case doubleFacedToken = "double_faced_token"
-    case artSeries = "art_series"
-}
-
-public enum Legality: String, Codable, CaseIterable, Hashable {
-    case legal, restricted, banned
-    case notLegal = "not_legal"
-
-    public var label: String {
-        switch self {
-            case .notLegal: return "Not Legal"
-            default: return rawValue.capitalized
-        }
-    }
-}
-
-public enum BorderColor: String, Codable, CaseIterable {
-    case black, borderless, gold, silver, white
-}
-
-public enum Frame: String, Codable, CaseIterable {
-    case v1993 = "1993"
-    case v1997 = "1997"
-    case v2003 = "2003"
-    case v2015 = "2015"
-    case future
-}
-
-public enum FrameEffect: String, Codable, CaseIterable {
-    case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted, sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase, extendedart, companion, etched, snow, lesson, convertdfc, fandfc, unknown
-
-    public init(from decoder: Decoder) throws {
-        self = try FrameEffect(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
-        if self == .unknown, let rawValue = try? String(from: decoder) {
-            print("Decoded unknown FrameEffect: \(rawValue)")
-        }
-    }
-}
-
+/// Environments to play Magic: The Gathering in
 public enum Game: String, Codable, CaseIterable {
     case paper, mtgo, arena
 }
 
+/// Comparison strategies for determining what makes a card "unique"
+///
+/// Full reference: https://scryfall.com/docs/api/cards/search#unique-rollup-modes
 public enum UniqueMode: String, Codable, CaseIterable {
     case cards, art, prints
 }
 
+/// Fields that Scryfall can sort cards by
+///
+/// Full reference: https://scryfall.com/docs/api/cards/search#sorting-cards
 public enum SortMode: String, Codable, CaseIterable {
     case name, set, released, rarity, color, usd, tix, eur, cmc, power, toughness, edhrec, artist
 }
 
+/// Directions that Scryfall can order cards in
+///
+/// Full reference: https://scryfall.com/docs/api/cards/search#sorting-cards
 public enum SortDirection: String, Codable, CaseIterable {
     case auto, asc, desc
 }
 
+/// Formats for playing Magic: the Gathering
 public enum Format: String, CaseIterable {
     case standard, historic, pioneer, modern, legacy, pauper, vintage, penny, commander, brawl
 }
 
+/// Currency types that Scryfall provides prices for
 public enum Currency: String, CaseIterable {
     case usd, eur, tix, usdFoil
 }
