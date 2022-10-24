@@ -3,6 +3,8 @@
 
 A Swift Package for accessing [Scryfall's REST API](https://scryfall.com/docs/api)
 
+[Reference Documentation](https://swiftpackageindex.com/JacobHearst/ScryfallKit/v4.0.0/documentation/scryfallkit)
+
 ## Getting Started
 Add ScryfallKit to your project either through the Xcode UI, or through the process below for Swift Packages
 
