@@ -22,7 +22,8 @@ extension ScryfallClient {
                         sortDirection: sortDirection,
                         includeExtras: includeExtras,
                         includeMultilingual: includeMultilingual,
-                        includeVariations: includeVariations) { result in
+                        includeVariations: includeVariations,
+                        page: page) { result in
                 continuation.resume(with: result)
             }
         }

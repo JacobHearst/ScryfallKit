@@ -25,6 +25,11 @@ final class SmokeTests: XCTestCase {
         _ = try await client.getCardByName(fuzzy: "optimus prime hero")
     }
 
+    func testSearchCardsWithFilters() async throws {
+        let filters: [CardFieldFilter] = [.cmc("3", .greaterThan), .colorIdentity("WU")]
+        _ = try await client.searchCards(filters: filters)
+    }
+
     func testSearchCards() async throws {
         _ = try await client.searchCards(query: "Sigarda")
     }
@@ -133,5 +138,34 @@ final class SmokeTests: XCTestCase {
         ]
 
         _ = try await client.getCardCollection(identifiers: identifiers)
+    }
+
+    // Added for manual verification that we can handle all the new fields from new sets
+    func testAllNewCards() async throws {
+        // Get sets that released in the past 30 days
+        let sets = try await client.getSets().data.filter { mtgSet in
+            guard let date = mtgSet.date else {
+                print("Couldn't get release date for set: \(mtgSet.name)")
+                return false
+            }
+
+            let distanceInSeconds = date.distance(to: Date())
+            let distanceInDays = distanceInSeconds / 60 / 60 / 24
+
+            return distanceInDays < 30
+        }
+
+        // Filter for cards that are in any of the sets
+        let filter = CardFieldFilter.compoundOr(sets.map { .set($0.code) })
+
+        // Search
+        var results = try await client.searchCards(filters: [filter])
+        var page = 1
+
+        // Go through every page
+        while results.hasMore ?? false {
+            page += 1
+            results = try await client.searchCards(filters: [filter], page: page)
+        }
     }
 }

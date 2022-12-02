@@ -60,6 +60,11 @@
                BlueprintName = "ScryfallKitTests"
                ReferencedContainer = "container:">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "SmokeTests/testAllNewCards()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

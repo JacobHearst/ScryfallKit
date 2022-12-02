@@ -5,7 +5,7 @@
 import Foundation
 
 /// An error thrown by the `ScryfallKit` module
-enum ScryfallKitError: Error, CustomStringConvertible {
+enum ScryfallKitError: LocalizedError, CustomStringConvertible {
     /// Internal error, a request was tried with an invalid URL
     case invalidUrl
     case scryfallError(ScryfallError)
@@ -14,6 +14,10 @@ enum ScryfallKitError: Error, CustomStringConvertible {
     case singleFacedCard
     case noDataReturned
     case failedToCast(String)
+
+    var errorDescription: String? {
+        description
+    }
 
     var description: String {
         switch self {
