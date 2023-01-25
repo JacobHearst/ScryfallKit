@@ -19,7 +19,7 @@ public struct Card: Codable, Identifiable, Hashable {
     public var tcgplayerEtchedId: Int?
     public var cardMarketId: Int?
     public var id: UUID
-    public var oracleId: String
+    public var oracleId: String?
     public var lang: String
     public var printsSearchUri: String
     public var rulingsUri: String
@@ -29,7 +29,7 @@ public struct Card: Codable, Identifiable, Hashable {
     // Gameplay fields
     public var allParts: [RelatedCard]?
     public var cardFaces: [Face]?
-    public var cmc: Double
+    public var cmc: Double?
     public var colorIdentity: [Color]
     public var colorIndicator: [Color]?
     public var colors: [Color]?

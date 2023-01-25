@@ -24,7 +24,7 @@ struct NetworkService: NetworkServiceProtocol {
             return
         }
 
-        if let body = urlRequest.httpBody, let JSONString = String(data: body, encoding: String.Encoding.utf8) {
+        if logLevel == .verbose, let body = urlRequest.httpBody, let JSONString = String(data: body, encoding: String.Encoding.utf8) {
             print("Sending request with body:")
             print(JSONString)
         }
@@ -39,13 +39,6 @@ struct NetworkService: NetworkServiceProtocol {
         }
 
         print("Making request to: '\(String(describing: urlRequest.url?.absoluteString))'")
-        if logLevel == .verbose {
-            if let body = urlRequest.httpBody {
-                print(String(data: body, encoding: .utf8) ?? "Couldn't represent request body as string")
-            } else {
-                print("No body")
-            }
-        }
         task.resume()
     }
 

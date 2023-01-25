@@ -129,6 +129,7 @@ extension Card {
         case doubleSided = "double_sided"
         case doubleFacedToken = "double_faced_token"
         case artSeries = "art_series"
+        case reversibleCard = "reversible_card"
 
         public init(from decoder: Decoder) throws {
             self = try Layout(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
