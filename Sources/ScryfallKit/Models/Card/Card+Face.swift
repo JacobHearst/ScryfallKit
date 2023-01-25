@@ -9,6 +9,8 @@ extension Card {
     ///
     /// Full reference: https://scryfall.com/docs/api/layouts#card-faces
     public struct Face: Codable, Hashable {
+        public var cmc: Double?
+        public var oracleId: String?
         public var artist: String?
         public var colorIndicator: [Card.Color]?
         public var colors: [Card.Color]?
