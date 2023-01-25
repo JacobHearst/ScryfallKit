@@ -23,6 +23,7 @@ public enum CardFieldFilter {
     case type(String)
     case oracleText(String)
     case fullOracleText(String)
+    case oracleId(String)
     case keyword(String)
 
     // Mana costs
@@ -83,6 +84,8 @@ public enum CardFieldFilter {
         switch self {
         case .fullOracleText(let value):
             return "fo:\(value)"
+        case .oracleId(let id):
+            return "oracleid:\(id)"
         case .keyword(let value):
             return "keyword:\(value)"
         case .compoundOr(let filters):

@@ -19,6 +19,7 @@ public struct Card: Codable, Identifiable, Hashable {
     public var tcgplayerEtchedId: Int?
     public var cardMarketId: Int?
     public var id: UUID
+    /// Scryfall's documentation lists this as required but it's nil for reversible cards
     public var oracleId: String?
     public var lang: String
     public var printsSearchUri: String
@@ -29,6 +30,7 @@ public struct Card: Codable, Identifiable, Hashable {
     // Gameplay fields
     public var allParts: [RelatedCard]?
     public var cardFaces: [Face]?
+    /// Scryfall's documentation lists this as required but it's nil for reversible cards
     public var cmc: Double?
     public var colorIdentity: [Color]
     public var colorIndicator: [Color]?
@@ -48,13 +50,15 @@ public struct Card: Codable, Identifiable, Hashable {
     public var producedMana: [Color]?
     public var reserved: Bool
     public var toughness: String?
-    public var typeLine: String? // Tokens don't have type lines
+    /// Tokens don't have type lines
+    public var typeLine: String?
 
     // Print fields
     public var artist: String?
     public var booster: Bool
     public var borderColor: BorderColor
-    public var cardBackId: UUID? // Scryfall's documentation lists this as required but it's nil for multi-faced cards
+    /// Scryfall's documentation lists this as required but it's nil for multi-faced cards
+    public var cardBackId: UUID?
     public var collectorNumber: String
     public var contentWarning: Bool?
     public var digital: Bool
