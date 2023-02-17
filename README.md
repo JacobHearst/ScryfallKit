@@ -11,7 +11,7 @@ Add ScryfallKit to your project either through the Xcode UI, or through the proc
 let package = Package(
     // ... Other Package.swift stuff goes here
     dependencies: [
-        .package(url: "https://github.com/JacobHearst/ScryfallKit", from: "4.0.0"), // Add the library to your manifest
+        .package(url: "https://github.com/JacobHearst/ScryfallKit", from: "5.0.0"), // Add the library to your manifest
     ],
     targets: [
         .target(name: "MyPackage", dependencies: ["ScryfallKit"]), // Add it to your target's dependencies
