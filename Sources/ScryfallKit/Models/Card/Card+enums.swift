@@ -181,7 +181,7 @@ extension Card {
 
     /// Effects applied to a Magic card frame
     ///
-    /// https://scryfall.com/docs/api/frames#frame-effects
+    /// Full reference: https://scryfall.com/docs/api/frames#frame-effects
     public enum FrameEffect: String, Codable, CaseIterable {
         case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted, sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase, extendedart, companion, etched, snow, lesson, convertdfc, fandfc, unknown
 
