@@ -27,3 +27,14 @@ jobs:
 
       - name: Smoke test package
         run: swift test -v
+        
+      - name: CINotify Email
+        if: ${{ failure() }}
+        uses: cinotify/github-action@v1.1.0
+        with:
+          # Recipient email address
+          to: jhearst@protonmail.ch
+          # Email subject
+          subject: ScryfallKit failure
+          # Email body
+          body: A ScryfallKit test failed
