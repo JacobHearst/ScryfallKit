@@ -3,7 +3,10 @@
 
 A Swift Package for accessing [Scryfall's REST API](https://scryfall.com/docs/api)
 
-[Reference Documentation](https://swiftpackageindex.com/JacobHearst/ScryfallKit/v4.0.0/documentation/scryfallkit)
+## Documentation
+ScryfallKit documentation is available in two places:
+1. [Swift Package Index](https://swiftpackageindex.com/JacobHearst/ScryfallKit/v4.0.0/documentation/scryfallkit)
+2. [GitHub Pages](https://jacobhearst.github.io/ScryfallKit/documentation/scryfallkit/)
 
 ## Getting Started
 Add ScryfallKit to your project either through the Xcode UI, or through the process below for Swift Packages
@@ -18,7 +21,7 @@ let package = Package(
     ]
 )
 ```
-    
+
 ## Example
 ```swift
 import ScryfallKit
@@ -43,7 +46,7 @@ do {
     print("Received error: \(error)")
 }
 ```
-    
+
 ## Network Logging
 The ScryfallClient has a configurable level of network logging with two options: minimal and verbose. Enabling verbose logging will print the HTTP body of each request and response. Minimal logging will log that a request was made (and the URL it's made to) as well as that a response was received.
 
