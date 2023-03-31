@@ -5,7 +5,7 @@ A Swift Package for accessing [Scryfall's REST API](https://scryfall.com/docs/ap
 
 ## Documentation
 ScryfallKit documentation is available in two places:
-1. [Swift Package Index](https://swiftpackageindex.com/JacobHearst/ScryfallKit/v4.0.0/documentation/scryfallkit)
+1. [Swift Package Index](https://swiftpackageindex.com/JacobHearst/ScryfallKit/v5.1.1/documentation/scryfallkit)
 2. [GitHub Pages](https://jacobhearst.github.io/ScryfallKit/documentation/scryfallkit/)
 
 ## Getting Started
