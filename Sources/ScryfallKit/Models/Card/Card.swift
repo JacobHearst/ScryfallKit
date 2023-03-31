@@ -4,7 +4,6 @@
 
 import Foundation
 
-// swiftlint:disable type_body_length
 /// A Magic: the Gathering card
 ///
 /// Full reference: https://scryfall.com/docs/api/cards
@@ -253,4 +252,5 @@ public struct Card: Codable, Identifiable, Hashable {
         self.watermark = watermark
         self.preview = preview
     }
+    // swiftlint:enable function_body_length
 }

@@ -160,6 +160,8 @@ final class SmokeTests: XCTestCase {
 
         // Search
         var results = try await client.searchCards(filters: [filter])
+        XCTAssert(results.data.allSatisfy { $0.setType != .unknown })
+        XCTAssert(results.data.allSatisfy { $0.layout != .unknown })
         var page = 1
 
         // Go through every page

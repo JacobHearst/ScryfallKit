@@ -28,12 +28,19 @@ public struct MTGSet: Codable, Identifiable, Hashable {
     public enum `Type`: String, Codable {
         // While "masters" is in fact not inclusive, it's also a name that we can't control
         // swiftlint:disable:next inclusive_language
-        case core, expansion, masters, masterpiece, spellbook, commander, planechase, archenemy, vanguard, funny, starter, box, promo, token, memorabilia, arsenal, alchemy, minigame
+        case core, expansion, masters, masterpiece, spellbook, commander, planechase, archenemy, vanguard, funny, starter, box, promo, token, memorabilia, arsenal, alchemy, minigame, unknown
         case fromTheVault = "from_the_vault"
         case premiumDeck = "premium_deck"
         case duelDeck = "duel_deck"
         case draftInnovation = "draft_innovation"
         case treasureChest = "treasure_chest"
+
+        public init(from decoder: Decoder) throws {
+            self = try Self(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
+            if self == .unknown, let rawValue = try? String(from: decoder) {
+                print("Decoded unknown MTGSet Type: \(rawValue)")
+            }
+        }
     }
 
     public var id: UUID

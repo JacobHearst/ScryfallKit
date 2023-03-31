@@ -132,7 +132,7 @@ extension Card {
         case reversibleCard = "reversible_card"
 
         public init(from decoder: Decoder) throws {
-            self = try Layout(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
+            self = try Self(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
             if self == .unknown, let rawValue = try? String(from: decoder) {
                 print("Decoded unknown FrameEffect: \(rawValue)")
             }
