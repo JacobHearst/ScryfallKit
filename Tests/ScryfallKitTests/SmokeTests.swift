@@ -140,7 +140,6 @@ final class SmokeTests: XCTestCase {
         _ = try await client.getCardCollection(identifiers: identifiers)
     }
 
-    // Added for manual verification that we can handle all the new fields from new sets
     func testAllNewCards() async throws {
         // Get sets that released in the past 30 days
         let sets = try await client.getSets().data.filter { mtgSet in
@@ -160,14 +159,22 @@ final class SmokeTests: XCTestCase {
 
         // Search
         var results = try await client.searchCards(filters: [filter])
-        XCTAssert(results.data.allSatisfy { $0.setType != .unknown })
-        XCTAssert(results.data.allSatisfy { $0.layout != .unknown })
+        checkForUnknowns(in: results.data)
         var page = 1
 
         // Go through every page
         while results.hasMore ?? false {
             page += 1
             results = try await client.searchCards(filters: [filter], page: page)
+            checkForUnknowns(in: results.data)
+            usleep(500000) // Wait for 0.5 seconds
+        }
+    }
+
+    private func checkForUnknowns(in cards: [Card]) {
+        for card in cards {
+            XCTAssertNotEqual(card.layout, .unknown, "Unknown layout on \(card.name)")
+            XCTAssertNotEqual(card.setType, .unknown, "Unknown set type on \(card.name)")
         }
     }
 }

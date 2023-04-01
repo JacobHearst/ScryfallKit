@@ -124,7 +124,7 @@ extension Card {
     ///
     /// Full reference: https://scryfall.com/docs/api/layouts
     public enum Layout: String, CaseIterable, Codable {
-        case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard, token, emblem, augment, host, `class`, unknown
+        case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard, token, emblem, augment, host, `class`, battle, unknown
         case modalDfc = "modal_dfc"
         case doubleSided = "double_sided"
         case doubleFacedToken = "double_faced_token"
@@ -183,7 +183,7 @@ extension Card {
     ///
     /// Full reference: https://scryfall.com/docs/api/frames#frame-effects
     public enum FrameEffect: String, Codable, CaseIterable {
-        case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted, sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase, extendedart, companion, etched, snow, lesson, convertdfc, fandfc, unknown
+        case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted, sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase, extendedart, companion, etched, snow, lesson, convertdfc, fandfc, battle, unknown
 
         public init(from decoder: Decoder) throws {
             self = try FrameEffect(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
