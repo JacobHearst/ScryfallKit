@@ -1,15 +1,12 @@
 //
-//  File.swift
-//  
-//
-//  Created by Jacob Hearst on 12/2/22.
+//  MTGSet.swift
 //
 
 import Foundation
 
-extension MTGSet {
+public extension MTGSet {
     /// A `Date` created from ``releasedAt``
-    public var date: Date? {
+    var date: Date? {
         guard let releasedAt = releasedAt else { return nil }
 
         let formatter = DateFormatter()

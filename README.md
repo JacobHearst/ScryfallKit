@@ -4,9 +4,11 @@
 A Swift Package for accessing [Scryfall's REST API](https://scryfall.com/docs/api)
 
 ## Documentation
-ScryfallKit documentation is available in two places:
-1. [Swift Package Index](https://swiftpackageindex.com/JacobHearst/ScryfallKit/v4.0.0/documentation/scryfallkit)
-2. [GitHub Pages](https://jacobhearst.github.io/ScryfallKit/documentation/scryfallkit/)
+For the most up to date documentation, use the DocC pages published [here](https://jacobhearst.github.io/ScryfallKit/documentation/scryfallkit/)
+
+To generate these pages locally, use this command from [Apple's Swift DocC plugin](https://github.com/apple/swift-docc-plugin#previewing-documentation)
+
+`swift package --disable-sandbox preview-documentation --target MyFramework`
 
 ## Getting Started
 Add ScryfallKit to your project either through the Xcode UI, or through the process below for Swift Packages

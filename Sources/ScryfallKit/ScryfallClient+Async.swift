@@ -50,13 +50,13 @@ extension ScryfallClient {
         return try await networkService.request(request, as: ObjectList<Card>.self)
     }
 
-    /// Equivalent to ``getCardByName(exact:set:)`` but with async/await syntax
+    /// Equivalent to ``getCardByName(exact:set:completion:)`` but with async/await syntax
     public func getCardByName(exact: String, set: String? = nil) async throws -> Card {
         let request = GetCardNamed(exact: exact, set: set)
         return try await networkService.request(request, as: Card.self)
     }
 
-    /// Equivalent to ``getCardByName(fuzzy:set:)`` but with async/await syntax
+    /// Equivalent to ``getCardByName(fuzzy:set:completion:)`` but with async/await syntax
     public func getCardByName(fuzzy: String, set: String? = nil) async throws -> Card {
         let request = GetCardNamed(fuzzy: fuzzy, set: set)
         return try await networkService.request(request, as: Card.self)

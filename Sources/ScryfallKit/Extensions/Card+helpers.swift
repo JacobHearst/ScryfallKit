@@ -7,12 +7,12 @@
 
 import Foundation
 
-extension Card {
+public extension Card {
     /// Get the URL for a specific image type
     /// - Parameters:
     ///   - type: The desired image type
     ///   -  getSecondFace: Whether or not the second face of a card should be retrieved
-    public func getImageURL(type: ImageType, getSecondFace: Bool = false) -> URL? {
+    func getImageURL(type: ImageType, getSecondFace: Bool = false) -> URL? {
         var cardImageUris = self.imageUris
 
         if let faces = cardFaces {
@@ -43,7 +43,7 @@ extension Card {
     /// - Parameters:
     ///   - types: A list of ImageTypes ordered by preference
     ///   - getSecondFace: Whether or not the second face of a card should be retrieved
-    public func getImageURL(types: [ImageType], getSecondFace: Bool = false) -> URL? {
+    func getImageURL(types: [ImageType], getSecondFace: Bool = false) -> URL? {
         for type in types {
             guard let url = getImageURL(type: type, getSecondFace: getSecondFace) else {
                 continue
@@ -58,7 +58,7 @@ extension Card {
     /// Get the legality of a card in a given format
     /// - Parameter format: The format to get legality for
     /// - Returns: The legality of this card for the given format
-    public func getLegality(for format: Format) -> Legality {
+    func getLegality(for format: Format) -> Legality {
         switch format {
         case .brawl:
             return legalities.brawl ?? .notLegal
@@ -88,7 +88,7 @@ extension Card {
     ///   - keyPath: A KeyPath for the desired attribute
     ///   - useSecondFace: Whether or not the attribute from the second face should be used
     /// - Returns: The requested property from the desired face
-    public func getAttributeForFace<PropType>(keyPath: KeyPath<Face, PropType>, useSecondFace: Bool) throws -> PropType {
+    func getAttributeForFace<PropType>(keyPath: KeyPath<Face, PropType>, useSecondFace: Bool) throws -> PropType {
         guard let faces = cardFaces else { throw ScryfallKitError.singleFacedCard }
         return useSecondFace ? faces[1][keyPath: keyPath] : faces[0][keyPath: keyPath]
     }
@@ -96,7 +96,7 @@ extension Card {
     /// Get the price string for a given currency
     /// - Parameter type: The currency you want the price string for
     /// - Returns: The price string, if present. Nil if not
-    public func getPrice(for currency: Currency) -> String? {
+    func getPrice(for currency: Currency) -> String? {
         switch currency {
         case .usd: return prices.usd
         case .eur: return prices.eur
