@@ -61,7 +61,6 @@ struct NetworkService: NetworkServiceProtocol {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
 
         if (200..<300).contains(httpStatus) {
-            print("Received response")
             if logLevel == .verbose {
                 let responseBody = String(data: content, encoding: .utf8)
                 print(responseBody ?? "Couldn't represent response body as string")

@@ -159,22 +159,27 @@ final class SmokeTests: XCTestCase {
 
         // Search
         var results = try await client.searchCards(filters: [filter])
-        checkForUnknowns(in: results.data)
+        try checkForUnknowns(in: results.data)
         var page = 1
 
         // Go through every page
         while results.hasMore ?? false {
             page += 1
             results = try await client.searchCards(filters: [filter], page: page)
-            checkForUnknowns(in: results.data)
+            try checkForUnknowns(in: results.data)
             usleep(500000) // Wait for 0.5 seconds
         }
     }
 
-    private func checkForUnknowns(in cards: [Card]) {
+    private func checkForUnknowns(in cards: [Card]) throws {
         for card in cards {
             XCTAssertNotEqual(card.layout, .unknown, "Unknown layout on \(card.name)")
             XCTAssertNotEqual(card.setType, .unknown, "Unknown set type on \(card.name)")
+            if let frameEffects = card.frameEffects {
+                for effect in frameEffects {
+                    XCTAssertNotEqual(effect, .unknown, "Unknown frame effect on \(card.name)")
+                }
+            }
         }
     }
 }
