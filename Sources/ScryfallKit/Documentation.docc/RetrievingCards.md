@@ -87,10 +87,8 @@ print(names) // ["Pore Over the Pages", "Lotus Field", "Hidden Strings"]
 ```
 
 ## See Also
+- ``ScryfallKit/ScryfallClient/getRandomCard(query:completion:)``
 - ``ScryfallKit/ScryfallClient/searchCards(filters:unique:order:sortDirection:includeExtras:includeMultilingual:includeVariations:page:completion:)``
 - ``ScryfallKit/ScryfallClient/searchCards(query:unique:order:sortDirection:includeExtras:includeMultilingual:includeVariations:page:completion:)``
 - ``ScryfallKit/ScryfallClient/getCardByName(fuzzy:set:completion:)`` 
 - ``ScryfallKit/ScryfallClient/getCardByName(exact:set:completion:)``
-- ``ScryfallKit/ScryfallClient/getRandomCard(query:completion:)``
-- ``ScryfallKit/ScryfallClient/getCard(identifier:completion:)``
-- ``ScryfallKit/ScryfallClient/getCardCollection(identifiers:completion:)``
