@@ -19,3 +19,4 @@ Some recommended starting points:
 ### Fundamentals
 
 - <doc:RetrievingCards>
+- <doc:MultiFacedCards>

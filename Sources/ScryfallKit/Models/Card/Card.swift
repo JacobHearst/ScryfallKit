@@ -65,7 +65,7 @@ public struct Card: Codable, Identifiable, Hashable {
     public var flavorName: String?
     public var flavorText: String?
     public var frameEffects: [FrameEffect]?
-    public var frame: Frame.RawValue
+    public var frame: Frame
     public var fullArt: Bool
     public var games: [Game]
     public var highresImage: Bool
@@ -144,7 +144,7 @@ public struct Card: Codable, Identifiable, Hashable {
                 flavorName: String? = nil,
                 flavorText: String? = nil,
                 frameEffects: [FrameEffect]? = nil,
-                frame: Frame.RawValue,
+                frame: Frame,
                 fullArt: Bool,
                 games: [Game],
                 highresImage: Bool,
