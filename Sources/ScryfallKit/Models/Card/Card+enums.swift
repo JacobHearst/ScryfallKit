@@ -1,6 +1,6 @@
 //
 //  Card+enums.swift
-//  
+//
 
 import Foundation
 
@@ -94,7 +94,7 @@ extension Card {
 
     /// Status of Scryfall's image asset for this card
     ///
-    /// Full reference: https://scryfall.com/docs/api/images#image-statuses
+    /// [Scryfall documentation](https://scryfall.com/docs/api/images#image-statuses)
     public enum ImageStatus: String, Codable, CaseIterable {
         case missing, placeholder, lowres
         case highresScan = "highres_scan"
@@ -102,7 +102,7 @@ extension Card {
 
     /// Types of images provided by Scryfall
     ///
-    /// Full reference: https://scryfall.com/docs/api/images
+    /// [Scryfall documentation](https://scryfall.com/docs/api/images)
     public enum ImageType: String, Codable, CaseIterable {
         case png, large, normal, small
         case artCrop = "art_crop"
@@ -122,7 +122,7 @@ extension Card {
 
     /// Layouts for a Magic card
     ///
-    /// Full reference: https://scryfall.com/docs/api/layouts
+    /// [Scryfall documentation](https://scryfall.com/docs/api/layouts)
     public enum Layout: String, CaseIterable, Codable {
         case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard, token, emblem, augment, host, `class`, unknown
         case modalDfc = "modal_dfc"
@@ -131,8 +131,12 @@ extension Card {
         case artSeries = "art_series"
         case reversibleCard = "reversible_card"
 
+        /// Codable initializer
+        ///
+        /// If this initializer fails to decode a value, instead of throwing an error, it will decode as the ``ScryfallKit/Card/Layout-swift.enum/unknown`` type and print a message to the logs.
+        /// - Parameter decoder: The Decoder to try decoding a ``ScryfallKit/Card/Layout-swift.enum`` from
         public init(from decoder: Decoder) throws {
-            self = try Self(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
+            self = (try? Self(rawValue: decoder.singleValueContainer().decode(RawValue.self))) ?? .unknown
             if self == .unknown, let rawValue = try? String(from: decoder) {
                 print("Decoded unknown FrameEffect: \(rawValue)")
             }
@@ -170,7 +174,7 @@ extension Card {
 
     /// Card frames
     ///
-    /// Full reference: https://scryfall.com/docs/api/frames
+    /// [Scryfall documentation](https://scryfall.com/docs/api/frames)
     public enum Frame: String, Codable, CaseIterable {
         case v1993 = "1993"
         case v1997 = "1997"
@@ -181,7 +185,7 @@ extension Card {
 
     /// Effects applied to a Magic card frame
     ///
-    /// Full reference: https://scryfall.com/docs/api/frames#frame-effects
+    /// [Scryfall documentation](https://scryfall.com/docs/api/frames#frame-effects)
     public enum FrameEffect: String, Codable, CaseIterable {
         case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted, sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase, extendedart, companion, etched, snow, lesson, convertdfc, fandfc, unknown
 

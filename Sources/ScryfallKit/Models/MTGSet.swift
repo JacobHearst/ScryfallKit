@@ -6,7 +6,7 @@ import Foundation
 
 /// A set represents a group of related Magic cards
 ///
-/// Full reference: https://scryfall.com/docs/api/sets
+/// [Scryfall documentation](https://scryfall.com/docs/api/sets)
 public struct MTGSet: Codable, Identifiable, Hashable {
     public enum Identifier {
         case code(code: String)

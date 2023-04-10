@@ -7,7 +7,7 @@ import Foundation
 extension Card {
     /// A single face of a multi-faced card
     ///
-    /// Full reference: https://scryfall.com/docs/api/layouts#card-faces
+    /// [Scryfall documentation](https://scryfall.com/docs/api/layouts#card-faces)
     public struct Face: Codable, Hashable {
         public var cmc: Double?
         public var oracleId: String?

@@ -6,7 +6,7 @@ import Foundation
 
 /// A Magic: the Gathering card
 ///
-/// Full reference: https://scryfall.com/docs/api/cards
+/// [Scryfall documentation](https://scryfall.com/docs/api/cards)
 public struct Card: Codable, Identifiable, Hashable {
     // MARK: Fields
     // Core fields

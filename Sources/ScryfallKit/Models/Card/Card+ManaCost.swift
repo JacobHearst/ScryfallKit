@@ -7,7 +7,7 @@ import Foundation
 extension Card {
     /// The mana cost of a card
     ///
-    /// Full reference: https://scryfall.com/docs/api/colors
+    /// [Scryfall documentation](https://scryfall.com/docs/api/colors)
     public struct ManaCost: Codable {
         public var cost: String
         public var cmc: Double

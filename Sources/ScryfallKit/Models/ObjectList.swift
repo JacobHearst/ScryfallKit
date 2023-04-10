@@ -6,7 +6,7 @@ import Foundation
 
 /// A sequence of Scryfall objects. May be paginated
 ///
-/// Full reference: https://scryfall.com/docs/api/lists
+/// [Scryfall documentation](https://scryfall.com/docs/api/lists)
 public struct ObjectList<T: Codable>: Codable {
     public var data: [T]
     public var hasMore: Bool?

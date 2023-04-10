@@ -6,7 +6,7 @@ import Foundation
 
 /// A struct containing an array of Magic datapoints
 ///
-/// Full reference: https://scryfall.com/docs/api/catalogs
+/// [Scryfall documentation](https://scryfall.com/docs/api/catalogs)
 public struct Catalog: Codable {
     /// The catalog type. Each of these types represents a different `/catalogs` endpoint
     public enum `Type`: String, Codable, CaseIterable {
