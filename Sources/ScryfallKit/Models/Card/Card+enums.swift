@@ -124,7 +124,7 @@ extension Card {
     ///
     /// Full reference: https://scryfall.com/docs/api/layouts
     public enum Layout: String, CaseIterable, Codable {
-        case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard, token, emblem, augment, host, `class`, unknown
+        case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard, token, emblem, augment, host, `class`, battle, unknown
         case modalDfc = "modal_dfc"
         case doubleSided = "double_sided"
         case doubleFacedToken = "double_faced_token"
