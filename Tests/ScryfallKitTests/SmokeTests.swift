@@ -15,9 +15,10 @@ final class SmokeTests: XCTestCase {
 
     func testLayouts() async throws {
         // Verify that we can handle all layout types
-        // Skip double sided because there aren't any double_sided cards being returned by Scryfall
-        for layout in Card.Layout.allCases where ![.doubleSided, .unknown].contains(layout) {
-            _ = try await client.searchCards(query: "layout:\(layout.rawValue)")
+        // Skip double sided because there aren't any double_sided or battle cards being returned by Scryfall
+        for layout in Card.Layout.allCases where ![.doubleSided, .unknown, .battle].contains(layout) {
+            let cards = try await client.searchCards(query: "layout:\(layout.rawValue)")
+            XCTAssertFalse(cards.data.isEmpty)
         }
     }
 
