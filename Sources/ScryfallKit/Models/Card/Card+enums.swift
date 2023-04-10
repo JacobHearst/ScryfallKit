@@ -1,6 +1,6 @@
 //
 //  Card+enums.swift
-//  
+//
 
 import Foundation
 
@@ -124,15 +124,19 @@ extension Card {
     ///
     /// Full reference: https://scryfall.com/docs/api/layouts
     public enum Layout: String, CaseIterable, Codable {
-        case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard, token, emblem, augment, host, `class`, battle, unknown
+        case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard, token, emblem, augment, host, `class`, unknown
         case modalDfc = "modal_dfc"
         case doubleSided = "double_sided"
         case doubleFacedToken = "double_faced_token"
         case artSeries = "art_series"
         case reversibleCard = "reversible_card"
 
+        /// Codable initializer
+        ///
+        /// If this initializer fails to decode a value, instead of throwing an error, it will decode as the ``ScryfallKit/Card/Layout-swift.enum/unknown`` type and print a message to the logs.
+        /// - Parameter decoder: The Decoder to try decoding a ``ScryfallKit/Card/Layout-swift.enum`` from
         public init(from decoder: Decoder) throws {
-            self = try Self(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
+            self = (try? Self(rawValue: decoder.singleValueContainer().decode(RawValue.self))) ?? .unknown
             if self == .unknown, let rawValue = try? String(from: decoder) {
                 print("Decoded unknown FrameEffect: \(rawValue)")
             }
