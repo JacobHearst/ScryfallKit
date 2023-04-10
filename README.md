@@ -3,9 +3,6 @@
 
 A Swift Package for accessing [Scryfall's REST API](https://scryfall.com/docs/api)
 
-## UNVERSIONED API
-WARNING: The Scryfall REST API is _not versioned_. This means that at any point, Scryfall could make breaking API changes that would cause this library to fail to decode the HTTP responses. Case in point, with the release of March of the Machines and Battle cards, Scryfall added a new layout type called `battle` which was reflected in the v5.1.1 release. Shortly after, this layout type was removed. Scryfall _does_ have an [API changelog page](https://scryfall.com/blog/category/api) but it doesn't seem to include any of the smaller changes even if they're breaking changes. Smoke tests are run weekly through [GitHub Actions](https://github.com/JacobHearst/ScryfallKit/actions/workflows/build+test.yml) but developers should be aware that Scryfall's REST API may make breaking changes unexpectedly and without prior warning.
-
 ## Documentation
 This library is largely a translation of Scryfall's REST API to a collection of Swift enums and structs. It is highly recommended that you read the [official Scryfall API docs](https://scryfall.com/docs/api) as the documentation in this project will not attempt to give in-depth explanations of how each of these endpoints work.
 
