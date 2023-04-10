@@ -187,7 +187,7 @@ extension Card {
     ///
     /// [Scryfall documentation](https://scryfall.com/docs/api/frames#frame-effects)
     public enum FrameEffect: String, Codable, CaseIterable {
-        case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted, sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase, extendedart, companion, etched, snow, lesson, convertdfc, fandfc, unknown
+        case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted, sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase, extendedart, companion, etched, snow, lesson, convertdfc, fandfc, battle, unknown
 
         public init(from decoder: Decoder) throws {
             self = try FrameEffect(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
