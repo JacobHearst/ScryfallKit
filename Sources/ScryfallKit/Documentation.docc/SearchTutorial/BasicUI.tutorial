@@ -1,0 +1,41 @@
+@Tutorial(time: 5) {
+    @Intro(title: "Creating a basic search experience") {
+        A search engine of any kind is really composed of two parts: searching and viewing results. Let's build a simple search engine app for iOS using Scryfall.
+    }
+    
+    @Section(title: "Creating the UI") {
+        @ContentAndMedia {
+            Search engines have two primary areas: the search bar and the results. Lets create a basic UI that covers both of these areas.
+            
+            @Image(source: BasicUIFinalProductSearchCrop, alt: "accessible description")
+        }
+        
+        @Steps {
+            @Step {
+                Create a basic page with a search bar and a grid for displaying card images. Here we use the built-in multi-faced card handling of ``ScryfallKit/Card/getImageURL(type:getSecondFace:)`` to get a URL to a suitably sized image.
+                
+                @Code(name: "ContentView.swift", file: Step1BasicLayout) {
+                    @Image(source: Step1Preview, alt: "A screenshot of the final product of step 1 in an iOS simulator")
+                }
+            }
+            
+            @Step {
+                Create a `search` function that submits the `query` to a ``ScryfallKit/ScryfallClient`` instance and then sets `cards` to the first page of results
+
+                Try entering "type:creature" in your search bar and pressing enter. You should see the grid of cards populate
+                
+                @Code(name: "ContentView.swift", file: Step2Search) {
+                    @Image(source: Step2Preview, alt: "A screenshot of the final product of step 2 in an iOS simulator")
+                }
+            }
+            
+            @Step {
+                Add an alert to display any errors that occur during the search process
+                
+                @Code(name: "ContentView.swift", file: Step3Errors) {
+                    @Image(source: Step3Preview, alt: "A screenshot of the final product of step 3 in an iOS simulator")
+                }
+            }
+        }
+    }
+}

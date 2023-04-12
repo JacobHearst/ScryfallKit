@@ -9,14 +9,15 @@ A simple Swift wrapper for the popular Magic: the Gathering API by Scryfall
 This library is largely a translation of Scryfall's REST API to a collection of Swift enums and structs. It is highly recommended that you read the [official Scryfall API docs](https://scryfall.com/docs/api) as the documentation in this project will not attempt to give in-depth explanations of how each of these endpoints work.
 
 Some recommended starting points:
-- [Layouts and Faces](https://scryfall.com/docs/api/layouts)
+- [Lists and pagination](https://scryfall.com/docs/api/lists)
 - [Errors](https://scryfall.com/docs/api/errors)
-- [Lists](https://scryfall.com/docs/api/lists)
 - [Card Imagery](https://scryfall.com/docs/api/images)
+- [Layouts and Faces](https://scryfall.com/docs/api/layouts)
 
 ## Topics
 
 ### Fundamentals
 
+- <doc:SearchTutorial>
 - <doc:RetrievingCards>
 - <doc:MultiFacedCards>
