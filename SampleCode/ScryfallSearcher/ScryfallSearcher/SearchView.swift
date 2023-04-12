@@ -1,8 +1,11 @@
 import SwiftUI
 import ScryfallKit
 
-struct ContentView: View {
+struct SearchView: View {
     private let client = ScryfallClient()
+    private let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
+
+    @State private var loading = false
     @State private var query = ""
     @State private var cards = [Card]()
     @State private var error: String?
@@ -11,27 +14,28 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             TextField("Search for Magic: the Gathering cards", text: $query)
-                // Makes our `TextField` easier to see
                 .textFieldStyle(.roundedBorder)
+                .autocorrectionDisabled(true)
                 .onSubmit(search)
 
-            // Creates a 2 column wide vertical grid
-            LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 2)) {
-                ForEach(cards) { card in
-                    AsyncImage(url: card.getImageURL(type: .normal)) { image in
-                        // When the image loads, scale and display it
-                        image
-                            .resizable()
-                            .scaledToFit()
-                    } placeholder: {
-                        // While the picture is loading, display the card name and a spinner
-                        Text(card.name)
-                        ProgressView()
+            if loading {
+                ProgressView()
+            } else if cards.isEmpty {
+                Text("Perform a search to view cards")
+            } else {
+                LazyVGrid(columns: columns) {
+                    ForEach(cards) { card in
+                        AsyncImage(url: card.getImageURL(type: .normal)) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                        } placeholder: {
+                            Text(card.name)
+                            ProgressView()
+                        }
                     }
                 }
             }
-
-            Spacer()
         }
         .padding()
         .alert("Error", isPresented: $showError, presenting: error, actions: { _ in }) { error in
@@ -40,6 +44,7 @@ struct ContentView: View {
     }
 
     private func search() {
+        loading = true
         error = nil
         showError = false
 
@@ -51,8 +56,10 @@ struct ContentView: View {
                 }
             } catch {
                 self.error = error.localizedDescription
-                showError = true
+                self.showError = true
             }
+
+            loading = false
         }
     }
 }
