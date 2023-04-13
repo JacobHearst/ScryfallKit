@@ -5,6 +5,7 @@ struct SearchView: View {
     private let client = ScryfallClient()
     private let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
 
+    @State private var loading = false
     @State private var query = ""
     @State private var cards = [Card]()
     @State private var error: String?
@@ -14,17 +15,22 @@ struct SearchView: View {
         ScrollView {
             TextField("Search for Magic: the Gathering cards", text: $query)
                 .textFieldStyle(.roundedBorder)
+                .autocorrectionDisabled(true)
                 .onSubmit(search)
 
-            LazyVGrid(columns: columns) {
-                ForEach(cards) { card in
-                    AsyncImage(url: card.getImageURL(type: .normal)) { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                    } placeholder: {
-                        Text(card.name)
-                        ProgressView()
+            if loading {
+                ProgressView()
+            } else {
+                LazyVGrid(columns: columns) {
+                    ForEach(cards) { card in
+                        AsyncImage(url: card.getImageURL(type: .normal)) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                        } placeholder: {
+                            Text(card.name)
+                            ProgressView()
+                        }
                     }
                 }
             }
@@ -36,6 +42,7 @@ struct SearchView: View {
     }
 
     private func search() {
+        loading = true
         error = nil
         showError = false
 
@@ -49,6 +56,8 @@ struct SearchView: View {
                 self.error = error.localizedDescription
                 self.showError = true
             }
+
+            loading = false
         }
     }
 }

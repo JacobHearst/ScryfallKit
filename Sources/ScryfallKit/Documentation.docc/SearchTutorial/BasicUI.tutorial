@@ -1,4 +1,4 @@
-@Tutorial(time: 5) {
+@Tutorial(time: 10) {
     @XcodeRequirement(
         title: "Xcode 14", 
         destination: "https://developer.apple.com/download/")
@@ -82,9 +82,15 @@
             }
             
             @Step {
+                You may have noticed in your testing that autocorrect can be quite annoying when entering Magic: the Gathering card names like "Fblthp, the Lost". Let's disable that with by calling `autocorrectionDisabled(true)` on our `TextField`
+                
+                @Code(name: "SearchView.swift", file: Step3DisableAutocorrect)
+            }
+            
+            @Step {
                 As a final refinement, we want to help the user understand what to do when they open our app. Let's add a message that will only show if we're not loading and we don't have search results 
                 
-                @Code(name: "SearchView.swift", file: Step3ZeroState) {
+                @Code(name: "SearchView.swift", file: Step4ZeroState) {
                     @Image(source: "Step3ZeroState", alt: "A screenshot of a message prompting the user to perform a search")
                 }
             }

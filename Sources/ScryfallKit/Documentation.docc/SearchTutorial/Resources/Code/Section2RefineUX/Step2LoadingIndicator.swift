@@ -15,7 +15,6 @@ struct SearchView: View {
         ScrollView {
             TextField("Search for Magic: the Gathering cards", text: $query)
                 .textFieldStyle(.roundedBorder)
-                .autocorrectionDisabled(true)
                 .onSubmit(search)
 
             if loading {

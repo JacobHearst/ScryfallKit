@@ -6,7 +6,6 @@ struct SearchView: View {
     var body: some View {
         TextField("Search for Magic: the Gathering cards", text: $query)
             .textFieldStyle(.roundedBorder)
-            .autocorrectionDisabled(true)
             .padding()
     }
 }

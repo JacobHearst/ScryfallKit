@@ -11,7 +11,6 @@ struct SearchView: View {
         ScrollView {
             TextField("Search for Magic: the Gathering cards", text: $query)
                 .textFieldStyle(.roundedBorder)
-                .autocorrectionDisabled(true)
 
             LazyVGrid(columns: columns) {
                 ForEach(cards) { card in
