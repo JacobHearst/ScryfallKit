@@ -4,8 +4,12 @@
 
 import Foundation
 
+/// An enum representing the two available levels of log verbosity
 public enum NetworkLogLevel {
-    case minimal, verbose
+    /// Only log when requests are made and errors
+    case minimal
+    /// Log the bodies of requests and responses
+    case verbose
 }
 
 protocol NetworkServiceProtocol {

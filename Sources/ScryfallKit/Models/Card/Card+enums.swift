@@ -143,9 +143,15 @@ extension Card {
         }
     }
 
-    /// Legality status strings
+    /// Machine-readable strings representing a card's legality in different formats
     public enum Legality: String, Codable, CaseIterable, Hashable {
-        case legal, restricted, banned
+        /// This card is legal to be played in this format
+        case legal
+        /// This card is restricted in this format (players may only have one copy in their deck)
+        case restricted
+        /// This card has been banned in this format
+        case banned
+        /// This card is not legal in this format (ex: an uncommon is not legal in pauper)
         case notLegal = "not_legal"
 
         public var label: String {

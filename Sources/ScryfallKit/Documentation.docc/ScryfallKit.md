@@ -2,7 +2,7 @@
 
 A simple Swift wrapper for the popular Magic: the Gathering API by Scryfall
 
-> This library does not implement the 10 requests/second rate limiting requested by the Scryfall team. 
+> Warning: This library does not implement the 10 requests/second rate limiting requested by the Scryfall team. 
 > 
 > "We encourage you to cache the data you download from Scryfall or process it locally in your own database, at least for 24 hours. Scryfall provides our entire database compressed for download in daily bulk data files" ([Scryfall](https://scryfall.com/docs/api#rate-limits-and-good-citizenship)).
 

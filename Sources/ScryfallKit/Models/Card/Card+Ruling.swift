@@ -7,6 +7,7 @@ import Foundation
 extension Card {
     /// An object representing a ruling on a specific card
     public struct Ruling: Codable, Identifiable {
+        /// A value or combination of values that can identify a ruling. Used to find rulings for specific cards
         public enum Identifier {
             case scryfallID(id: String)
             case mtgoID(id: Int)
@@ -15,15 +16,25 @@ extension Card {
             case collectorNumberSet(collectorNumber: String, set: String)
         }
 
-        public var source: String
+        /// A computer-readable string indicating which company produced this ruling
+        public enum Source: String, Codable {
+            case scryfall
+            case wotc
+        }
+
+        /// A computer-readable string indicating which company produced this ruling
+        public var source: Source
+        /// The date when the ruling or note was published.
         public var publishedAt: String
+        /// The text of the ruling.
         public var comment: String
+        /// The card's oracle id
         public var oracleId: String
 
         /// An id made by concatenating the oracle id and the comment itself
         public var id: String { oracleId + comment }
 
-        public init(source: String, publishedAt: String, comment: String, oracleId: String) {
+        public init(source: Source, publishedAt: String, comment: String, oracleId: String) {
             self.source = source
             self.publishedAt = publishedAt
             self.comment = comment

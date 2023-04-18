@@ -131,7 +131,7 @@ public struct Card: Codable, Identifiable, Hashable {
     public var games: [Game]
     /// True if Scryfall has a high-res image of this card
     public var highresImage: Bool
-    /// An ID for this cards art that remains consistent across reprints
+    /// An ID for this card's art that remains consistent across reprints
     public var illustrationId: UUID?
     /// A computer-readable indicator for the state of this card’s image
     public var imageStatus: ImageStatus
