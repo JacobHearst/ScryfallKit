@@ -4,9 +4,13 @@
 A Swift Package for accessing [Scryfall's REST API](https://scryfall.com/docs/api)
 
 ## Documentation
-ScryfallKit documentation is available in two places:
-1. [Swift Package Index](https://swiftpackageindex.com/JacobHearst/ScryfallKit/v5.1.1/documentation/scryfallkit)
-2. [GitHub Pages](https://jacobhearst.github.io/ScryfallKit/documentation/scryfallkit/)
+This library is largely a translation of Scryfall's REST API to a collection of Swift enums and structs. It is highly recommended that you read the [official Scryfall API docs](https://scryfall.com/docs/api) as the documentation in this project will not attempt to give in-depth explanations of how each of these endpoints work.
+
+For the most up to date documentation, use the DocC pages published [here](https://jacobhearst.github.io/ScryfallKit/documentation/scryfallkit/)
+
+To generate these pages locally, use this command from [Apple's Swift DocC plugin](https://github.com/apple/swift-docc-plugin#previewing-documentation)
+
+`swift package --disable-sandbox preview-documentation --target MyFramework`
 
 ## Getting Started
 Add ScryfallKit to your project either through the Xcode UI, or through the process below for Swift Packages

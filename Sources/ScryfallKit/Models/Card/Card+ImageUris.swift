@@ -16,11 +16,21 @@ extension Card {
             case borderCrop = "border_crop"
         }
 
+        /// A link to a small full card image.
+        /// - Note: Designed for use as thumbnail or list icon.
         public let small: String?
+        /// A link to a medium-sized full card image
         public let normal: String?
+        /// A link to a large full card image
         public let large: String?
+        /// A link to a transparent, rounded full card PNG.
+        /// - Note: This is the best image to use for videos or other high-quality content.
         public let png: String?
+        /// A link to a rectangular crop of the card’s art only.
+        /// - Note: Not guaranteed to be perfect for cards with outlier designs or strange frame arrangements
         public let artCrop: String?
+        /// A link to a full card image with the rounded corners and the majority of the border cropped off.
+        /// - Note: Designed for dated contexts where rounded images can’t be used.
         public let borderCrop: String?
 
         public init(small: String?, normal: String?, large: String?, png: String?, artCrop: String?, borderCrop: String?) {

@@ -11,21 +11,21 @@ public enum Game: String, Codable, CaseIterable {
 
 /// Comparison strategies for determining what makes a card "unique"
 ///
-/// Full reference: https://scryfall.com/docs/api/cards/search#unique-rollup-modes
+/// [Scryfall documentation](https://scryfall.com/docs/api/cards/search#unique-rollup-modes)
 public enum UniqueMode: String, Codable, CaseIterable {
     case cards, art, prints
 }
 
 /// Fields that Scryfall can sort cards by
 ///
-/// Full reference: https://scryfall.com/docs/api/cards/search#sorting-cards
+/// [Scryfall documentation](https://scryfall.com/docs/api/cards/search#sorting-cards)
 public enum SortMode: String, Codable, CaseIterable {
     case name, set, released, rarity, color, usd, tix, eur, cmc, power, toughness, edhrec, artist
 }
 
 /// Directions that Scryfall can order cards in
 ///
-/// Full reference: https://scryfall.com/docs/api/cards/search#sorting-cards
+/// [Scryfall documentation](https://scryfall.com/docs/api/cards/search#sorting-cards)
 public enum SortDirection: String, Codable, CaseIterable {
     case auto, asc, desc
 }

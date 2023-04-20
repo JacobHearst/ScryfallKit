@@ -94,7 +94,7 @@ extension Card {
 
     /// Status of Scryfall's image asset for this card
     ///
-    /// Full reference: https://scryfall.com/docs/api/images#image-statuses
+    /// [Scryfall documentation](https://scryfall.com/docs/api/images#image-statuses)
     public enum ImageStatus: String, Codable, CaseIterable {
         case missing, placeholder, lowres
         case highresScan = "highres_scan"
@@ -102,7 +102,7 @@ extension Card {
 
     /// Types of images provided by Scryfall
     ///
-    /// Full reference: https://scryfall.com/docs/api/images
+    /// [Scryfall documentation](https://scryfall.com/docs/api/images)
     public enum ImageType: String, Codable, CaseIterable {
         case png, large, normal, small
         case artCrop = "art_crop"
@@ -122,7 +122,7 @@ extension Card {
 
     /// Layouts for a Magic card
     ///
-    /// Full reference: https://scryfall.com/docs/api/layouts
+    /// [Scryfall documentation](https://scryfall.com/docs/api/layouts)
     public enum Layout: String, CaseIterable, Codable {
         case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard, token, emblem, augment, host, `class`, battle, unknown
         case modalDfc = "modal_dfc"
@@ -143,9 +143,15 @@ extension Card {
         }
     }
 
-    /// Legality status strings
+    /// Machine-readable strings representing a card's legality in different formats
     public enum Legality: String, Codable, CaseIterable, Hashable {
-        case legal, restricted, banned
+        /// This card is legal to be played in this format
+        case legal
+        /// This card is restricted in this format (players may only have one copy in their deck)
+        case restricted
+        /// This card has been banned in this format
+        case banned
+        /// This card is not legal in this format (ex: an uncommon is not legal in pauper)
         case notLegal = "not_legal"
 
         public var label: String {
@@ -174,7 +180,7 @@ extension Card {
 
     /// Card frames
     ///
-    /// Full reference: https://scryfall.com/docs/api/frames
+    /// [Scryfall documentation](https://scryfall.com/docs/api/frames)
     public enum Frame: String, Codable, CaseIterable {
         case v1993 = "1993"
         case v1997 = "1997"
@@ -185,7 +191,7 @@ extension Card {
 
     /// Effects applied to a Magic card frame
     ///
-    /// Full reference: https://scryfall.com/docs/api/frames#frame-effects
+    /// [Scryfall documentation](https://scryfall.com/docs/api/frames#frame-effects)
     public enum FrameEffect: String, Codable, CaseIterable {
         case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted, sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase, extendedart, companion, etched, snow, lesson, convertdfc, fandfc, battle, unknown
 

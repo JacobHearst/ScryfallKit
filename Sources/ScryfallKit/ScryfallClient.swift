@@ -131,7 +131,7 @@ public final class ScryfallClient {
 
     /// Get a single random card
     ///
-    /// Full reference: https://scryfall.com/docs/api/cards/random
+    /// [Scryfall documentation](https://scryfall.com/docs/api/cards/random)
     ///
     /// - Parameters:
     ///   - query: An optional fulltext search query to filter the pool of random cards.
@@ -143,7 +143,7 @@ public final class ScryfallClient {
 
     /// Get a single card using a Card identifier.
     ///
-    /// Full reference: https://scryfall.com/docs/api/cards
+    /// [Scryfall documentation](https://scryfall.com/docs/api/cards)
     ///
     /// See ``Card/Identifier`` for more information on identifiers
     ///
@@ -157,7 +157,7 @@ public final class ScryfallClient {
 
     /// Bulk request up to 75 cards at a time.
     ///
-    /// Full reference: https://scryfall.com/docs/api/cards/collection
+    /// [Scryfall documentation](https://scryfall.com/docs/api/cards/collection)
     ///
     /// - Parameters:
     ///   - identifiers: The array of identifiers
@@ -169,7 +169,7 @@ public final class ScryfallClient {
 
     /// Get a catalog of Magic datapoints (keyword abilities, artist names, spell types, etc)
     ///
-    /// Full reference: https://scryfall.com/docs/api/catalogs
+    /// [Scryfall documentation](https://scryfall.com/docs/api/catalogs)
     ///
     /// - Parameters:
     ///   - catalogType: The type of catalog to retrieve
@@ -181,7 +181,7 @@ public final class ScryfallClient {
 
     /// Get all MTG sets
     ///
-    /// Full reference: https://scryfall.com/docs/api/sets/all
+    /// [Scryfall documentation](https://scryfall.com/docs/api/sets/all)
     ///
     /// - Parameter completion: A function/block to call when the request is complete
     public func getSets(completion: @escaping (Result<ObjectList<MTGSet>, Error>) -> Void) {
@@ -190,7 +190,7 @@ public final class ScryfallClient {
 
     /// Get a specific MTG set
     ///
-    /// Full reference: https://scryfall.com/docs/api/sets
+    /// [Scryfall documentation](https://scryfall.com/docs/api/sets)
     ///
     /// See ``MTGSet/Identifier`` for more information on set identifiers
     ///
@@ -204,7 +204,7 @@ public final class ScryfallClient {
 
     /// Get the rulings for a specific card.
     ///
-    /// Full reference: https://scryfall.com/docs/api/rulings
+    /// [Scryfall documentation](https://scryfall.com/docs/api/rulings)
     ///
     /// See ``Card/Ruling/Identifier`` for more information on ruling identifiers
     ///
@@ -218,7 +218,7 @@ public final class ScryfallClient {
 
     /// Get all MTG symbology
     ///
-    /// Full reference: https://scryfall.com/docs/api/card-symbols/all
+    /// [Scryfall documentation](https://scryfall.com/docs/api/card-symbols/all)
     ///
     /// - Parameter completion: A function/block to call when the request is complete
     public func getSymbology(completion: @escaping (Result<ObjectList<Card.Symbol>, Error>) -> Void) {
@@ -227,7 +227,7 @@ public final class ScryfallClient {
 
     /// Parse a string representing a mana cost and retun Scryfall's interpretation
     ///
-    /// Full reference: https://scryfall.com/docs/api/card-symbols/parse-mana
+    /// [Scryfall documentation](https://scryfall.com/docs/api/card-symbols/parse-mana)
     ///
     /// - Parameters:
     ///   - cost: The string to parse
