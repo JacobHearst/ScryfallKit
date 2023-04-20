@@ -18,5 +18,6 @@ Some recommended starting points:
 
 ### Fundamentals
 
+- <doc:SearchTutorial>
 - <doc:RetrievingCards>
 - <doc:MultiFacedCards>
