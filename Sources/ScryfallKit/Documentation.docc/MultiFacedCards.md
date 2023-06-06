@@ -2,6 +2,10 @@
 
 Dealing with cards that have multiple faces
 
+@Metadata {
+    @PageKind(sampleCode)
+}
+
 ## Overview
 
 Magic: the Gathering has a variety of card layouts that are considered "multi-face". These layouts are often identified by an accompanying game mechanic like Transform. Another, less obvious, example would be cards with a "split" layout such as [Armed // Dangerous](https://scryfall.com/card/dgm/122/armed-dangerous) or [Appeal // Authority](https://scryfall.com/card/hou/152/appeal-authority). As each card face is treated like a separate card, each face may have different values for core fields. Mana cost, card type, and power and toughness are some examples. Scryfall has written about this topic themselves [here](https://scryfall.com/docs/api/layouts#card-faces).

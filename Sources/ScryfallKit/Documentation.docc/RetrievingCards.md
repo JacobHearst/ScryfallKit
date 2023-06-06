@@ -2,9 +2,13 @@
 
 How to retrieve one or more cards from Scryfall
 
+@Metadata {
+    @PageKind(sampleCode)
+}
+
 ## By Searching
 
-ScryfallKit provides two ways to searching for cards:
+ScryfallKit provides two ways to search for cards:
 - Using the ``ScryfallKit/CardFieldFilter`` enum
 - Using a string that contains valid [Scryfall Syntax](https://scryfall.com/docs/syntax)
 
@@ -46,14 +50,7 @@ print(narsetEnlightenedMaster.collectorNumber) // Prints "190"
 ```
 
 ## By Identifier
-There are a number of ways to identify an individual Magic: the Gathering card using the different card properties. Scryfall allows you to identify a card based on the following fields
-- [Scryfall ID](Card/Identifier/scryfallID(id:))
-- [MTGO ID](Card/Identifier/mtgoID(id:))
-- [Multiverse ID](Card/Identifier/multiverseID(id:))
-- [Arena ID](Card/Identifier/arenaID(id:))
-- [TCGPlayer ID](Card/Identifier/tcgPlayerID(id:))
-- [Cardmarket ID](Card/Identifier/cardMarketID(id:))
-- [Set code, collector #, and language](Card/Identifier/setCodeCollectorNo(setCode:collectorNo:lang:))
+Scryfall's data contains the unique IDs used by several other services and marketplaces. In addition, cards are uniquely identifiable by the combination of their set code, collector number, and language. These identifiers are reflected in ``Card/Identifier``
 
 You can use these identifiers to retrieve individual cards with ``ScryfallKit/ScryfallClient/getCard(identifier:completion:)`` or to retrieve up to 75 cards at once with ``ScryfallClient/getCardCollection(identifiers:completion:)``
 
