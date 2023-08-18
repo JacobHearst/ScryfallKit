@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 public extension Card {
     /// Get the legality of a card in a given format
@@ -82,7 +83,11 @@ public extension Card {
         }
 
         guard let uri = uris.uri(for: type) else {
-            print("No URI for image type \(type)")
+            if #available(iOS 14.0, macOS 11.0, *) {
+                Logger.main.error("No URI for image type \(type.rawValue)")
+            } else {
+                print("No URI for image type \(type)")
+            }
             return nil
         }
 

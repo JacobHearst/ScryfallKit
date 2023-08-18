@@ -5,7 +5,7 @@
 import Foundation
 
 struct GetSymbology: EndpointRequest {
-    var path: String? = "symbology"
+    var path = "symbology"
     var queryParams: [URLQueryItem] = []
     var requestMethod: RequestMethod = .GET
     var body: Data?
@@ -16,7 +16,7 @@ struct ParseManaCost: EndpointRequest {
     var cost: String
 
     // Protocol vars
-    var path: String? = "symbology/parse-mana"
+    var path = "symbology/parse-mana"
     var queryParams: [URLQueryItem]
     var requestMethod: RequestMethod = .GET
     var body: Data?

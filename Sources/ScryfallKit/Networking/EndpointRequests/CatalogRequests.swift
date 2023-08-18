@@ -7,7 +7,7 @@ import Foundation
 struct GetCatalog: EndpointRequest {
     var catalogType: Catalog.`Type`
 
-    var path: String? {
+    var path: String {
         return "catalog/\(catalogType.rawValue)"
     }
 

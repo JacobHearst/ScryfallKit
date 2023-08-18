@@ -7,7 +7,7 @@ import Foundation
 struct GetRulings: EndpointRequest {
     var identifier: Card.Ruling.Identifier
 
-    var path: String? {
+    var path: String {
         switch identifier {
         case .multiverseID(let id):
             return "cards/multiverse/\(id)/rulings"

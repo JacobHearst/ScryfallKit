@@ -3,6 +3,7 @@
 //  
 
 import Foundation
+import OSLog
 
 /// An enum representing the two available levels of log verbosity
 public enum NetworkLogLevel {
@@ -23,14 +24,22 @@ struct NetworkService: NetworkServiceProtocol {
 
     func request<T: Decodable>(_ request: EndpointRequest, as type: T.Type, completion: @escaping (Result<T, Error>) -> Void) {
         guard let urlRequest = request.urlRequest else {
-            print("Invalid url request")
+            if #available(macOS 11.0, iOS 14.0, *) {
+                Logger.network.error("Invalid url request")
+            } else {
+                print("Invalid url request")
+            }
             completion(.failure(ScryfallKitError.invalidUrl))
             return
         }
 
         if logLevel == .verbose, let body = urlRequest.httpBody, let JSONString = String(data: body, encoding: String.Encoding.utf8) {
             print("Sending request with body:")
-            print(JSONString)
+            if #available(macOS 11.0, iOS 14.0, *) {
+                Logger.network.debug("\(JSONString)")
+            } else {
+                print(JSONString)
+            }
         }
 
         let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
@@ -42,7 +51,11 @@ struct NetworkService: NetworkServiceProtocol {
             }
         }
 
-        print("Making request to: '\(String(describing: urlRequest.url?.absoluteString))'")
+        if #available(macOS 11.0, iOS 14.0, *) {
+            Logger.network.debug("Making request to: '\(String(describing: urlRequest.url?.absoluteString))'")
+        } else {
+            print("Making request to: '\(String(describing: urlRequest.url?.absoluteString))'")
+        }
         task.resume()
     }
 
@@ -52,12 +65,10 @@ struct NetworkService: NetworkServiceProtocol {
         }
 
         guard let content = data else {
-            print("Data was nil")
             throw ScryfallKitError.noDataReturned
         }
 
         guard let httpStatus = (response as? HTTPURLResponse)?.statusCode else {
-            print("Couldn't cast httpStatus property of response to HTTPURLResponse")
             throw ScryfallKitError.failedToCast("httpStatus property of response to HTTPURLResponse")
         }
 
@@ -67,13 +78,16 @@ struct NetworkService: NetworkServiceProtocol {
         if (200..<300).contains(httpStatus) {
             if logLevel == .verbose {
                 let responseBody = String(data: content, encoding: .utf8)
-                print(responseBody ?? "Couldn't represent response body as string")
+                if #available(macOS 11.0, iOS 14.0, *) {
+                    Logger.network.debug("\(responseBody ?? "Couldn't represent response body as string")")
+                } else {
+                    print(responseBody ?? "Couldn't represent response body as string")
+                }
             }
 
             return try decoder.decode(dataType, from: content)
         } else {
             let httpError = try decoder.decode(ScryfallError.self, from: content)
-            print(httpError)
             throw ScryfallKitError.scryfallError(httpError)
         }
     }
