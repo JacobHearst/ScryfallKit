@@ -3,7 +3,7 @@
 //  
 
 import XCTest
-@testable import ScryfallKit
+import ScryfallKit
 
 class ComparableTests: XCTestCase {
     func testColorSort() {

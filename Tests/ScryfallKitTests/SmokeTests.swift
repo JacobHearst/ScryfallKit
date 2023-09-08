@@ -18,7 +18,7 @@ final class SmokeTests: XCTestCase {
         // Skip double sided because there aren't any double_sided or battle cards being returned by Scryfall
         for layout in Card.Layout.allCases where ![.doubleSided, .unknown, .battle].contains(layout) {
             let cards = try await client.searchCards(query: "layout:\(layout.rawValue)")
-            XCTAssertFalse(cards.data.isEmpty)
+            checkForUnknowns(in: cards.data)
         }
     }
 
@@ -160,25 +160,25 @@ final class SmokeTests: XCTestCase {
 
         // Search
         var results = try await client.searchCards(filters: [filter])
-        try checkForUnknowns(in: results.data)
+        checkForUnknowns(in: results.data)
         var page = 1
 
         // Go through every page
         while results.hasMore ?? false {
             page += 1
             results = try await client.searchCards(filters: [filter], page: page)
-            try checkForUnknowns(in: results.data)
+            checkForUnknowns(in: results.data)
             usleep(500000) // Wait for 0.5 seconds
         }
     }
 
-    private func checkForUnknowns(in cards: [Card]) throws {
+    private func checkForUnknowns(in cards: [Card]) {
         for card in cards {
             XCTAssertNotEqual(card.layout, .unknown, "Unknown layout on \(card.name)")
             XCTAssertNotEqual(card.setType, .unknown, "Unknown set type on \(card.name)")
             if let frameEffects = card.frameEffects {
                 for effect in frameEffects {
-                    XCTAssertNotEqual(effect, .unknown, "Unknown frame effect on \(card.name)")
+                    XCTAssertNotEqual(effect, .unknown, "Unknown frame effect on \(card.name) [\(card.set)]")
                 }
             }
         }

@@ -3,11 +3,12 @@
 //  
 
 import Foundation
+import OSLog
 
 struct SearchCards: EndpointRequest {
     var body: Data?
     var requestMethod: RequestMethod = .GET
-    var path: String? = "cards/search"
+    var path = "cards/search"
     var queryParams: [URLQueryItem]
 
     init(query: String,
@@ -35,7 +36,7 @@ struct SearchCards: EndpointRequest {
 struct GetCardNamed: EndpointRequest {
     var body: Data?
     var requestMethod: RequestMethod = .GET
-    var path: String? = "cards/named"
+    var path = "cards/named"
     var queryParams: [URLQueryItem]
 
     init(exact: String? = nil, fuzzy: String? = nil, set: String? = nil) {
@@ -50,7 +51,7 @@ struct GetCardNamed: EndpointRequest {
 struct GetCardAutocomplete: EndpointRequest {
     var body: Data?
     var requestMethod: RequestMethod = .GET
-    var path: String? = "cards/autocomplete"
+    var path = "cards/autocomplete"
     var queryParams: [URLQueryItem]
 
     init(query: String, includeExtras: Bool? = nil) {
@@ -64,7 +65,7 @@ struct GetCardAutocomplete: EndpointRequest {
 struct GetRandomCard: EndpointRequest {
     var body: Data?
     var requestMethod: RequestMethod = .GET
-    var path: String? = "cards/random"
+    var path = "cards/random"
     var queryParams: [URLQueryItem]
 
     init(query: String?) {
@@ -77,7 +78,7 @@ struct GetRandomCard: EndpointRequest {
 struct GetCard: EndpointRequest {
     let identifier: Card.Identifier
 
-    var path: String? {
+    var path: String {
         switch identifier {
         case .scryfallID(let id):
             return "cards/\(id)"
@@ -88,8 +89,13 @@ struct GetCard: EndpointRequest {
         default:
             // This guard should never trip. The only card identifier that doesn't have provider/id is the set code/collector
             guard let id = identifier.id else {
-                print("Provided identifier doesn't have a provider or doesn't have an id")
-                return nil
+                if #available(iOS 14.0, macOS 11.0, *) {
+                    Logger.main.error("Provided identifier doesn't have a provider or doesn't have an id")
+                } else {
+                    print("Provided identifier doesn't have a provider or doesn't have an id")
+                }
+
+                fatalError("Encountered a situation that shouldn't be possible: Card identifier's id property was nil")
             }
 
             return "cards/\(identifier.provider)/\(id)"
@@ -102,7 +108,7 @@ struct GetCard: EndpointRequest {
 }
 
 struct GetCardCollection: EndpointRequest {
-    var path: String? = "cards/collection"
+    var path = "cards/collection"
     var queryParams: [URLQueryItem] = []
     var requestMethod: RequestMethod = .POST
     var body: Data?
@@ -114,7 +120,11 @@ struct GetCardCollection: EndpointRequest {
         do {
             body = try JSONSerialization.data(withJSONObject: requestBody)
         } catch {
-            print("Errored serializing dict to JSON for GetCardCollection request")
+            if #available(iOS 14.0, macOS 11.0, *) {
+                Logger.main.error("Errored serializing dict to JSON for GetCardCollection request")
+            } else {
+                print("Errored serializing dict to JSON for GetCardCollection request")
+            }
         }
     }
 }

@@ -33,6 +33,14 @@ import ScryfallKit
 let client = ScryfallClient()
 
 // Retrieve the Strixhaven Mystical Archive printing of Doom Blade
+do {
+    let doomBlade = try await client.getCardByName(exact: "Doom Blade", set: "STA")
+    print(doomBlade.cmc)
+} catch {
+    print("Received error: \(error)")
+}
+
+// Or using a completion handler
 client.getCardByName(exact: "Doom Blade", set: "STA") { result in
     switch result {
     case .success(let doomBlade):
@@ -40,14 +48,6 @@ client.getCardByName(exact: "Doom Blade", set: "STA") { result in
     case .failure(let error):
         print("Received error: \(error)")
     }
-}
-
-// Or using async
-do {
-    let doomBlade = try await client.getCardByName(exact: "Doom Blade", set: "STA")
-    print(doomBlade.cmc)
-} catch {
-    print("Received error: \(error)")
 }
 ```
 

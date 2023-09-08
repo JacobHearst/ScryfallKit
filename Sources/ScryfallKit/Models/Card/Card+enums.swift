@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import OSLog
 
 extension Card {
     /// A value or combination of values that uniquely identify a Magic card
@@ -138,7 +139,11 @@ extension Card {
         public init(from decoder: Decoder) throws {
             self = (try? Self(rawValue: decoder.singleValueContainer().decode(RawValue.self))) ?? .unknown
             if self == .unknown, let rawValue = try? String(from: decoder) {
-                print("Decoded unknown FrameEffect: \(rawValue)")
+                if #available(iOS 14.0, macOS 11.0, *) {
+                    Logger.decoder.error("Decoded unknown Layout: \(rawValue)")
+                } else {
+                    print("Decoded unknown Layout: \(rawValue)")
+                }
             }
         }
     }
@@ -156,8 +161,10 @@ extension Card {
 
         public var label: String {
             switch self {
-            case .notLegal: return "Not Legal"
-            default: return rawValue.capitalized
+            case .notLegal:
+                return "Not Legal"
+            default:
+                return rawValue.capitalized
             }
         }
     }
@@ -193,12 +200,16 @@ extension Card {
     ///
     /// [Scryfall documentation](https://scryfall.com/docs/api/frames#frame-effects)
     public enum FrameEffect: String, Codable, CaseIterable {
-        case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted, sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase, extendedart, companion, etched, snow, lesson, convertdfc, fandfc, battle, unknown
+        case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted, sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase, extendedart, companion, etched, snow, lesson, convertdfc, fandfc, battle, gravestone, fullart, unknown
 
         public init(from decoder: Decoder) throws {
             self = try FrameEffect(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
             if self == .unknown, let rawValue = try? String(from: decoder) {
-                print("Decoded unknown FrameEffect: \(rawValue)")
+                if #available(iOS 14.0, macOS 11.0, *) {
+                    Logger.decoder.error("Decoded unknown FrameEffect: \(rawValue)")
+                } else {
+                    print("Decoded unknown FrameEffect: \(rawValue)")
+                }
             }
         }
     }

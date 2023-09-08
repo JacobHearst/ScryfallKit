@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import OSLog
 
 /// A set represents a group of related Magic cards
 ///
@@ -42,7 +43,11 @@ public struct MTGSet: Codable, Identifiable, Hashable {
         public init(from decoder: Decoder) throws {
             self = try Self(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
             if self == .unknown, let rawValue = try? String(from: decoder) {
-                print("Decoded unknown MTGSet Type: \(rawValue)")
+                if #available(iOS 14.0, macOS 11.0, *) {
+                    Logger.main.warning("Decoded unknown MTGSet Type: \(rawValue)")
+                } else {
+                    print("Decoded unknown MTGSet Type: \(rawValue)")
+                }
             }
         }
     }
