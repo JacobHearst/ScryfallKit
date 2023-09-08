@@ -1,0 +1,99 @@
+@Tutorial(time: 10) {
+    @XcodeRequirement(
+        title: "Xcode 14", 
+        destination: "https://developer.apple.com/download/")
+
+    @Intro(title: "Creating a basic search experience") {
+        Scryfall's primary function is its search feature, with ScryfallKit you can bring that search to Apple platforms .
+    }
+    
+    @Section(title: "Implementing basic search") {
+        @ContentAndMedia {
+            Search engines have two primary areas: the search bar and the results. Let's create a basic UI that covers both of these areas.
+            
+            @Image(source: BasicUIFinalProductSearchCrop, alt: "The top third of a screenshot of the final product of this tutorial")
+        }
+        
+        @Steps {
+            @Step {
+                Create a new SwiftUI view
+                
+                @Code(name: "SearchView.swift", file: Step0CreateView)
+            }
+            
+            @Step {
+                Add a `TextField` to act as the search input.
+                
+                @Code(name: "SearchView.swift", file: Step1AddInput)
+            }
+            
+            @Step {
+                Wrap your `TextField` in a `ScrollView` and then add a 2-columned `LazyVGrid` below the search input to display the images of the cards returned by the search.
+                
+                @Code(name: "SearchView.swift", file: Step2AddLazyVGrid)
+            }
+            
+            @Step {
+                Retrieve the URL to the card image with ``ScryfallKit/Card/getImageURL(type:getSecondFace:)`` and display it with an `AsyncImage`.
+                
+                Exact image dimensions can be found in [Scryfall's docs](https://scryfall.com/docs/api/images) but `.resizable()` combined with `.scaledToFit()` should suffice for most image sizes.
+                
+                @Code(name: "SearchView.swift", file: Step3AddAsyncImage) {
+                    @Image(source: Step3AddAsyncImagePreview, alt: "A screenshot of the final product of step 1 in an iOS simulator")
+                }
+            }
+            
+            @Step {
+                Create a `search` function that submits the `query` to a ``ScryfallKit/ScryfallClient`` instance and then sets `cards` to the first page of results.
+                
+                @Code(name: "SearchView.swift", file: Step4AddSearch) {
+                    @Image(source: Step4AddSearchPreview, alt: "A screenshot of the final product of step 2 in an iOS simulator")
+                }
+            }
+            
+            @Step {
+                Run your app and try entering "type:creature" in your search bar. You should see the grid of cards populate.
+
+                @Video(source: "BasicUIFinalProduct.mov", poster: "BasicUIFinalProduct.png")
+            }
+        }
+    }
+    
+    @Section(title: "Refining UX") {
+        While we can now search for and view cards, the user experience leaves something to be desired. There are two main issues with the current implementation: errors aren't ever presented to the user and there's no loading indicator when a search is submitted
+    
+        @Steps {
+            @Step {
+                We'll be displaying errors to the user via an alert. Create some variables to hold the error message and the open state of the alert. Then call `.alert` on the top level `ScrollView`.
+                
+                @Code(name: "SearchView.swift", file: Step1ShowErrors, previousFile: Step4Search) {
+                    @Image(source: "Step1ShowErrorPreview", alt: "A screenshot of an alert displaying an error in an iOS simulator")
+                }
+            }
+            
+            @Step {
+                Add a `loading` property and then add a conditional statement to determine whether to show a `ProgressView` or the search results
+                
+                Set `loading` to `true` and run the app or perform a search to see the loading indicator in action
+                
+                @Code(name: "SearchView.swift", file: Step2LoadingIndicator) {
+                    @Image(source: "Step2LoadingIndicatorPreview", alt: "A screenshot of a loading indicator where the card grid was")
+                }
+            }
+            
+            @Step {
+                You may have noticed in your testing that autocorrect can be quite annoying when entering Magic: the Gathering card names like "Fblthp, the Lost". Let's disable that with by calling `autocorrectionDisabled(true)` on our `TextField`
+                
+                @Code(name: "SearchView.swift", file: Step3DisableAutocorrect)
+            }
+            
+            @Step {
+                As a final refinement, we want to help the user understand what to do when they open our app. Let's add a message that will only show if we're not loading and we don't have search results 
+                
+                @Code(name: "SearchView.swift", file: Step4ZeroState) {
+                    @Image(source: "Step3ZeroState", alt: "A screenshot of a message prompting the user to perform a search")
+                }
+            }
+        }
+    }
+}
