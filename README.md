@@ -10,7 +10,7 @@ For the most up to date documentation, use the DocC pages published [here](https
 
 To generate these pages locally, use this command from [Apple's Swift DocC plugin](https://github.com/apple/swift-docc-plugin#previewing-documentation)
 
-`swift package --disable-sandbox preview-documentation --target MyFramework`
+`swift package --disable-sandbox preview-documentation --target ScryfallKit`
 
 ## Getting Started
 Add ScryfallKit to your project either through the Xcode UI, or through the process below for Swift Packages
