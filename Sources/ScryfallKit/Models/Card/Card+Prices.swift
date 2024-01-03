@@ -4,7 +4,7 @@
 
 extension Card {
     /// Daily price information for a Magic card
-    public struct Prices: Codable, Hashable {
+    public struct Prices: Codable, Hashable, Sendable {
         /// The price of this card in tix
         public var tix: String?
         /// The price of this card in usd

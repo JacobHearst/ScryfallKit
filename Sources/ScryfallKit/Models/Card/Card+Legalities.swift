@@ -6,7 +6,7 @@ import Foundation
 
 extension Card {
     /// The legality of a Magic card in each format
-    public struct Legalities: Codable, Hashable {
+    public struct Legalities: Codable, Hashable, Sendable {
         public let standard: Legality?
         public let historic: Legality?
         public let pioneer: Legality?

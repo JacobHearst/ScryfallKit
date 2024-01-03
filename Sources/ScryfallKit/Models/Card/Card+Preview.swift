@@ -6,7 +6,7 @@ import Foundation
 
 extension Card {
     /// Metadata about a Magic card's preview
-    public struct Preview: Codable, Hashable {
+    public struct Preview: Codable, Hashable, Sendable {
         /// The name of the source that previewed this card.
         public var source: String
         /// A link to the preview for this card.

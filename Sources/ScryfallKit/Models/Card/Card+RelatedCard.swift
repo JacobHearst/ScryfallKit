@@ -8,9 +8,9 @@ extension Card {
     /// A Magic card that's related to another Magic card
     ///
     /// - Note: In the documentation of this struct, "this card" will refer to the `RelatedCard` object while "the original card" will refer to the `Card` object that contains this object
-    public struct RelatedCard: Codable, Hashable {
+    public struct RelatedCard: Codable, Hashable, Sendable {
         /// The type of relationship
-        public enum Component: String, Codable, CaseIterable, Hashable {
+        public enum Component: String, Codable, CaseIterable, Hashable, Sendable {
             /// This card is a token that's made by the original card
             case token
             /// This card melds with the original card

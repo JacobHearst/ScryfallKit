@@ -7,7 +7,7 @@ import Foundation
 /// A Magic: the Gathering card
 ///
 /// [Scryfall documentation](https://scryfall.com/docs/api/cards)
-public struct Card: Codable, Identifiable, Hashable {
+public struct Card: Codable, Identifiable, Hashable, Sendable {
     // MARK: Core fields
     /// The identifier of this card on Scryfall
     public var id: UUID

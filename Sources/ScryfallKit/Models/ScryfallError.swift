@@ -5,7 +5,7 @@
 import Foundation
 
 /// An error returned by the Scryfall REST API
-public struct ScryfallError: Codable, CustomStringConvertible {
+public struct ScryfallError: Codable, CustomStringConvertible, Sendable {
     /// An integer HTTP status code for this error.
     public var status: Int
     /// A computer-friendly string representing the appropriate HTTP status code.

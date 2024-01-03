@@ -6,7 +6,7 @@ import Foundation
 import OSLog
 
 /// An enum representing the two available levels of log verbosity
-public enum NetworkLogLevel {
+public enum NetworkLogLevel: Sendable {
     /// Only log when requests are made and errors
     case minimal
     /// Log the bodies of requests and responses
@@ -14,15 +14,15 @@ public enum NetworkLogLevel {
 }
 
 protocol NetworkServiceProtocol {
-    func request<T: Decodable>(_ request: EndpointRequest, as type: T.Type, completion: @escaping (Result<T, Error>) -> Void)
+    func request<T: Decodable>(_ request: EndpointRequest, as type: T.Type, completion: @Sendable @escaping (Result<T, Error>) -> Void)
     @available(macOS 10.15.0, *, iOS 13.0.0, *)
     func request<T: Decodable>(_ request: EndpointRequest, as type: T.Type) async throws -> T
 }
 
-struct NetworkService: NetworkServiceProtocol {
+struct NetworkService: NetworkServiceProtocol, Sendable {
     var logLevel: NetworkLogLevel
 
-    func request<T: Decodable>(_ request: EndpointRequest, as type: T.Type, completion: @escaping (Result<T, Error>) -> Void) {
+    func request<T: Decodable>(_ request: EndpointRequest, as type: T.Type, completion: @Sendable @escaping (Result<T, Error>) -> Void) {
         guard let urlRequest = request.urlRequest else {
             if #available(macOS 11.0, iOS 14.0, *) {
                 Logger.network.error("Invalid url request")
@@ -100,5 +100,4 @@ struct NetworkService: NetworkServiceProtocol {
             }
         }
     }
-
 }

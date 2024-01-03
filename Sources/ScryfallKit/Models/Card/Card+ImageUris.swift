@@ -6,7 +6,7 @@ import Foundation
 
 extension Card {
     /// Image URIs for each ``Card/ImageType``
-    public struct ImageUris: Codable, Hashable {
+    public struct ImageUris: Codable, Hashable, Sendable {
         private enum CodingKeys: String, CodingKey {
             case small
             case normal

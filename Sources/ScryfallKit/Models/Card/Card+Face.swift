@@ -8,7 +8,7 @@ extension Card {
     /// A single face of a multi-faced card
     ///
     /// [Scryfall documentation](https://scryfall.com/docs/api/layouts#card-faces)
-    public struct Face: Codable, Hashable {
+    public struct Face: Codable, Hashable, Sendable {
         /// The converted mana cost of this card face, now called the "mana value"
         public var cmc: Double?
         /// The identifier for this card face’s oracle identity.

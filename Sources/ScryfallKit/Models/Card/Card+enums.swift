@@ -89,14 +89,14 @@ extension Card {
     }
 
     /// Finishes for a printed card
-    public enum Finish: String, Codable, CaseIterable {
+    public enum Finish: String, Codable, CaseIterable, Sendable {
         case nonfoil, foil, etched, glossy
     }
 
     /// Status of Scryfall's image asset for this card
     ///
     /// [Scryfall documentation](https://scryfall.com/docs/api/images#image-statuses)
-    public enum ImageStatus: String, Codable, CaseIterable {
+    public enum ImageStatus: String, Codable, CaseIterable, Sendable {
         case missing, placeholder, lowres
         case highresScan = "highres_scan"
     }
@@ -111,7 +111,7 @@ extension Card {
     }
 
     /// Card rarities
-    public enum Rarity: String, Codable, CaseIterable, Comparable {
+    public enum Rarity: String, Codable, CaseIterable, Comparable, Sendable {
         case common, uncommon, rare, special, mythic, bonus
 
         /// Order according to Scryfall
@@ -124,7 +124,7 @@ extension Card {
     /// Layouts for a Magic card
     ///
     /// [Scryfall documentation](https://scryfall.com/docs/api/layouts)
-    public enum Layout: String, CaseIterable, Codable {
+    public enum Layout: String, CaseIterable, Codable, Sendable {
         case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard, token, emblem, augment, host, `class`, battle, unknown
         case modalDfc = "modal_dfc"
         case doubleSided = "double_sided"
@@ -149,7 +149,7 @@ extension Card {
     }
 
     /// Machine-readable strings representing a card's legality in different formats
-    public enum Legality: String, Codable, CaseIterable, Hashable {
+    public enum Legality: String, Codable, CaseIterable, Hashable, Sendable {
         /// This card is legal to be played in this format
         case legal
         /// This card is restricted in this format (players may only have one copy in their deck)
@@ -170,7 +170,7 @@ extension Card {
     }
 
     /// A string representing one of the colors (and colorless) in Magic
-    public enum Color: String, Codable, CaseIterable, Comparable {
+    public enum Color: String, Codable, CaseIterable, Comparable, Sendable {
         // swiftlint:disable:next identifier_name
         case W, U, B, R, G, C
 
@@ -181,14 +181,14 @@ extension Card {
     }
 
     /// Card border colors
-    public enum BorderColor: String, Codable, CaseIterable {
+    public enum BorderColor: String, Codable, CaseIterable, Sendable {
         case black, borderless, gold, silver, white
     }
 
     /// Card frames
     ///
     /// [Scryfall documentation](https://scryfall.com/docs/api/frames)
-    public enum Frame: String, Codable, CaseIterable {
+    public enum Frame: String, Codable, CaseIterable, Sendable {
         case v1993 = "1993"
         case v1997 = "1997"
         case v2003 = "2003"
@@ -199,7 +199,7 @@ extension Card {
     /// Effects applied to a Magic card frame
     ///
     /// [Scryfall documentation](https://scryfall.com/docs/api/frames#frame-effects)
-    public enum FrameEffect: String, Codable, CaseIterable {
+    public enum FrameEffect: String, Codable, CaseIterable, Sendable {
         case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted, sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase, extendedart, companion, etched, snow, lesson, convertdfc, fandfc, battle, gravestone, fullart, vehicle, borderless, extended, unknown
 
         public init(from decoder: Decoder) throws {

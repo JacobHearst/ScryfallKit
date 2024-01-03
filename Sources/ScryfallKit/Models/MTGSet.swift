@@ -8,7 +8,7 @@ import OSLog
 /// A set represents a group of related Magic cards
 ///
 /// [Scryfall documentation](https://scryfall.com/docs/api/sets)
-public struct MTGSet: Codable, Identifiable, Hashable {
+public struct MTGSet: Codable, Identifiable, Hashable, Sendable {
     /// An value that can be used to identify a set
     public enum Identifier {
         case code(code: String)
@@ -30,7 +30,7 @@ public struct MTGSet: Codable, Identifiable, Hashable {
     /// A machine-readable value describing the type of set this is.
     ///
     /// See [Scryfall's docs](https://scryfall.com/docs/api/sets#set-types) for more information on set types
-    public enum `Type`: String, Codable {
+    public enum `Type`: String, Codable, Sendable {
         // While "masters" is in fact not inclusive, it's also a name that we can't control
         // swiftlint:disable:next inclusive_language
         case core, expansion, masters, masterpiece, spellbook, commander, planechase, archenemy, vanguard, funny, starter, box, promo, token, memorabilia, arsenal, alchemy, minigame, unknown
