@@ -40,7 +40,7 @@ public final class ScryfallClient {
                             includeMultilingual: Bool? = nil,
                             includeVariations: Bool? = nil,
                             page: Int? = nil,
-                            completion: @escaping (Result<ObjectList<Card>, Error>) -> Void) {
+                            completion: @Sendable @escaping (Result<ObjectList<Card>, Error>) -> Void) {
         let query = filters.map { $0.filterString }.joined(separator: " ")
         searchCards(query: query,
                     unique: unique,
@@ -75,7 +75,7 @@ public final class ScryfallClient {
                             includeMultilingual: Bool? = nil,
                             includeVariations: Bool? = nil,
                             page: Int? = nil,
-                            completion: @escaping (Result<ObjectList<Card>, Error>) -> Void) {
+                            completion: @Sendable @escaping (Result<ObjectList<Card>, Error>) -> Void) {
 
         let request = SearchCards(query: query,
                                   unique: unique,
@@ -97,7 +97,7 @@ public final class ScryfallClient {
     ///   - exact: The exact card name to search for, case insenstive.
     ///   - set: A set code to limit the search to one set.
     ///   - completion: A function/block to be called when the search is complete
-    public func getCardByName(exact: String, set: String? = nil, completion: @escaping (Result<Card, Error>) -> Void) {
+    public func getCardByName(exact: String, set: String? = nil, completion: @Sendable @escaping (Result<Card, Error>) -> Void) {
         let request = GetCardNamed(exact: exact, set: set)
         networkService.request(request, as: Card.self, completion: completion)
     }
@@ -110,7 +110,7 @@ public final class ScryfallClient {
     ///   - fuzzy: The exact card name to search for, case insenstive.
     ///   - set: A set code to limit the search to one set.
     ///   - completion: A function/block to be called when the search is complete
-    public func getCardByName(fuzzy: String, set: String? = nil, completion: @escaping (Result<Card, Error>) -> Void) {
+    public func getCardByName(fuzzy: String, set: String? = nil, completion: @Sendable @escaping (Result<Card, Error>) -> Void) {
         let request = GetCardNamed(fuzzy: fuzzy, set: set)
         networkService.request(request, as: Card.self, completion: completion)
     }
@@ -124,7 +124,7 @@ public final class ScryfallClient {
     ///   - includeExtras: If true, extra cards (tokens, planes, vanguards, etc) will be included. Defaults to false.
     ///   - completion: A function/block to be called when the search is complete
     /// - Returns: A ``Catalog`` of card names or an error
-    public func getCardNameAutocomplete(query: String, includeExtras: Bool? = nil, completion: @escaping (Result<Catalog, Error>) -> Void) {
+    public func getCardNameAutocomplete(query: String, includeExtras: Bool? = nil, completion: @Sendable @escaping (Result<Catalog, Error>) -> Void) {
         let request = GetCardAutocomplete(query: query, includeExtras: includeExtras)
         networkService.request(request, as: Catalog.self, completion: completion)
     }
@@ -136,7 +136,7 @@ public final class ScryfallClient {
     /// - Parameters:
     ///   - query: An optional fulltext search query to filter the pool of random cards.
     ///   - completion: A function/block to call when the request is complete
-    public func getRandomCard(query: String? = nil, completion: @escaping (Result<Card, Error>) -> Void) {
+    public func getRandomCard(query: String? = nil, completion: @Sendable @escaping (Result<Card, Error>) -> Void) {
         let request = GetRandomCard(query: query)
         networkService.request(request, as: Card.self, completion: completion)
     }
@@ -150,7 +150,7 @@ public final class ScryfallClient {
     /// - Parameters:
     ///   - identifier: The identifier for the desired card
     ///   - completion: A function/block to call when the request is complete
-    public func getCard(identifier: Card.Identifier, completion: @escaping (Result<Card, Error>) -> Void) {
+    public func getCard(identifier: Card.Identifier, completion: @Sendable @escaping (Result<Card, Error>) -> Void) {
         let request = GetCard(identifier: identifier)
         networkService.request(request, as: Card.self, completion: completion)
     }
@@ -162,7 +162,7 @@ public final class ScryfallClient {
     /// - Parameters:
     ///   - identifiers: The array of identifiers
     ///   - completion: A function/block to call when the request is complete
-    public func getCardCollection(identifiers: [Card.CollectionIdentifier], completion: @escaping (Result<ObjectList<Card>, Error>) -> Void) {
+    public func getCardCollection(identifiers: [Card.CollectionIdentifier], completion: @Sendable @escaping (Result<ObjectList<Card>, Error>) -> Void) {
         let request = GetCardCollection(identifiers: identifiers)
         networkService.request(request, as: ObjectList<Card>.self, completion: completion)
     }
@@ -174,7 +174,7 @@ public final class ScryfallClient {
     /// - Parameters:
     ///   - catalogType: The type of catalog to retrieve
     ///   - completion: A function/block to call when the request is complete
-    public func getCatalog(catalogType: Catalog.`Type`, completion: @escaping (Result<Catalog, Error>) -> Void) {
+    public func getCatalog(catalogType: Catalog.`Type`, completion: @Sendable @escaping (Result<Catalog, Error>) -> Void) {
         let request = GetCatalog(catalogType: catalogType)
         networkService.request(request, as: Catalog.self, completion: completion)
     }
@@ -184,7 +184,7 @@ public final class ScryfallClient {
     /// [Scryfall documentation](https://scryfall.com/docs/api/sets/all)
     ///
     /// - Parameter completion: A function/block to call when the request is complete
-    public func getSets(completion: @escaping (Result<ObjectList<MTGSet>, Error>) -> Void) {
+    public func getSets(completion: @Sendable @escaping (Result<ObjectList<MTGSet>, Error>) -> Void) {
         networkService.request(GetSets(), as: ObjectList<MTGSet>.self, completion: completion)
     }
 
@@ -197,7 +197,7 @@ public final class ScryfallClient {
     /// - Parameters:
     ///   - identifier: The set's identifier
     ///   - completion: A function/block to call when the request is complete
-    public func getSet(identifier: MTGSet.Identifier, completion: @escaping (Result<MTGSet, Error>) -> Void) {
+    public func getSet(identifier: MTGSet.Identifier, completion: @Sendable @escaping (Result<MTGSet, Error>) -> Void) {
         let request = GetSet(identifier: identifier)
         networkService.request(request, as: MTGSet.self, completion: completion)
     }
@@ -211,7 +211,7 @@ public final class ScryfallClient {
     /// - Parameters:
     ///   - identifier: An identifier for the ruling you wish to retrieve
     ///   - completion: A function/block to call when the request is complete
-    public func getRulings(_ identifier: Card.Ruling.Identifier, completion: @escaping (Result<ObjectList<Card.Ruling>, Error>) -> Void) {
+    public func getRulings(_ identifier: Card.Ruling.Identifier, completion: @Sendable @escaping (Result<ObjectList<Card.Ruling>, Error>) -> Void) {
         let request = GetRulings(identifier: identifier)
         networkService.request(request, as: ObjectList<Card.Ruling>.self, completion: completion)
     }
@@ -221,7 +221,7 @@ public final class ScryfallClient {
     /// [Scryfall documentation](https://scryfall.com/docs/api/card-symbols/all)
     ///
     /// - Parameter completion: A function/block to call when the request is complete
-    public func getSymbology(completion: @escaping (Result<ObjectList<Card.Symbol>, Error>) -> Void) {
+    public func getSymbology(completion: @Sendable @escaping (Result<ObjectList<Card.Symbol>, Error>) -> Void) {
         networkService.request(GetSymbology(), as: ObjectList<Card.Symbol>.self, completion: completion)
     }
 
@@ -232,7 +232,7 @@ public final class ScryfallClient {
     /// - Parameters:
     ///   - cost: The string to parse
     ///   - completion: A function/block to call when the request is complete
-    public func parseManaCost(_ cost: String, completion: @escaping (Result<Card.ManaCost, Error>) -> Void) {
+    public func parseManaCost(_ cost: String, completion: @Sendable @escaping (Result<Card.ManaCost, Error>) -> Void) {
         let request = ParseManaCost(cost: cost)
         networkService.request(request, as: Card.ManaCost.self, completion: completion)
     }
