@@ -31,7 +31,7 @@ jobs:
           --output-path github-pages
 
     - name: Upload docs archive
-      uses: actions/upload-pages-artifact@main
+      uses: actions/upload-pages-artifact@v3
       with:
         path: github-pages
 
