@@ -168,7 +168,7 @@ final class SmokeTests: XCTestCase {
             page += 1
             results = try await client.searchCards(filters: [filter], page: page)
             checkForUnknowns(in: results.data)
-            usleep(500000) // Wait for 0.5 seconds
+            try await Task.sleep(for: .milliseconds(500))
         }
     }
 

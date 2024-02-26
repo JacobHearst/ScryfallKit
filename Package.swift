@@ -16,10 +16,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "ScryfallKit",
-            swiftSettings: [
-                .enableExperimentalFeature("StrictConcurrency")
-            ]
+            name: "ScryfallKit"
         ),
         .testTarget(
             name: "ScryfallKitTests",
