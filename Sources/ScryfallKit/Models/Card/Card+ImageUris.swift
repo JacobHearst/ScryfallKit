@@ -7,15 +7,6 @@ import Foundation
 extension Card {
     /// Image URIs for each ``Card/ImageType``
     public struct ImageUris: Codable, Hashable, Sendable {
-        private enum CodingKeys: String, CodingKey {
-            case small
-            case normal
-            case large
-            case png
-            case artCrop = "art_crop"
-            case borderCrop = "border_crop"
-        }
-
         /// A link to a small full card image.
         /// - Note: Designed for use as thumbnail or list icon.
         public let small: String?
