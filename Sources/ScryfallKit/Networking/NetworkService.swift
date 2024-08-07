@@ -13,7 +13,7 @@ public enum NetworkLogLevel: Sendable {
     case verbose
 }
 
-protocol NetworkServiceProtocol {
+protocol NetworkServiceProtocol: Sendable {
     func request<T: Decodable>(_ request: EndpointRequest, as type: T.Type, completion: @Sendable @escaping (Result<T, Error>) -> Void)
     @available(macOS 10.15.0, *, iOS 13.0.0, *)
     func request<T: Decodable>(_ request: EndpointRequest, as type: T.Type) async throws -> T

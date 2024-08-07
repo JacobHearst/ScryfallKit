@@ -5,9 +5,9 @@
 import Foundation
 
 /// A client for interacting with the Scryfall API
-public final class ScryfallClient {
-    private var networkLogLevel: NetworkLogLevel
-    var networkService: NetworkServiceProtocol
+public final class ScryfallClient: Sendable {
+    private let networkLogLevel: NetworkLogLevel
+    let networkService: NetworkServiceProtocol
 
     /// Initialize an instance of the ScryfallClient
     /// - Parameter networkLogLevel: The desired logging level. See ``NetworkLogLevel``
