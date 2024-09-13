@@ -6,7 +6,7 @@ import Foundation
 
 extension Card {
     /// An object representing a ruling on a specific card
-    public struct Ruling: Codable, Identifiable {
+    public struct Ruling: Codable, Identifiable, Sendable {
         /// A value or combination of values that can identify a ruling. Used to find rulings for specific cards
         public enum Identifier {
             case scryfallID(id: String)
@@ -17,7 +17,7 @@ extension Card {
         }
 
         /// A computer-readable string indicating which company produced this ruling
-        public enum Source: String, Codable {
+        public enum Source: String, Codable, Sendable {
             case scryfall
             case wotc
         }

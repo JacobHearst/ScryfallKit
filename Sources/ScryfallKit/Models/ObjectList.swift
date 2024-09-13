@@ -7,7 +7,7 @@ import Foundation
 /// A sequence of Scryfall objects. May be paginated
 ///
 /// [Scryfall documentation](https://scryfall.com/docs/api/lists)
-public struct ObjectList<T: Codable>: Codable {
+public struct ObjectList<T: Codable>: Codable, Sendable where T: Sendable {
     /// The data contained in the list
     public var data: [T]
     /// True if there's a next page, nil if there's only one page

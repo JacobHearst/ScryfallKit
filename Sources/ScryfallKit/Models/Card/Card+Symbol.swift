@@ -6,7 +6,7 @@ import Foundation
 
 extension Card {
     /// A symbol that could appear on a Magic: the Gathering card
-    public struct Symbol: Codable, Identifiable {
+    public struct Symbol: Codable, Identifiable, Sendable {
         /// The textual representation of this symbol
         public var symbol: String
         /// A more loose variation of the symbol.
