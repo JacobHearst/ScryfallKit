@@ -26,7 +26,10 @@ protocol NetworkServiceProtocol: Sendable {
 struct NetworkService: NetworkServiceProtocol, Sendable {
   var logLevel: NetworkLogLevel
 
-  func request<T: Decodable>(_ request: EndpointRequest, as type: T.Type, completion: @Sendable @escaping (Result<T, Error>) -> Void) {
+  func request<T: Decodable>(
+    _ request: EndpointRequest, as type: T.Type,
+    completion: @Sendable @escaping (Result<T, Error>) -> Void
+  ) {
     guard let urlRequest = request.urlRequest else {
       if #available(macOS 11.0, iOS 14.0, *) {
         Logger.network.error("Invalid url request")
@@ -37,7 +40,9 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
       return
     }
 
-    if logLevel == .verbose, let body = urlRequest.httpBody, let JSONString = String(data: body, encoding: String.Encoding.utf8) {
+    if logLevel == .verbose, let body = urlRequest.httpBody,
+      let JSONString = String(data: body, encoding: String.Encoding.utf8)
+    {
       print("Sending request with body:")
       if #available(macOS 11.0, iOS 14.0, *) {
         Logger.network.debug("\(JSONString)")
@@ -56,14 +61,17 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
     }
 
     if #available(macOS 11.0, iOS 14.0, *) {
-      Logger.network.debug("Making request to: '\(String(describing: urlRequest.url?.absoluteString))'")
+      Logger.network.debug(
+        "Making request to: '\(String(describing: urlRequest.url?.absoluteString))'")
     } else {
       print("Making request to: '\(String(describing: urlRequest.url?.absoluteString))'")
     }
     task.resume()
   }
 
-  func handle<T: Decodable>(dataType: T.Type, data: Data?, response: URLResponse?, error: Error?) throws -> T {
+  func handle<T: Decodable>(dataType: T.Type, data: Data?, response: URLResponse?, error: Error?)
+    throws -> T
+  {
     if let error = error {
       throw error
     }
@@ -97,7 +105,8 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
   }
 
   @available(macOS 10.15.0, *, iOS 13.0.0, *)
-  func request<T: Decodable>(_ request: EndpointRequest, as type: T.Type) async throws -> T where T: Sendable {
+  func request<T: Decodable>(_ request: EndpointRequest, as type: T.Type) async throws -> T
+  where T: Sendable {
     try await withCheckedThrowingContinuation { continuation in
       self.request(request, as: type) { result in
         continuation.resume(with: result)

@@ -9,9 +9,9 @@ import SwiftUI
 
 @main
 struct ScryfallSearcherApp: App {
-    var body: some Scene {
-        WindowGroup {
-            SearchView()
-        }
+  var body: some Scene {
+    WindowGroup {
+      SearchView()
     }
+  }
 }
