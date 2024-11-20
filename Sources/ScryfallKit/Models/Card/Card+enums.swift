@@ -204,7 +204,7 @@ extension Card {
     case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted,
       sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase,
       extendedart, companion, etched, snow, lesson, convertdfc, fandfc, battle, gravestone, fullart,
-      vehicle, borderless, extended, spree, textless, unknown
+      vehicle, borderless, extended, spree, textless, unknown, enchantment, shatteredglass, upsidedowndfc
 
     public init(from decoder: Decoder) throws {
       self =
