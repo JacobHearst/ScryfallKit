@@ -160,7 +160,7 @@ final class SmokeTests: XCTestCase {
     let filter = CardFieldFilter.compoundOr(sets.map { .set($0.code) })
 
     // Search
-    var results = try await client.searchCards(filters: [filter])
+    var results = try await client.searchCards(filters: [filter], unique: .prints)
     checkForUnknowns(in: results.data)
     var page = 1
 
