@@ -183,7 +183,7 @@ extension Card {
 
   /// Card border colors
   public enum BorderColor: String, Codable, CaseIterable, Sendable {
-    case black, borderless, gold, silver, white
+    case black, borderless, gold, silver, white, yellow
   }
 
   /// Card frames
