@@ -124,27 +124,25 @@ extension Card {
   /// Layouts for a Magic card
   ///
   /// [Scryfall documentation](https://scryfall.com/docs/api/layouts)
-  public enum Layout: String, CaseIterable, Codable, Sendable {
+  public enum Layout: RawRepresentable, CaseIterable, Codable, Sendable, Equatable, Hashable {
     case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard,
-      token, emblem, augment, host, `class`, battle, `case`, mutate, prototype, unknown
-    case modalDfc = "modal_dfc"
-    case doubleSided = "double_sided"
-    case doubleFacedToken = "double_faced_token"
-    case artSeries = "art_series"
-    case reversibleCard = "reversible_card"
+         token, emblem, augment, host, `class`, battle, `case`, mutate, prototype, modalDfc, doubleSided, doubleFacedToken, artSeries, reversibleCard
+    case unknown(String)
 
-    /// Codable initializer
-    ///
-    /// If this initializer fails to decode a value, instead of throwing an error, it will decode as the ``ScryfallKit/Card/Layout-swift.enum/unknown`` type and print a message to the logs.
-    /// - Parameter decoder: The Decoder to try decoding a ``ScryfallKit/Card/Layout-swift.enum`` from
-    public init(from decoder: Decoder) throws {
-      self = (try? Self(rawValue: decoder.singleValueContainer().decode(RawValue.self))) ?? .unknown
-      if self == .unknown, let rawValue = try? String(from: decoder) {
-        if #available(iOS 14.0, macOS 11.0, *) {
-          Logger.decoder.error("Decoded unknown Layout: \(rawValue)")
-        } else {
-          print("Decoded unknown Layout: \(rawValue)")
-        }
+    /// All known Magic: the Gathering card layouts
+    public static let allCases: [Card.Layout] = [
+      .normal, .split, .flip, .transform, .meld, .leveler, .saga, .adventure, .planar, .scheme, .vanguard, .token, .emblem, .augment, .host, .class, .battle, .case, .mutate, .prototype, .modalDfc, .doubleSided, .doubleFacedToken, .artSeries, .reversibleCard,
+    ]
+
+    public var rawValue: String {
+      switch self {
+      case .modalDfc: "modal_dfc"
+      case .doubleSided: "double_sided"
+      case .doubleFacedToken: "double_faced_token"
+      case .artSeries: "art_series"
+      case .reversibleCard: "reversible_card"
+      case .unknown(let string): string
+      default: String(describing: self)
       }
     }
   }
@@ -200,21 +198,22 @@ extension Card {
   /// Effects applied to a Magic card frame
   ///
   /// [Scryfall documentation](https://scryfall.com/docs/api/frames#frame-effects)
-  public enum FrameEffect: String, Codable, CaseIterable, Sendable {
+  public enum FrameEffect: RawRepresentable, Codable, Sendable, CaseIterable, Equatable, Hashable {
     case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted,
-      sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase,
-      extendedart, companion, etched, snow, lesson, convertdfc, fandfc, battle, gravestone, fullart,
-      vehicle, borderless, extended, spree, textless, unknown, enchantment, shatteredglass, upsidedowndfc
+         sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase,
+         extendedart, companion, etched, snow, lesson, convertdfc, fandfc, battle, gravestone, fullart,
+         vehicle, borderless, extended, spree, textless, enchantment, shatteredglass, upsidedowndfc
+    case unknown(String)
 
-    public init(from decoder: Decoder) throws {
-      self =
-        try FrameEffect(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
-      if self == .unknown, let rawValue = try? String(from: decoder) {
-        if #available(iOS 14.0, macOS 11.0, *) {
-          Logger.decoder.error("Decoded unknown FrameEffect: \(rawValue)")
-        } else {
-          print("Decoded unknown FrameEffect: \(rawValue)")
-        }
+    /// All known Magic: the Gathering frame effects
+    public static let allCases: [Card.FrameEffect] = [
+      .legendary, .miracle, .nyxtouched, .draft, .devoid, .tombstone, .colorshifted, .inverted, .sunmoondfc, .compasslanddfc, .originpwdfc, .mooneldrazidfc, .waxingandwaningmoondfc, .showcase, .extendedart, .companion, .etched, .snow, .lesson, .convertdfc, .fandfc, .battle, .gravestone, .fullart, .vehicle, .borderless, .extended, .spree, .textless, .enchantment,
+    ]
+
+    public var rawValue: String {
+      switch self {
+      case .unknown(let unknownRawValue): unknownRawValue
+      default: String(describing: self)
       }
     }
   }
