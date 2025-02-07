@@ -33,7 +33,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   /// The language that this specific printing was printed in
   public var lang: String
   /// A link to where you can begin paginating all re/prints for this card on Scryfall’s API.
-  public var printsSearchUri: String
+  public var printsSearchUri: String?
   /// A link to this card’s rulings list on Scryfall’s API.
   public var rulingsUri: String
   /// A link to this card’s permapage on Scryfall’s website.
@@ -196,7 +196,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     id: UUID,
     oracleId: String,
     lang: String,
-    printsSearchUri: String,
+    printsSearchUri: String?,
     rulingsUri: String,
     scryfallUri: String,
     uri: String,
