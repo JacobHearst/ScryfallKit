@@ -52,7 +52,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   /// An array of colors representing this card's color identity.
   ///
   /// Color identity is used to determine what cards are legal in a Commander deck. See the [comprehensive rules](https://magic.wizards.com/en/rules) for more information
-  public var colorIdentity: [Color]
+  public var colorIdentity: [Color]?
   /// An array of the colors in this card’s color indicator or nil if it doesn't have one
   ///
   /// Color indicators are used to specify the color of a card that has no mana symbols
@@ -196,14 +196,14 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     id: UUID,
     oracleId: String,
     lang: String,
-    printsSearchUri: String?,
-    rulingsUri: String?,
-    scryfallUri: String?,
+  printsSearchUri: String? = nil,
+    rulingsUri: String? = nil,
+    scryfallUri: String? = nil,
     uri: String,
     allParts: [RelatedCard]? = nil,
     cardFaces: [Face]? = nil,
     cmc: Double,
-    colorIdentity: [Color],
+    colorIdentity: [Color]? = nil,
     colorIndicator: [Color]? = nil,
     colors: [Color]? = nil,
     edhrecRank: Int? = nil,
