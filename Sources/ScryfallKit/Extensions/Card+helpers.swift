@@ -46,6 +46,7 @@ extension Card {
     case .eur: return prices.eur
     case .tix: return prices.tix
     case .usdFoil: return prices.usdFoil
+    case .usdEtched: return prices.usdEtched
     }
   }
 }
