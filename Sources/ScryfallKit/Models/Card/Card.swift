@@ -37,7 +37,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   /// A link to this card’s rulings list on Scryfall’s API.
   public var rulingsUri: String?
   /// A link to this card’s permapage on Scryfall’s website.
-  public var scryfallUri: String
+  public var scryfallUri: String?
   /// A link to this card object on Scryfall’s API.
   public var uri: String
 
@@ -198,7 +198,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     lang: String,
     printsSearchUri: String?,
     rulingsUri: String?,
-    scryfallUri: String,
+    scryfallUri: String?,
     uri: String,
     allParts: [RelatedCard]? = nil,
     cardFaces: [Face]? = nil,
