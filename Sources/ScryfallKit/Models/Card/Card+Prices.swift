@@ -15,7 +15,6 @@ extension Card {
     public var usdEtched: String?
     /// The price of this card in eur.
     public var eur: String?
-//    "usd_etched": "40.45"
 
     public init(tix: String? = nil, usd: String? = nil, usdFoil: String? = nil, usdEtched: String? = nil, eur: String? = nil)
     {
