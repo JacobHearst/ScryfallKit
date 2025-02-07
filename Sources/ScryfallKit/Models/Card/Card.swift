@@ -100,6 +100,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   // MARK: Print fields
   /// The name of the artist who illustrated this card
   public var artist: String?
+  /// An array of IDs that map to the artists who illustrated the card
+  public var artistIds: [String]?
   /// True if this card was printed in booster packs
   public var booster: Bool
   /// The color of this card's border
@@ -127,6 +129,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   public var frame: Frame
   /// True if this card's art is larger than normal
   public var fullArt: Bool
+  /// A description of what security stamp the card has - for Unfinity cards, will be "acorn", for normal rares, "oval"
+  public var securityStamp: String?
   /// An array of the games this card has been released in
   public var games: [Game]
   /// True if Scryfall has a high-res image of this card
@@ -169,6 +173,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   public var setType: MTGSet.`Type`
   /// A link to this card's set object on the Scryfall API
   public var setUri: String
+  /// A unique ID that identifies what set the card came from.
+  public var setId: String?
   /// This card's set code
   public var set: String
   /// True if this was a story spotlight card
@@ -184,6 +190,71 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   /// An object with information on when this card was previewed and by whom
   public var preview: Preview?
 
+  enum CodingKeys: String, CodingKey {
+    case id
+    case oracleId = "oracle_id"
+    case multiverseIds = "multiverse_ids"
+    case mtgoId = "mtgo_id"
+    case arenaId = "arena_id"
+    case tcgplayerId = "tcgplayer_id"
+    case cardMarketId = "cardmarket_id"
+    case name
+    case lang
+    case releasedAt = "released_at"
+    case uri
+    case scryfallUri = "scryfall_uri"
+    case layout
+    case highresImage = "highres_image"
+    case imageStatus = "image_status"
+    case imageUris = "image_uris"
+    case manaCost = "mana_cost"
+    case cmc
+    case typeLine = "type_line"
+    case oracleText = "oracle_text"
+    case power
+    case toughness
+    case colors
+    case colorIdentity = "color_identity"
+    case keywords
+    case legalities
+    case games
+    case reserved
+    case finishes
+    case oversized
+    case promo
+    case promoTypes = "promo_types"
+    case reprint
+    case variation
+    case setId = "set_id"
+    case set
+    case setName = "set_name"
+    case setType = "set_type"
+    case setUri = "set_uri"
+    case setSearchUri = "set_search_uri"
+    case scryfallSetUri = "scryfall_set_uri"
+    case rulingsUri = "rulings_uri"
+    case printsSearchUri = "prints_search_uri"
+    case collectorNumber = "collector_number"
+    case digital
+    case rarity
+    case cardBackId = "card_back_id"
+    case artist
+    case artistIds = "artist_ids"
+    case illustrationId = "illustration_id"
+    case borderColor = "border_color"
+    case frame
+    case frameEffects = "frame_effects"
+    case securityStamp = "security_stamp"
+    case fullArt = "full_art"
+    case textless
+    case booster
+    case storySpotlight = "story_spotlight"
+    case edhrecRank = "edhrec_rank"
+    case prices
+    case relatedUris = "related_uris"
+    case purchaseUris = "purchase_uris"
+  }
+
   // swiftlint:disable function_body_length
   public init(
     arenaId: Int? = nil,
@@ -196,7 +267,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     id: UUID,
     oracleId: String,
     lang: String,
-  printsSearchUri: String? = nil,
+    printsSearchUri: String? = nil,
     rulingsUri: String? = nil,
     scryfallUri: String? = nil,
     uri: String,
@@ -223,6 +294,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     toughness: String? = nil,
     typeLine: String? = nil,
     artist: String? = nil,
+    artistIds: [String]? = nil,
     booster: Bool,
     borderColor: BorderColor,
     cardBackId: UUID? = nil,
@@ -235,6 +307,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     frameEffects: [FrameEffect]? = nil,
     frame: Frame,
     fullArt: Bool,
+    securityStamp: String? = nil,
     games: [Game],
     highresImage: Bool,
     illustrationId: UUID? = nil,
@@ -301,6 +374,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     self.toughness = toughness
     self.typeLine = typeLine
     self.artist = artist
+    self.artistIds = artistIds
     self.booster = booster
     self.borderColor = borderColor
     self.cardBackId = cardBackId
@@ -313,6 +387,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     self.frameEffects = frameEffects
     self.frame = frame
     self.fullArt = fullArt
+    self.securityStamp = securityStamp
     self.games = games
     self.highresImage = highresImage
     self.illustrationId = illustrationId
