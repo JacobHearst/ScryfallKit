@@ -208,6 +208,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     case imageStatus = "image_status"
     case imageUris = "image_uris"
     case manaCost = "mana_cost"
+    case cardFaces = "card_faces"
     case cmc
     case typeLine = "type_line"
     case oracleText = "oracle_text"
