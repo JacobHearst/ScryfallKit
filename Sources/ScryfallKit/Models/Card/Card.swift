@@ -37,7 +37,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   /// A link to this card’s rulings list on Scryfall’s API.
   public var rulingsUri: String
   /// A link to this card’s permapage on Scryfall’s website.
-  public var scryfallUri: String?
+  public var scryfallUri: String
   /// A link to this card object on Scryfall’s API.
   public var uri: String
 
@@ -174,7 +174,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   /// A link to this card's set object on the Scryfall API
   public var setUri: String
   /// A unique ID that identifies what set the card came from.
-  public var setId: String?
+  public var setId: String
   /// This card's set code
   public var set: String
   /// True if this was a story spotlight card
@@ -270,7 +270,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     lang: String,
     printsSearchUri: String? = nil,
     rulingsUri: String,
-    scryfallUri: String? = nil,
+    scryfallUri: String,
     uri: String,
     allParts: [RelatedCard]? = nil,
     cardFaces: [Face]? = nil,
@@ -330,6 +330,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     setSearchUri: URL,
     setType: MTGSet.`Type`,
     setUri: String,
+    setId: String,
     set: String,
     storySpotlight: Bool,
     textless: Bool,
@@ -410,6 +411,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     self.setSearchUri = setSearchUri
     self.setType = setType
     self.setUri = setUri
+    self.setId = setId
     self.set = set
     self.storySpotlight = storySpotlight
     self.textless = textless
