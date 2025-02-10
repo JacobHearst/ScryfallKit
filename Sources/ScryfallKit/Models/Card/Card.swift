@@ -35,7 +35,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   /// A link to where you can begin paginating all re/prints for this card on Scryfall’s API.
   public var printsSearchUri: String?
   /// A link to this card’s rulings list on Scryfall’s API.
-  public var rulingsUri: String?
+  public var rulingsUri: String
   /// A link to this card’s permapage on Scryfall’s website.
   public var scryfallUri: String?
   /// A link to this card object on Scryfall’s API.
@@ -52,7 +52,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   /// An array of colors representing this card's color identity.
   ///
   /// Color identity is used to determine what cards are legal in a Commander deck. See the [comprehensive rules](https://magic.wizards.com/en/rules) for more information
-  public var colorIdentity: [Color]?
+  public var colorIdentity: [Color]
   /// An array of the colors in this card’s color indicator or nil if it doesn't have one
   ///
   /// Color indicators are used to specify the color of a card that has no mana symbols
@@ -269,13 +269,13 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     oracleId: String,
     lang: String,
     printsSearchUri: String? = nil,
-    rulingsUri: String? = nil,
+    rulingsUri: String,
     scryfallUri: String? = nil,
     uri: String,
     allParts: [RelatedCard]? = nil,
     cardFaces: [Face]? = nil,
     cmc: Double,
-    colorIdentity: [Color]? = nil,
+    colorIdentity: [Color],
     colorIndicator: [Color]? = nil,
     colors: [Color]? = nil,
     edhrecRank: Int? = nil,
