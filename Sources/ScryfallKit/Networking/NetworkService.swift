@@ -7,7 +7,9 @@ import OSLog
 
 /// An enum representing the two available levels of log verbosity
 public enum NetworkLogLevel: Sendable {
-  /// Only log when requests are made and errors
+  /// Only log errors
+  case error
+  /// Log when errors occur or a network request is made
   case minimal
   /// Log the bodies of requests and responses
   case verbose
@@ -31,11 +33,7 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
     completion: @Sendable @escaping (Result<T, Error>) -> Void
   ) {
     guard let urlRequest = request.urlRequest else {
-      if #available(macOS 11.0, iOS 14.0, *) {
-        Logger.network.error("Invalid url request")
-      } else {
-        print("Invalid url request")
-      }
+      Logger.network.error("Invalid url request")
       completion(.failure(ScryfallKitError.invalidUrl))
       return
     }
@@ -43,12 +41,8 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
     if logLevel == .verbose, let body = urlRequest.httpBody,
       let JSONString = String(data: body, encoding: String.Encoding.utf8)
     {
-      print("Sending request with body:")
-      if #available(macOS 11.0, iOS 14.0, *) {
-        Logger.network.debug("\(JSONString)")
-      } else {
-        print(JSONString)
-      }
+      Logger.network.debug("Sending request with body:")
+      Logger.network.debug("\(JSONString)")
     }
 
     let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
@@ -60,18 +54,18 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
       }
     }
 
-    if #available(macOS 11.0, iOS 14.0, *) {
-      Logger.network.debug(
-        "Making request to: '\(String(describing: urlRequest.url?.absoluteString))'")
-    } else {
-      print("Making request to: '\(String(describing: urlRequest.url?.absoluteString))'")
-    }
+    Logger.network.debug(
+      "Making request to: '\(String(describing: urlRequest.url?.absoluteString))'")
+
     task.resume()
   }
 
-  func handle<T: Decodable>(dataType: T.Type, data: Data?, response: URLResponse?, error: Error?)
-    throws -> T
-  {
+  func handle<T: Decodable>(
+    dataType: T.Type,
+    data: Data?,
+    response: URLResponse?,
+    error: Error?
+  ) throws -> T {
     if let error = error {
       throw error
     }
@@ -90,11 +84,7 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
     if (200..<300).contains(httpStatus) {
       if logLevel == .verbose {
         let responseBody = String(data: content, encoding: .utf8)
-        if #available(macOS 11.0, iOS 14.0, *) {
-          Logger.network.debug("\(responseBody ?? "Couldn't represent response body as string")")
-        } else {
-          print(responseBody ?? "Couldn't represent response body as string")
-        }
+        Logger.network.debug("\(responseBody ?? "Couldn't represent response body as string")")
       }
 
       return try decoder.decode(dataType, from: content)
@@ -104,7 +94,6 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
     }
   }
 
-  @available(macOS 10.15.0, *, iOS 13.0.0, *)
   func request<T: Decodable>(_ request: EndpointRequest, as type: T.Type) async throws -> T
   where T: Sendable {
     try await withCheckedThrowingContinuation { continuation in
