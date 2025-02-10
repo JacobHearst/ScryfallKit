@@ -35,6 +35,7 @@ public struct MTGSet: Codable, Identifiable, Hashable, Sendable {
     // swiftlint:disable:next inclusive_language
     case core, expansion, masters, masterpiece, spellbook, commander, planechase, archenemy,
          vanguard, funny, starter, box, promo, token, memorabilia, arsenal, alchemy, minigame, fromTheVault, premiumDeck, duelDeck, draftInnovation, treasureChest
+    /// A layout that hasn't been added to ScryfallKit yet
     case unknown(String)
 
     public static let allCases: [Kind] = [

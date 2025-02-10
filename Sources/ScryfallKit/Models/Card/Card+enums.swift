@@ -127,6 +127,8 @@ extension Card {
   public enum Layout: RawRepresentable, CaseIterable, Codable, Sendable, Equatable, Hashable {
     case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard,
          token, emblem, augment, host, `class`, battle, `case`, mutate, prototype, modalDfc, doubleSided, doubleFacedToken, artSeries, reversibleCard
+
+    /// A layout that hasn't been added to ScryfallKit yet
     case unknown(String)
 
     /// All known Magic: the Gathering card layouts
@@ -196,13 +198,14 @@ extension Card {
   }
 
   /// Effects applied to a Magic card frame
-  ///
+  /// 
   /// [Scryfall documentation](https://scryfall.com/docs/api/frames#frame-effects)
   public enum FrameEffect: RawRepresentable, Codable, Sendable, CaseIterable, Equatable, Hashable {
     case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted,
          sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase,
          extendedart, companion, etched, snow, lesson, convertdfc, fandfc, battle, gravestone, fullart,
          vehicle, borderless, extended, spree, textless, enchantment, shatteredglass, upsidedowndfc
+    /// A layout that hasn't been added to ScryfallKit yet
     case unknown(String)
 
     /// All known Magic: the Gathering frame effects
