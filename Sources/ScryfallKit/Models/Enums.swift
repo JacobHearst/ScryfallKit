@@ -39,3 +39,7 @@ public enum Format: String, CaseIterable, Sendable {
 public enum Currency: String, CaseIterable, Sendable {
   case usd, eur, tix, usdFoil
 }
+
+public enum SecurityStamp: String, Codable, Sendable {
+  case oval, triangle, acorn, circle, arena, heart
+}

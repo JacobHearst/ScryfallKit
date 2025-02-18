@@ -59,21 +59,21 @@ extension Card {
 
     enum CodingKeys: String, CodingKey {
       case artist
-      case colorIndicator = "color_indicator"
+      case colorIndicator //= "color_indicator"
       case colors
-      case flavorText = "flavor_text"
-      case illustrationId = "illustration_id"
-      case imageUris = "image_uris"
+      case flavorText //= "flavor_text"
+      case illustrationId// = "illustration_id"
+      case imageUris //= "image_uris"
       case loyalty
-      case manaCost = "mana_cost"
+      case manaCost //= "mana_cost"
       case name
-      case oracleText = "oracle_text"
+      case oracleText// = "oracle_text"
       case power
       case printedName = "printed_name"
-      case printedText = "printed_text"
-      case printedTypeLine = "printed_type_line"
+      case printedText// = "printed_text"
+      case printedTypeLine //= "printed_type_line"
       case toughness
-      case typeLine = "type_line"
+      case typeLine //= "type_line"
       case watermark
     }
 

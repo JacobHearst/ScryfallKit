@@ -130,7 +130,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   /// True if this card's art is larger than normal
   public var fullArt: Bool
   /// A description of what security stamp the card has - for Unfinity cards, will be "acorn", for normal rares, "oval"
-  public var securityStamp: String?
+  public var securityStamp: SecurityStamp?
   /// An array of the games this card has been released in
   public var games: [Game]
   /// True if Scryfall has a high-res image of this card
@@ -160,7 +160,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   /// A dictionary of links to other MTG resources
   public var relatedUris: [String: String]
   /// This card's release date
-  public var releasedAt: String
+  public var releasedAt: String?
   /// True if this card has been printed before
   public var reprint: Bool
   /// Link to this card's set on Scryfall
@@ -189,72 +189,6 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   public var watermark: String?
   /// An object with information on when this card was previewed and by whom
   public var preview: Preview?
-
-  enum CodingKeys: String, CodingKey {
-    case id
-    case oracleId = "oracle_id"
-    case multiverseIds = "multiverse_ids"
-    case mtgoId = "mtgo_id"
-    case arenaId = "arena_id"
-    case tcgplayerId = "tcgplayer_id"
-    case cardMarketId = "cardmarket_id"
-    case name
-    case lang
-    case releasedAt = "released_at"
-    case uri
-    case scryfallUri = "scryfall_uri"
-    case layout
-    case highresImage = "highres_image"
-    case imageStatus = "image_status"
-    case imageUris = "image_uris"
-    case manaCost = "mana_cost"
-    case cardFaces = "card_faces"
-    case cmc
-    case typeLine = "type_line"
-    case oracleText = "oracle_text"
-    case power
-    case toughness
-    case colors
-    case colorIdentity = "color_identity"
-    case keywords
-    case legalities
-    case games
-    case reserved
-    case finishes
-    case oversized
-    case promo
-    case promoTypes = "promo_types"
-    case reprint
-    case variation
-    case setId = "set_id"
-    case set
-    case setName = "set_name"
-    case setType = "set_type"
-    case setUri = "set_uri"
-    case setSearchUri = "set_search_uri"
-    case scryfallSetUri = "scryfall_set_uri"
-    case rulingsUri = "rulings_uri"
-    case printsSearchUri = "prints_search_uri"
-    case collectorNumber = "collector_number"
-    case digital
-    case rarity
-    case cardBackId = "card_back_id"
-    case artist
-    case artistIds = "artist_ids"
-    case illustrationId = "illustration_id"
-    case borderColor = "border_color"
-    case frame
-    case frameEffects = "frame_effects"
-    case securityStamp = "security_stamp"
-    case fullArt = "full_art"
-    case textless
-    case booster
-    case storySpotlight = "story_spotlight"
-    case edhrecRank = "edhrec_rank"
-    case prices
-    case relatedUris = "related_uris"
-    case purchaseUris = "purchase_uris"
-  }
 
   // swiftlint:disable function_body_length
   public init(
@@ -308,7 +242,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     frameEffects: [FrameEffect]? = nil,
     frame: Frame,
     fullArt: Bool,
-    securityStamp: String? = nil,
+    securityStamp: SecurityStamp? = nil,
     games: [Game],
     highresImage: Bool,
     illustrationId: UUID? = nil,
@@ -323,7 +257,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     purchaseUris: [String: String]? = nil,
     rarity: Card.Rarity,
     relatedUris: [String: String],
-    releasedAt: String,
+    releasedAt: String? = nil,
     reprint: Bool,
     scryfallSetUri: String,
     setName: String,
