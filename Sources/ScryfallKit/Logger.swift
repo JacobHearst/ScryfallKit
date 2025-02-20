@@ -7,6 +7,8 @@ import OSLog
 
 @available(macOS 11.0, *)
 @available(iOS 14.0, *)
+@available(watchOS 11.0, *)
+
 extension Logger {
   static let subsystem = "dev.hearst.scryfallkit"
   static let main = Logger(subsystem: subsystem, category: "ScryfallKit")

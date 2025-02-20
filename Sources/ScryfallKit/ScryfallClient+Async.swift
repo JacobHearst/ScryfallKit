@@ -4,7 +4,7 @@
 
 import Foundation
 
-@available(macOS 10.15.0, *, iOS 13.0.0, *)
+@available(macOS 10.15.0, *, iOS 13.0.0, *, watchOS 11.0, *)
 extension ScryfallClient {
   /// Equivalent to ``searchCards(filters:unique:order:sortDirection:includeExtras:includeMultilingual:includeVariations:page:completion:)`` but with async/await syntax
   public func searchCards(

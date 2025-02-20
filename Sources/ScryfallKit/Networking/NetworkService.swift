@@ -19,7 +19,7 @@ protocol NetworkServiceProtocol: Sendable {
     as type: T.Type,
     completion: @Sendable @escaping (Result<T, Error>) -> Void
   )
-  @available(macOS 10.15.0, *, iOS 13.0.0, *)
+  @available(macOS 10.15.0, *, iOS 13.0.0, *, watchOS 11.0, *)
   func request<T: Decodable>(_ request: EndpointRequest, as type: T.Type) async throws -> T
 }
 
@@ -104,7 +104,7 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
     }
   }
 
-  @available(macOS 10.15.0, *, iOS 13.0.0, *)
+  @available(macOS 10.15.0, *, iOS 13.0.0, *, watchOS 11.0, *)
   func request<T: Decodable>(_ request: EndpointRequest, as type: T.Type) async throws -> T
   where T: Sendable {
     try await withCheckedThrowingContinuation { continuation in
