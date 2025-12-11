@@ -61,6 +61,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   public var colors: [Color]?
   /// This card’s overall rank/popularity on EDHREC. Not all cards are ranked.
   public var edhrecRank: Int?
+  /// True if this card is on the [Commander Game Changer list](https://mtg.wiki/page/Game_Changers).
+  public var gameChanger: Bool?
   /// This card’s hand modifier, if it is Vanguard card. This value will contain a delta, such as -1.
   public var handModifier: String?
   /// An array of the keywords on this card (deathouch, first strike, etc)
@@ -207,6 +209,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     colorIndicator: [Color]? = nil,
     colors: [Color]? = nil,
     edhrecRank: Int? = nil,
+    gameChanger: Bool? = nil,
     handModifier: String? = nil,
     keywords: [String],
     layout: Layout,
@@ -285,6 +288,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     self.colorIndicator = colorIndicator
     self.colors = colors
     self.edhrecRank = edhrecRank
+    self.gameChanger = gameChanger
     self.handModifier = handModifier
     self.keywords = keywords
     self.layout = layout
