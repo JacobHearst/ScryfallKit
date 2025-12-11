@@ -34,7 +34,8 @@ public struct MTGSet: Codable, Identifiable, Hashable, Sendable {
     // While "masters" is in fact not inclusive, it's also a name that we can't control
     // swiftlint:disable:next inclusive_language
     case core, expansion, masters, masterpiece, spellbook, commander, planechase, archenemy,
-      vanguard, funny, starter, box, promo, token, memorabilia, arsenal, alchemy, minigame, unknown
+      vanguard, funny, starter, box, promo, token, memorabilia, arsenal, alchemy, minigame, eternal,
+      unknown
     case fromTheVault = "from_the_vault"
     case premiumDeck = "premium_deck"
     case duelDeck = "duel_deck"
