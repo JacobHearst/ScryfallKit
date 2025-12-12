@@ -23,6 +23,8 @@ extension Card {
     public var colorIndicator: [Card.Color]?
     /// An array of the colors in this card's mana cost
     public var colors: [Card.Color]?
+    /// This face's defense, if any
+    public var defense: String?
     /// This card's flavor text if any
     public var flavorText: String?
     /// An ID for this card face's art that remains consistent across reprints
@@ -61,6 +63,7 @@ extension Card {
       artist: String? = nil,
       colorIndicator: [Card.Color]? = nil,
       colors: [Card.Color]? = nil,
+      defense: String? = nil,
       flavorText: String? = nil,
       illustrationId: UUID? = nil,
       imageUris: ImageUris? = nil,
@@ -79,6 +82,7 @@ extension Card {
       self.artist = artist
       self.colorIndicator = colorIndicator
       self.colors = colors
+      self.defense = defense
       self.flavorText = flavorText
       self.illustrationId = illustrationId
       self.imageUris = imageUris

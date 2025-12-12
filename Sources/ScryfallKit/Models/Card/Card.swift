@@ -59,6 +59,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   public var colorIndicator: [Color]?
   /// An array of the colors in this card's mana cost
   public var colors: [Color]?
+  /// This card's defense, if any
+  public var defense: String?
   /// This card’s overall rank/popularity on EDHREC. Not all cards are ranked.
   public var edhrecRank: Int?
   /// True if this card is on the [Commander Game Changer list](https://mtg.wiki/page/Game_Changers).
@@ -208,6 +210,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     colorIdentity: [Color],
     colorIndicator: [Color]? = nil,
     colors: [Color]? = nil,
+    defense: String? = nil,
     edhrecRank: Int? = nil,
     gameChanger: Bool? = nil,
     handModifier: String? = nil,
@@ -287,6 +290,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     self.colorIdentity = colorIdentity
     self.colorIndicator = colorIndicator
     self.colors = colors
+    self.defense = defense
     self.edhrecRank = edhrecRank
     self.gameChanger = gameChanger
     self.handModifier = handModifier
