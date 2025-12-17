@@ -29,10 +29,15 @@ extension Card {
     public var funny: Bool
     /// The colors that make up this symbol
     public var colors: [Color]
+    /// True if the symbol is a hybrid mana symbol. Note that monocolor Phyrexian symbols aren’t considered hybrid.
+    public var hybrid: Bool
+    /// True if the symbol is a Phyrexian mana symbol, i.e. it can be paid with 2 life.
+    public var phyrexian: Bool
     /// Alternate notations for this symbol that used on Wizards of the Coast's [Gatherer](https://gatherer.wizards.com/Pages/Default.aspx)
     public var gathererAlternates: [String]?
     /// A link to an SVG of this symbol
     public var svgUri: String?
+      
 
     /// A computed ID for this symbol which is just the `symbol` property
     public var id: String { symbol }
@@ -47,6 +52,8 @@ extension Card {
       appearsInManaCosts: Bool,
       funny: Bool,
       colors: [Color],
+      hybrid: Bool,
+      phyrexian: Bool,
       gathererAlternates: [String]? = nil,
       svgUri: String? = nil
     ) {
@@ -59,6 +66,8 @@ extension Card {
       self.appearsInManaCosts = appearsInManaCosts
       self.funny = funny
       self.colors = colors
+      self.hybrid = hybrid
+      self.phyrexian = phyrexian
       self.gathererAlternates = gathererAlternates
       self.svgUri = svgUri
     }
