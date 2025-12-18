@@ -9,20 +9,25 @@ import Foundation
 /// [Scryfall documentation](https://scryfall.com/docs/api/catalogs)
 public struct Catalog: Codable, Sendable {
   /// The catalog type. Each of these types represents a different `/catalogs` endpoint
-  public enum `Type`: String, Codable, CaseIterable {
-    case powers, toughnesses, loyalties, watermarks
+  public enum `Type`: String, Codable, CaseIterable, Sendable {
     case cardNames = "card-names"
     case artistNames = "artist-names"
     case wordBank = "word-bank"
-    case creatureTypes = "creature-types"
-    case planeswalkerTypes = "planeswalker-types"
-    case landTypes = "land-types"
+    case supertypes
+    case cardTypes = "card-types"
     case artifactTypes = "artifact-types"
+    case battleTypes = "battle-types"
+    case creatureTypes = "creature-types"
     case enchantmentTypes = "enchantment-types"
+    case landTypes = "land-types"
+    case planeswalkerTypes = "planeswalker-types"
     case spellTypes = "spell-types"
+    case powers, toughnesses, loyalties
     case keywordAbilities = "keyword-abilities"
     case keywordActions = "keyword-actions"
     case abilityWords = "ability-words"
+    case flavorWords = "flavor-words"
+    case watermarks
   }
 
   /// The number of items in the `data` array
