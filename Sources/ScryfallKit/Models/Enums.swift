@@ -20,7 +20,7 @@ public enum UniqueMode: String, Codable, CaseIterable, Sendable {
 ///
 /// [Scryfall documentation](https://scryfall.com/docs/api/cards/search#sorting-cards)
 public enum SortMode: String, Codable, CaseIterable, Sendable {
-  case name, set, released, rarity, color, usd, tix, eur, cmc, power, toughness, edhrec, artist
+  case name, set, released, rarity, color, usd, tix, eur, cmc, power, toughness, edhrec, artist, spoiled
 }
 
 /// Directions that Scryfall can order cards in
