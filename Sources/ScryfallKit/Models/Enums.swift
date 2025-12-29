@@ -6,7 +6,7 @@ import Foundation
 
 /// Environments to play Magic: The Gathering in
 public enum Game: String, Codable, CaseIterable, Sendable {
-  case paper, mtgo, arena
+  case paper, mtgo, arena, astral, sega
 }
 
 /// Comparison strategies for determining what makes a card "unique"
