@@ -33,7 +33,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   /// The language that this specific printing was printed in
   public var lang: String
   /// A link to where you can begin paginating all re/prints for this card on Scryfall’s API.
-  public var printsSearchUri: String
+  public var printsSearchUri: String?
   /// A link to this card’s rulings list on Scryfall’s API.
   public var rulingsUri: String
   /// A link to this card’s permapage on Scryfall’s website.
@@ -100,6 +100,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   // MARK: Print fields
   /// The name of the artist who illustrated this card
   public var artist: String?
+  /// An array of IDs that map to the artists who illustrated the card
+  public var artistIds: [String]?
   /// True if this card was printed in booster packs
   public var booster: Bool
   /// The color of this card's border
@@ -127,6 +129,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   public var frame: Frame
   /// True if this card's art is larger than normal
   public var fullArt: Bool
+  /// A description of what security stamp the card has - for Unfinity cards, will be "acorn", for normal rares, "oval"
+  public var securityStamp: SecurityStamp?
   /// An array of the games this card has been released in
   public var games: [Game]
   /// True if Scryfall has a high-res image of this card
@@ -156,7 +160,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   /// A dictionary of links to other MTG resources
   public var relatedUris: [String: String]
   /// This card's release date
-  public var releasedAt: String
+  public var releasedAt: String?
   /// True if this card has been printed before
   public var reprint: Bool
   /// Link to this card's set on Scryfall
@@ -169,6 +173,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   public var setType: MTGSet.Kind
   /// A link to this card's set object on the Scryfall API
   public var setUri: String
+  /// A unique ID that identifies what set the card came from.
+  public var setId: String
   /// This card's set code
   public var set: String
   /// True if this was a story spotlight card
@@ -196,7 +202,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     id: UUID,
     oracleId: String,
     lang: String,
-    printsSearchUri: String,
+    printsSearchUri: String? = nil,
     rulingsUri: String,
     scryfallUri: String,
     uri: String,
@@ -223,6 +229,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     toughness: String? = nil,
     typeLine: String? = nil,
     artist: String? = nil,
+    artistIds: [String]? = nil,
     booster: Bool,
     borderColor: BorderColor,
     cardBackId: UUID? = nil,
@@ -235,6 +242,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     frameEffects: [FrameEffect]? = nil,
     frame: Frame,
     fullArt: Bool,
+    securityStamp: SecurityStamp? = nil,
     games: [Game],
     highresImage: Bool,
     illustrationId: UUID? = nil,
@@ -249,13 +257,14 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     purchaseUris: [String: String]? = nil,
     rarity: Card.Rarity,
     relatedUris: [String: String],
-    releasedAt: String,
+    releasedAt: String? = nil,
     reprint: Bool,
     scryfallSetUri: String,
     setName: String,
     setSearchUri: URL,
     setType: MTGSet.Kind,
     setUri: String,
+    setId: String,
     set: String,
     storySpotlight: Bool,
     textless: Bool,
@@ -301,6 +310,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     self.toughness = toughness
     self.typeLine = typeLine
     self.artist = artist
+    self.artistIds = artistIds
     self.booster = booster
     self.borderColor = borderColor
     self.cardBackId = cardBackId
@@ -313,6 +323,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     self.frameEffects = frameEffects
     self.frame = frame
     self.fullArt = fullArt
+    self.securityStamp = securityStamp
     self.games = games
     self.highresImage = highresImage
     self.illustrationId = illustrationId
@@ -334,6 +345,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     self.setSearchUri = setSearchUri
     self.setType = setType
     self.setUri = setUri
+    self.setId = setId
     self.set = set
     self.storySpotlight = storySpotlight
     self.textless = textless
