@@ -201,16 +201,18 @@ extension Card {
   /// 
   /// [Scryfall documentation](https://scryfall.com/docs/api/frames#frame-effects)
   public enum FrameEffect: RawRepresentable, Codable, Sendable, CaseIterable, Equatable, Hashable {
-    case legendary, miracle, nyxtouched, draft, devoid, tombstone, colorshifted, inverted,
-         sunmoondfc, compasslanddfc, originpwdfc, mooneldrazidfc, waxingandwaningmoondfc, showcase,
-         extendedart, companion, etched, snow, lesson, convertdfc, fandfc, battle, gravestone, fullart,
-         vehicle, borderless, extended, spree, textless, enchantment, shatteredglass, upsidedowndfc
+    case legendary, miracle, nyxTouched, draft, devoid, tombstone, colorShifted, inverted,
+         sunMoonDfc, compassLandDfc, originPwDfc, moonEldraziDfc, waxingAndWaningMoonDfc, showcase,
+         extendedArt, companion, etched, snow, lesson, convertDfc, fAndFc, battle, gravestone, fullArt, vehicle, borderless, extended, spree, textless, enchantment, shatteredGlass, upsideDownDfc
     /// A layout that hasn't been added to ScryfallKit yet
     case unknown(String)
 
     /// All known Magic: the Gathering frame effects
     public static let allCases: [Card.FrameEffect] = [
-      .legendary, .miracle, .nyxtouched, .draft, .devoid, .tombstone, .colorshifted, .inverted, .sunmoondfc, .compasslanddfc, .originpwdfc, .mooneldrazidfc, .waxingandwaningmoondfc, .showcase, .extendedart, .companion, .etched, .snow, .lesson, .convertdfc, .fandfc, .battle, .gravestone, .fullart, .vehicle, .borderless, .extended, .spree, .textless, .enchantment,
+        .legendary, .miracle, .nyxTouched, .draft, .devoid, .tombstone, .colorShifted, .inverted,
+        .sunMoonDfc, .compassLandDfc, .originPwDfc, .moonEldraziDfc, .waxingAndWaningMoonDfc, .showcase,
+        .extendedArt, .companion, .etched, .snow, .lesson, .convertDfc, .fAndFc, .battle, .gravestone, .fullArt,
+        .vehicle, .borderless, .extended, .spree, .textless, .enchantment, .shatteredGlass, .upsideDownDfc,
     ]
 
     public var rawValue: String {

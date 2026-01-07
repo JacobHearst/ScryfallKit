@@ -23,42 +23,49 @@ import ScryfallKit
 /// on an arbitrary enum case in a unit test, the compiler will error out if a new case is added
 /// to the enum but not added to the switch statement in the test. This should hopefully
 /// remind maintainers to keep `allCases` up to date.
+///
+/// ##################################################
+/// # IF THESE TESTS ARE FAILING:
+/// You probably added a new case to one of the enums under test. This is your
+/// reminder to **make sure** that you added the new case to that enum's `allCases`
+/// array. Once you've done so, add your new case to this switch statement.
+/// ##################################################
 final class CaseIterableTests: XCTestCase {
   func testFrameEffect() {
     let stub = Card.FrameEffect.battle
     let contains = switch stub {
-    case .legendary: Card.FrameEffect.allCases.contains(.legendary)
-    case .miracle: Card.FrameEffect.allCases.contains(.miracle)
-    case .nyxtouched: Card.FrameEffect.allCases.contains(.nyxtouched)
-    case .draft: Card.FrameEffect.allCases.contains(.draft)
-    case .devoid: Card.FrameEffect.allCases.contains(.devoid)
-    case .tombstone: Card.FrameEffect.allCases.contains(.tombstone)
-    case .colorshifted: Card.FrameEffect.allCases.contains(.colorshifted)
-    case .inverted: Card.FrameEffect.allCases.contains(.inverted)
-    case .sunmoondfc: Card.FrameEffect.allCases.contains(.sunmoondfc)
-    case .compasslanddfc: Card.FrameEffect.allCases.contains(.compasslanddfc)
-    case .originpwdfc: Card.FrameEffect.allCases.contains(.originpwdfc)
-    case .mooneldrazidfc: Card.FrameEffect.allCases.contains(.mooneldrazidfc)
-    case .waxingandwaningmoondfc: Card.FrameEffect.allCases.contains(.waxingandwaningmoondfc)
-    case .showcase: Card.FrameEffect.allCases.contains(.showcase)
-    case .extendedart: Card.FrameEffect.allCases.contains(.extendedart)
-    case .companion: Card.FrameEffect.allCases.contains(.companion)
-    case .etched: Card.FrameEffect.allCases.contains(.etched)
-    case .snow: Card.FrameEffect.allCases.contains(.snow)
-    case .lesson: Card.FrameEffect.allCases.contains(.lesson)
-    case .convertdfc: Card.FrameEffect.allCases.contains(.convertdfc)
-    case .fandfc: Card.FrameEffect.allCases.contains(.fandfc)
-    case .battle: Card.FrameEffect.allCases.contains(.battle)
-    case .gravestone: Card.FrameEffect.allCases.contains(.gravestone)
-    case .fullart: Card.FrameEffect.allCases.contains(.fullart)
-    case .vehicle: Card.FrameEffect.allCases.contains(.vehicle)
-    case .borderless: Card.FrameEffect.allCases.contains(.borderless)
-    case .extended: Card.FrameEffect.allCases.contains(.extended)
-    case .spree: Card.FrameEffect.allCases.contains(.spree)
-    case .textless: Card.FrameEffect.allCases.contains(.textless)
-    case .enchantment: Card.FrameEffect.allCases.contains(.enchantment)
-    case .shatteredglass: Card.FrameEffect.allCases.contains(.shatteredglass)
-    case .upsidedowndfc: Card.FrameEffect.allCases.contains(.upsidedowndfc)
+    case .legendary: Card.FrameEffect.allCases.contains(stub)
+    case .miracle: Card.FrameEffect.allCases.contains(stub)
+    case .nyxTouched: Card.FrameEffect.allCases.contains(stub)
+    case .draft: Card.FrameEffect.allCases.contains(stub)
+    case .devoid: Card.FrameEffect.allCases.contains(stub)
+    case .tombstone: Card.FrameEffect.allCases.contains(stub)
+    case .colorShifted: Card.FrameEffect.allCases.contains(stub)
+    case .inverted: Card.FrameEffect.allCases.contains(stub)
+    case .sunMoonDfc: Card.FrameEffect.allCases.contains(stub)
+    case .compassLandDfc: Card.FrameEffect.allCases.contains(stub)
+    case .originPwDfc: Card.FrameEffect.allCases.contains(stub)
+    case .moonEldraziDfc: Card.FrameEffect.allCases.contains(stub)
+    case .waxingAndWaningMoonDfc: Card.FrameEffect.allCases.contains(stub)
+    case .showcase: Card.FrameEffect.allCases.contains(stub)
+    case .extendedArt: Card.FrameEffect.allCases.contains(stub)
+    case .companion: Card.FrameEffect.allCases.contains(stub)
+    case .etched: Card.FrameEffect.allCases.contains(stub)
+    case .snow: Card.FrameEffect.allCases.contains(stub)
+    case .lesson: Card.FrameEffect.allCases.contains(stub)
+    case .convertDfc: Card.FrameEffect.allCases.contains(stub)
+    case .fAndFc: Card.FrameEffect.allCases.contains(stub)
+    case .battle: Card.FrameEffect.allCases.contains(stub)
+    case .gravestone: Card.FrameEffect.allCases.contains(stub)
+    case .fullArt: Card.FrameEffect.allCases.contains(stub)
+    case .vehicle: Card.FrameEffect.allCases.contains(stub)
+    case .borderless: Card.FrameEffect.allCases.contains(stub)
+    case .extended: Card.FrameEffect.allCases.contains(stub)
+    case .spree: Card.FrameEffect.allCases.contains(stub)
+    case .textless: Card.FrameEffect.allCases.contains(stub)
+    case .enchantment: Card.FrameEffect.allCases.contains(stub)
+    case .shatteredGlass: Card.FrameEffect.allCases.contains(stub)
+    case .upsideDownDfc: Card.FrameEffect.allCases.contains(stub)
     case .unknown(let string):
       // Unknown case shouldn't be in allCases
       !Card.FrameEffect.allCases.contains(.unknown(string))
