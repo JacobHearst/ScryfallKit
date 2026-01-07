@@ -86,11 +86,7 @@ extension Card {
     }
 
     guard let uri = uris.uri(for: type) else {
-      if #available(iOS 14.0, macOS 11.0, *) {
-        Logger.main.error("No URI for image type \(type.rawValue)")
-      } else {
-        print("No URI for image type \(type)")
-      }
+      scryfallKitLogger.error("No URI for image type \(type.rawValue)")
       return nil
     }
 

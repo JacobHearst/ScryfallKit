@@ -3,17 +3,18 @@
 //
 
 import Foundation
+import OSLog
+
+public let scryfallKitLogger = Logger(subsystem: "dev.hearst.scryfallkit", category: "ScryfallClient")
 
 /// A client for interacting with the Scryfall API
 public final class ScryfallClient: Sendable {
-  private let networkLogLevel: NetworkLogLevel
   let networkService: NetworkServiceProtocol
 
   /// Initialize an instance of the ScryfallClient
   /// - Parameter networkLogLevel: The desired logging level. See ``NetworkLogLevel``
-  public init(networkLogLevel: NetworkLogLevel = .minimal) {
-    self.networkLogLevel = networkLogLevel
-    self.networkService = NetworkService(logLevel: networkLogLevel)
+  public init(logger: Logger = scryfallKitLogger) {
+    self.networkService = NetworkService(logger: logger)
   }
 
   /// Perform a search using an array of ``CardFieldFilter`` objects.

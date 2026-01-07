@@ -1,17 +1,17 @@
 //
 //  SmokeTests.swift
 //
-
+import OSLog
 import XCTest
 
 @testable import ScryfallKit
 
-@available(iOS 13.0.0, *)
 final class SmokeTests: XCTestCase {
   var client: ScryfallClient!
 
   override func setUp() {
-    self.client = ScryfallClient()
+    let logger = Logger(subsystem: "dev.hearst.ScryfallKitTests", category: "SmokeTests")
+    self.client = ScryfallClient(logger: logger)
   }
 
   func testLayouts() async throws {

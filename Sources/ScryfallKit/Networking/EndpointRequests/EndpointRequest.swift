@@ -20,11 +20,7 @@ extension EndpointRequest {
     }
 
     guard let url = urlComponents?.url else {
-      if #available(iOS 14.0, macOS 11.0, *) {
-        Logger.main.error("Couldn't make url")
-      } else {
-        print("Couldn't make url")
-      }
+      scryfallKitLogger.error("Couldn't make url")
       return nil
     }
 
