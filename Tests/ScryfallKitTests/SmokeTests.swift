@@ -49,7 +49,7 @@ final class SmokeTests: XCTestCase {
   }
 
   func testGetCardByFuzzyName() async throws {
-    _ = try await client.getCardByName(fuzzy: "Narset, Master")
+    _ = try await client.getCardByName(fuzzy: "narset enlight mast")
   }
 
   func testGetCardNameAutocomplete() async throws {
