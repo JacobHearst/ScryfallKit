@@ -201,15 +201,26 @@ extension Card {
   /// 
   /// [Scryfall documentation](https://scryfall.com/docs/api/frames#frame-effects)
   public enum FrameEffect: RawRepresentable, Codable, Sendable, CaseIterable, Equatable, Hashable {
-    case legendary, miracle, nyxTouched, draft, devoid, tombstone, colorShifted, inverted,
-         sunMoonDfc, compassLandDfc, originPwDfc, moonEldraziDfc, waxingAndWaningMoonDfc, showcase,
-         extendedArt, companion, etched, snow, lesson, convertDfc, fAndFc, battle, gravestone, fullArt, vehicle, borderless, extended, spree, textless, enchantment, shatteredGlass, upsideDownDfc
+    case legendary, miracle, draft, devoid, tombstone, showcase, companion, etched, snow, lesson, battle, gravestone, vehicle, borderless, extended, spree, textless, enchantment, inverted
+    case nyxTouched
+    case colorShifted
+    case sunMoonDfc
+    case compassLandDfc
+    case originPwDfc
+    case moonEldraziDfc
+    case waxingAndWaningMoonDfc
+    case extendedArt
+    case convertDfc
+    case fAndFc
+    case fullArt
+    case shatteredGlass
+    case upsideDownDfc
     /// A layout that hasn't been added to ScryfallKit yet
     case unknown(String)
 
     /// All known Magic: the Gathering frame effects
     public static let allCases: [Card.FrameEffect] = [
-        .legendary, .miracle, .nyxTouched, .draft, .devoid, .tombstone, .colorShifted, .inverted,
+      .legendary, .miracle, .nyxTouched, .draft, .devoid, .tombstone, .colorShifted, .inverted,
         .sunMoonDfc, .compassLandDfc, .originPwDfc, .moonEldraziDfc, .waxingAndWaningMoonDfc, .showcase,
         .extendedArt, .companion, .etched, .snow, .lesson, .convertDfc, .fAndFc, .battle, .gravestone, .fullArt,
         .vehicle, .borderless, .extended, .spree, .textless, .enchantment, .shatteredGlass, .upsideDownDfc,
@@ -218,6 +229,19 @@ extension Card {
     public var rawValue: String {
       switch self {
       case .unknown(let unknownRawValue): unknownRawValue
+      case .nyxTouched: "nyxtouched"
+      case .colorShifted: "colorshifted"
+      case .sunMoonDfc: "sunmoondfc"
+      case .compassLandDfc: "compasslanddfc"
+      case .originPwDfc: "originpwdfc"
+      case .moonEldraziDfc: "mooneldrazidfc"
+      case .waxingAndWaningMoonDfc: "waxingandwaningmoondfc"
+      case .extendedArt: "extendedart"
+      case .convertDfc: "convertdfc"
+      case .fAndFc: "fandfc"
+      case .fullArt: "fullart"
+      case .shatteredGlass: "shatteredglass"
+      case .upsideDownDfc: "upsidedowndfc"
       default: String(describing: self)
       }
     }
