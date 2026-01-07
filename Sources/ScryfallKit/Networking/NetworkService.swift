@@ -15,9 +15,9 @@ protocol NetworkServiceProtocol: Sendable {
 }
 
 struct NetworkService: NetworkServiceProtocol, Sendable {
-  let logger: Logger
+  let logger: Logger?
 
-  init(logger: Logger = scryfallKitLogger) {
+  init(logger: Logger?) {
     self.logger = logger
   }
 
@@ -26,12 +26,12 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
     completion: @Sendable @escaping (Result<T, Error>) -> Void
   ) {
     guard let urlRequest = request.urlRequest else {
-      logger.error("Invalid url request")
+      logger?.error("Invalid url request")
       completion(.failure(ScryfallKitError.invalidUrl))
       return
     }
 
-    logger.trace("Starting request: \(urlRequest.debugDescription)")
+    logger?.trace("Starting request: \(urlRequest.debugDescription)")
     let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
       do {
         let result = try handle(dataType: type, data: data, response: response, error: error)
@@ -41,7 +41,7 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
       }
     }
 
-    logger.trace("Making request to: '\(String(describing: urlRequest.url?.absoluteString))'")
+    logger?.trace("Making request to: '\(String(describing: urlRequest.url?.absoluteString))'")
     task.resume()
   }
 
@@ -65,7 +65,7 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
 
     if (200..<300).contains(httpStatus) {
       let responseBody = String(data: content, encoding: .utf8)
-      logger.debug("\(responseBody ?? "Couldn't represent response body as string")")
+      logger?.debug("\(responseBody ?? "Couldn't represent response body as string")")
       return try decoder.decode(dataType, from: content)
     } else {
       let httpError = try decoder.decode(ScryfallError.self, from: content)

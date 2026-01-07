@@ -5,15 +5,13 @@
 import Foundation
 import OSLog
 
-public let scryfallKitLogger = Logger(subsystem: "dev.hearst.scryfallkit", category: "ScryfallClient")
-
 /// A client for interacting with the Scryfall API
 public final class ScryfallClient: Sendable {
   let networkService: NetworkServiceProtocol
 
   /// Initialize an instance of the ScryfallClient
-  /// - Parameter networkLogLevel: The desired logging level. See ``NetworkLogLevel``
-  public init(logger: Logger = scryfallKitLogger) {
+  /// - Parameter logger: The logger to use. Pass nil to disable logging
+  public init(logger: Logger? = nil) {
     self.networkService = NetworkService(logger: logger)
   }
 

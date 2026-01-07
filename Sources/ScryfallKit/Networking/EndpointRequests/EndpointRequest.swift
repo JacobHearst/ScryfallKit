@@ -20,7 +20,6 @@ extension EndpointRequest {
     }
 
     guard let url = urlComponents?.url else {
-      scryfallKitLogger.error("Couldn't make url")
       return nil
     }
 

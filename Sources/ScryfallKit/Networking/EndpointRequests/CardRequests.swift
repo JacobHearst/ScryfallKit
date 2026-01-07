@@ -91,7 +91,6 @@ struct GetCard: EndpointRequest {
     default:
       // This guard should never trip. The only card identifier that doesn't have provider/id is the set code/collector
       guard let id = identifier.id else {
-        scryfallKitLogger.error("Provided identifier doesn't have a provider or doesn't have an id")
         fatalError(
           "Encountered a situation that shouldn't be possible: Card identifier's id property was nil"
         )
@@ -116,10 +115,6 @@ struct GetCardCollection: EndpointRequest {
     let identifierJSON = identifiers.map { $0.json }
     let requestBody: [String: [[String: String]]] = ["identifiers": identifierJSON]
 
-    do {
-      body = try JSONSerialization.data(withJSONObject: requestBody)
-    } catch {
-      scryfallKitLogger.error("Errored serializing dict to JSON for GetCardCollection request")
-    }
+    self.body = try? JSONSerialization.data(withJSONObject: requestBody)
   }
 }

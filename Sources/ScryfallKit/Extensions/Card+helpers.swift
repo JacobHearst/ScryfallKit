@@ -86,7 +86,6 @@ extension Card {
     }
 
     guard let uri = uris.uri(for: type) else {
-      scryfallKitLogger.error("No URI for image type \(type.rawValue)")
       return nil
     }
 
