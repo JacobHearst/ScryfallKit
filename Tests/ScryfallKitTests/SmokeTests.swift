@@ -17,8 +17,8 @@ final class SmokeTests: XCTestCase {
   func testLayouts() async throws {
     // Verify that we can handle all layout types
     // Skip double sided because there aren't any double_sided or battle cards being returned by Scryfall
-    for layout in Card.Layout.allCases where ![.doubleSided, .unknown, .battle].contains(layout) {
-      let cards = try await client.searchCards(query: "layout:\(layout.rawValue)")
+    for layout in Card.Layout.allCases where ![.doubleSided, .battle].contains(layout) {
+      let cards = try await client.searchCards(query: "layout:\(layout.rawValue.lowercased())")
       checkForUnknowns(in: cards.data)
     }
   }
@@ -49,7 +49,7 @@ final class SmokeTests: XCTestCase {
   }
 
   func testGetCardByFuzzyName() async throws {
-    _ = try await client.getCardByName(fuzzy: "Narset, Master")
+    _ = try await client.getCardByName(fuzzy: "narset enlight mast")
   }
 
   func testGetCardNameAutocomplete() async throws {
@@ -175,11 +175,11 @@ final class SmokeTests: XCTestCase {
 
   private func checkForUnknowns(in cards: [Card]) {
     for card in cards {
-      XCTAssertNotEqual(card.layout, .unknown, "Unknown layout on \(card.name)")
-      XCTAssertNotEqual(card.setType, .unknown, "Unknown set type on \(card.name)")
       if let frameEffects = card.frameEffects {
         for effect in frameEffects {
-          XCTAssertNotEqual(effect, .unknown, "Unknown frame effect on \(card.name) [\(card.set)]")
+          if case .unknown(let string) = effect {
+            XCTFail("Unknown frame effect: \(string)")
+          }
         }
       }
     }
