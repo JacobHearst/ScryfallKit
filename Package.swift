@@ -1,11 +1,10 @@
-// swift-tools-version:6.0
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+// swift-tools-version:6.2
 
 import PackageDescription
 
 let package = Package(
   name: "ScryfallKit",
-  platforms: [.macOS(.v10_13), .iOS(.v12)],
+  platforms: [.macOS(.v11), .iOS(.v14), .watchOS(.v11), .visionOS(.v26), .tvOS(.v14)],
   products: [
     .library(
       name: "ScryfallKit",

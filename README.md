@@ -52,7 +52,7 @@ client.getCardByName(exact: "Doom Blade", set: "STA") { result in
 ```
 
 ## Network Logging
-The ScryfallClient has a configurable level of network logging with two options: minimal and verbose. Enabling verbose logging will print the HTTP body of each request and response. Minimal logging will log that a request was made (and the URL it's made to) as well as that a response was received.
+The ScryfallClient will emit trace and debug logs if supplied with an `Logger` instance from the `OSLog` library.
 
 ## Contributing
 Contributions are always welcome, simply fork this repo, make and test your changes, and then open a pull request. I will try and review it within a reasonable amount of time.
