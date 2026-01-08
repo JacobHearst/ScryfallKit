@@ -131,6 +131,7 @@ final class CaseIterableTests: XCTestCase {
     case .arsenal: MTGSet.Kind.allCases.contains(.arsenal)
     case .alchemy: MTGSet.Kind.allCases.contains(.alchemy)
     case .minigame: MTGSet.Kind.allCases.contains(.minigame)
+    case .eternal: MTGSet.Kind.allCases.contains(.eternal)
     case .fromTheVault: MTGSet.Kind.allCases.contains(.fromTheVault)
     case .premiumDeck: MTGSet.Kind.allCases.contains(.premiumDeck)
     case .duelDeck: MTGSet.Kind.allCases.contains(.duelDeck)
