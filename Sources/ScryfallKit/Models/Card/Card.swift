@@ -170,7 +170,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   /// A link to this card's set on Scryfall
   public var setSearchUri: URL
   /// The type of set this card was printed in
-  public var setType: MTGSet.`Type`
+  public var setType: MTGSet.Kind
   /// A link to this card's set object on the Scryfall API
   public var setUri: String
   /// This card's set code
@@ -260,7 +260,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     scryfallSetUri: String,
     setName: String,
     setSearchUri: URL,
-    setType: MTGSet.`Type`,
+    setType: MTGSet.Kind,
     setUri: String,
     set: String,
     storySpotlight: Bool,

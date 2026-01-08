@@ -3,17 +3,16 @@
 //
 
 import Foundation
+import OSLog
 
 /// A client for interacting with the Scryfall API
 public final class ScryfallClient: Sendable {
-  private let networkLogLevel: NetworkLogLevel
   let networkService: NetworkServiceProtocol
 
   /// Initialize an instance of the ScryfallClient
-  /// - Parameter networkLogLevel: The desired logging level. See ``NetworkLogLevel``
-  public init(networkLogLevel: NetworkLogLevel = .minimal) {
-    self.networkLogLevel = networkLogLevel
-    self.networkService = NetworkService(logLevel: networkLogLevel)
+  /// - Parameter logger: The logger to use. Pass nil to disable logging
+  public init(logger: Logger? = nil) {
+    self.networkService = NetworkService(logger: logger)
   }
 
   /// Perform a search using an array of ``CardFieldFilter`` objects.

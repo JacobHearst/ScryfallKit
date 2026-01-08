@@ -91,12 +91,6 @@ struct GetCard: EndpointRequest {
     default:
       // This guard should never trip. The only card identifier that doesn't have provider/id is the set code/collector
       guard let id = identifier.id else {
-        if #available(iOS 14.0, macOS 11.0, *) {
-          Logger.main.error("Provided identifier doesn't have a provider or doesn't have an id")
-        } else {
-          print("Provided identifier doesn't have a provider or doesn't have an id")
-        }
-
         fatalError(
           "Encountered a situation that shouldn't be possible: Card identifier's id property was nil"
         )
@@ -121,14 +115,6 @@ struct GetCardCollection: EndpointRequest {
     let identifierJSON = identifiers.map { $0.json }
     let requestBody: [String: [[String: String]]] = ["identifiers": identifierJSON]
 
-    do {
-      body = try JSONSerialization.data(withJSONObject: requestBody)
-    } catch {
-      if #available(iOS 14.0, macOS 11.0, *) {
-        Logger.main.error("Errored serializing dict to JSON for GetCardCollection request")
-      } else {
-        print("Errored serializing dict to JSON for GetCardCollection request")
-      }
-    }
+    self.body = try? JSONSerialization.data(withJSONObject: requestBody)
   }
 }

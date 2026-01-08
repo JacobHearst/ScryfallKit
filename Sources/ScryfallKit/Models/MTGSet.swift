@@ -30,26 +30,30 @@ public struct MTGSet: Codable, Identifiable, Hashable, Sendable {
   /// A machine-readable value describing the type of set this is.
   ///
   /// See [Scryfall's docs](https://scryfall.com/docs/api/sets#set-types) for more information on set types
-  public enum `Type`: String, Codable, Sendable {
+  public enum Kind: RawRepresentable, Codable, Sendable, CaseIterable, Hashable, Equatable {
     // While "masters" is in fact not inclusive, it's also a name that we can't control
     // swiftlint:disable:next inclusive_language
     case core, expansion, masters, masterpiece, spellbook, commander, planechase, archenemy,
-      vanguard, funny, starter, box, promo, token, memorabilia, arsenal, alchemy, minigame, eternal,
-      unknown
-    case fromTheVault = "from_the_vault"
-    case premiumDeck = "premium_deck"
-    case duelDeck = "duel_deck"
-    case draftInnovation = "draft_innovation"
-    case treasureChest = "treasure_chest"
+         vanguard, funny, starter, box, promo, token, memorabilia, arsenal, alchemy, minigame,
+         eternal, fromTheVault, premiumDeck, duelDeck, draftInnovation, treasureChest
+    /// A layout that hasn't been added to ScryfallKit yet
+    case unknown(String)
 
-    public init(from decoder: Decoder) throws {
-      self = try Self(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .unknown
-      if self == .unknown, let rawValue = try? String(from: decoder) {
-        if #available(iOS 14.0, macOS 11.0, *) {
-          Logger.main.warning("Decoded unknown MTGSet Type: \(rawValue)")
-        } else {
-          print("Decoded unknown MTGSet Type: \(rawValue)")
-        }
+    public static let allCases: [Kind] = [
+      .core, .expansion, .masters, .masterpiece, .spellbook, .commander, .planechase, .archenemy,
+      .vanguard, .funny, .starter, .box, .promo, .token, .memorabilia, .arsenal, .alchemy, .minigame,
+      .eternal, .fromTheVault, .premiumDeck, .duelDeck, .draftInnovation, .treasureChest
+    ]
+
+    public var rawValue: String {
+      switch self {
+      case .fromTheVault: "from_the_vault"
+      case .premiumDeck: "premium_deck"
+      case .duelDeck: "duel_deck"
+      case .draftInnovation: "draft_innovation"
+      case .treasureChest: "treasure_chest"
+      case .unknown(let unknownValue): unknownValue
+      default: String(describing: self)
       }
     }
   }
@@ -65,7 +69,7 @@ public struct MTGSet: Codable, Identifiable, Hashable, Sendable {
   /// The English name of the set.
   public var name: String
   /// A computer-readable classification for this set.
-  public var setType: MTGSet.`Type`
+  public var setType: Kind
   /// The date the set was released or the first card was printed in the set (in GMT-8 Pacific time).
   public var releasedAt: String?
   /// The block code for this set, if any.
@@ -101,7 +105,7 @@ public struct MTGSet: Codable, Identifiable, Hashable, Sendable {
     mtgoCode: String? = nil,
     tcgplayerId: Int? = nil,
     name: String,
-    setType: MTGSet.`Type`,
+    setType: Kind,
     releasedAt: String? = nil,
     blockCode: String? = nil,
     block: String? = nil,
