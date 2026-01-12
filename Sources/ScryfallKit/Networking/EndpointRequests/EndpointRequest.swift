@@ -15,8 +15,10 @@ protocol EndpointRequest {
 extension EndpointRequest {
   var urlRequest: URLRequest? {
     var urlComponents = URLComponents(string: "https://api.scryfall.com/\(path)")
-    if !queryParams.isEmpty {
-      urlComponents?.queryItems = queryParams.compactMap { $0.value == nil ? nil : $0 }
+    urlComponents?.queryItems = queryParams.compactMap { $0.value == nil ? nil : $0 }
+    let queryItems = urlComponents?.queryItems
+    urlComponents?.percentEncodedQueryItems = queryItems?.map {
+      URLQueryItem(name: $0.name, value: $0.value?.addingPercentEncoding(withAllowedCharacters: .alphanumerics))
     }
 
     guard let url = urlComponents?.url else {
