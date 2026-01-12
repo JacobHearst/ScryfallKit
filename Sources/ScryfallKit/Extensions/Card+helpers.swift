@@ -34,6 +34,28 @@ extension Card {
       return legalities.penny ?? .notLegal
     case .commander:
       return legalities.commander ?? .notLegal
+    case .future:
+      return legalities.future ?? .notLegal
+    case .timeless:
+      return legalities.timeless ?? .notLegal
+    case .gladiator:
+      return legalities.gladiator ?? .notLegal
+    case .oathbreaker:
+      return legalities.oathbreaker ?? .notLegal
+    case .standardbrawl:
+      return legalities.standardbrawl ?? .notLegal
+    case .alchemy:
+      return legalities.alchemy ?? .notLegal
+    case .paupercommander:
+      return legalities.paupercommander ?? .notLegal
+    case .duel:
+      return legalities.duel ?? .notLegal
+    case .oldschool:
+      return legalities.oldschool ?? .notLegal
+    case .premodern:
+      return legalities.premodern ?? .notLegal
+    case .predh:
+      return legalities.predh ?? .notLegal
     }
   }
 

@@ -34,13 +34,15 @@ public struct MTGSet: Codable, Identifiable, Hashable, Sendable {
     // While "masters" is in fact not inclusive, it's also a name that we can't control
     // swiftlint:disable:next inclusive_language
     case core, expansion, masters, masterpiece, spellbook, commander, planechase, archenemy,
-         vanguard, funny, starter, box, promo, token, memorabilia, arsenal, alchemy, minigame, fromTheVault, premiumDeck, duelDeck, draftInnovation, treasureChest
+         vanguard, funny, starter, box, promo, token, memorabilia, arsenal, alchemy, minigame,
+         eternal, fromTheVault, premiumDeck, duelDeck, draftInnovation, treasureChest
     /// A layout that hasn't been added to ScryfallKit yet
     case unknown(String)
 
     public static let allCases: [Kind] = [
       .core, .expansion, .masters, .masterpiece, .spellbook, .commander, .planechase, .archenemy,
-      .vanguard, .funny, .starter, .box, .promo, .token, .memorabilia, .arsenal, .alchemy, .minigame, .fromTheVault, .premiumDeck, .duelDeck, .draftInnovation, .treasureChest
+      .vanguard, .funny, .starter, .box, .promo, .token, .memorabilia, .arsenal, .alchemy, .minigame,
+      .eternal, .fromTheVault, .premiumDeck, .duelDeck, .draftInnovation, .treasureChest
     ]
 
     public var rawValue: String {
