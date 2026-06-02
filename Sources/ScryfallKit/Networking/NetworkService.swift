@@ -15,9 +15,11 @@ protocol NetworkServiceProtocol: Sendable {
 }
 
 struct NetworkService: NetworkServiceProtocol, Sendable {
+  let userAgent: String?
   let logger: Logger?
 
-  init(logger: Logger?) {
+  init(userAgent: String?, logger: Logger?) {
+    self.userAgent = userAgent
     self.logger = logger
   }
 
@@ -25,10 +27,14 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
     _ request: EndpointRequest, as type: T.Type,
     completion: @Sendable @escaping (Result<T, Error>) -> Void
   ) {
-    guard let urlRequest = request.urlRequest else {
+    guard var urlRequest = request.urlRequest else {
       logger?.error("Invalid url request")
       completion(.failure(ScryfallKitError.invalidUrl))
       return
+    }
+
+    if let userAgent {
+      urlRequest.setValue(userAgent, forHTTPHeaderField: "User-Agent")
     }
 
     logger?.trace("Starting request: \(urlRequest.debugDescription)")
@@ -52,23 +58,32 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
       throw error
     }
 
-    guard let content = data else {
-      throw ScryfallKitError.noDataReturned
-    }
-
     guard let httpStatus = (response as? HTTPURLResponse)?.statusCode else {
       throw ScryfallKitError.failedToCast("httpStatus property of response to HTTPURLResponse")
+    }
+
+    logger?.debug("HTTP \(httpStatus): \(data.flatMap { String(data: $0, encoding: .utf8) } ?? "Couldn't represent response body as string")")
+
+    guard let content = data else {
+      throw ScryfallKitError.noDataReturned
     }
 
     let decoder = JSONDecoder()
     decoder.keyDecodingStrategy = .convertFromSnakeCase
 
     if (200..<300).contains(httpStatus) {
-      let responseBody = String(data: content, encoding: .utf8)
-      logger?.debug("\(responseBody ?? "Couldn't represent response body as string")")
-      return try decoder.decode(dataType, from: content)
+      do {
+        return try decoder.decode(dataType, from: content)
+      } catch {
+        throw ScryfallKitError.failedToDecode(content)
+      }
     } else {
-      let httpError = try decoder.decode(ScryfallError.self, from: content)
+      let httpError: ScryfallError
+      do {
+        httpError = try decoder.decode(ScryfallError.self, from: content)
+      } catch {
+        throw ScryfallKitError.httpError(httpStatus, content)
+      }
       throw ScryfallKitError.scryfallError(httpError)
     }
   }

@@ -25,6 +25,8 @@ extension Card {
     public var colors: [Card.Color]?
     /// This face's defense, if any
     public var defense: String?
+    /// The just-for-fun name printed on the card (such as for Godzilla series cards).
+    public var flavorName: String?
     /// This card's flavor text if any
     public var flavorText: String?
     /// An ID for this card face's art that remains consistent across reprints
@@ -64,6 +66,7 @@ extension Card {
       colorIndicator: [Card.Color]? = nil,
       colors: [Card.Color]? = nil,
       defense: String? = nil,
+      flavorName: String? = nil,
       flavorText: String? = nil,
       illustrationId: UUID? = nil,
       imageUris: ImageUris? = nil,
@@ -83,6 +86,7 @@ extension Card {
       self.colorIndicator = colorIndicator
       self.colors = colors
       self.defense = defense
+      self.flavorName = flavorName
       self.flavorText = flavorText
       self.illustrationId = illustrationId
       self.imageUris = imageUris

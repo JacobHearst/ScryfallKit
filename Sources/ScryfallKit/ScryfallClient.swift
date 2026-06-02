@@ -10,9 +10,11 @@ public final class ScryfallClient: Sendable {
   let networkService: NetworkServiceProtocol
 
   /// Initialize an instance of the ScryfallClient
-  /// - Parameter logger: The logger to use. Pass nil to disable logging
-  public init(logger: Logger? = nil) {
-    self.networkService = NetworkService(logger: logger)
+  /// - Parameters:
+  ///   - userAgent: The value for the HTTP User-Agent header; required by Scryfall's API usage terms
+  ///   - logger: The logger to use. Pass nil to disable logging
+  public init(userAgent: String? = nil, logger: Logger? = nil) {
+    self.networkService = NetworkService(userAgent: userAgent, logger: logger)
   }
 
   /// Perform a search using an array of ``CardFieldFilter`` objects.

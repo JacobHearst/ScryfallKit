@@ -13,6 +13,8 @@ public enum ScryfallKitError: LocalizedError, CustomStringConvertible {
   case singleFacedCard
   case noDataReturned
   case failedToCast(String)
+  case failedToDecode(Data)
+  case httpError(Int, Data)
 
   public var errorDescription: String? {
     description
@@ -30,6 +32,10 @@ public enum ScryfallKitError: LocalizedError, CustomStringConvertible {
       return "No data was returned by the server"
     case .failedToCast(let details):
       return "Failed to cast \(details)"
+    case .failedToDecode:
+      return "Failed to decode response into valid JSON"
+    case .httpError(let statusCode, _):
+      return "Failed with HTTP \(statusCode)"
     }
   }
 }

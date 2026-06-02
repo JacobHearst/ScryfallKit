@@ -13,16 +13,22 @@ extension Card {
     public var usdFoil: String?
     /// The price of this card's etched printing in usd
     public var usdEtched: String?
-    /// The price of this card in eur.
+    /// The price of this card in eur
     public var eur: String?
+    /// The price of this card's foil printing in eur
+    public var eurFoil: String?
+    /// The price of this card's etched printing in eur
+    public var eurEtched: String?
 
-    public init(tix: String? = nil, usd: String? = nil, usdFoil: String? = nil, usdEtched: String? = nil, eur: String? = nil)
+    public init(tix: String? = nil, usd: String? = nil, usdFoil: String? = nil, usdEtched: String? = nil, eur: String? = nil, eurFoil: String? = nil, eurEtched: String? = nil)
     {
       self.tix = tix
       self.usd = usd
       self.usdFoil = usdFoil
       self.usdEtched = usdEtched
       self.eur = eur
+      self.eurFoil = eurFoil
+      self.eurEtched = eurEtched
     }
   }
 }

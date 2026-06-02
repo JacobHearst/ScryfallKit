@@ -31,13 +31,13 @@ public enum SortDirection: String, Codable, CaseIterable, Sendable {
 }
 
 /// Formats for playing Magic: the Gathering
-public enum Format: String, CaseIterable, Sendable {
+public enum Format: String, Codable, CaseIterable, Sendable {
   case standard, future, historic, timeless, gladiator, pioneer, modern, legacy, pauper, vintage,
     penny, commander, oathbreaker, standardbrawl, brawl, alchemy, paupercommander, duel, oldschool,
     premodern, predh
 }
 
 /// Currency types that Scryfall provides prices for
-public enum Currency: String, CaseIterable, Sendable {
-  case usd, eur, tix, usdFoil, usdEtched
+public enum Currency: String, Codable, CaseIterable, Sendable {
+  case usd, usdFoil, usdEtched, eur, eurFoil, eurEtched, tix
 }

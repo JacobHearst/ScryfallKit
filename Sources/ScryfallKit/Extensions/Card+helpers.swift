@@ -65,10 +65,12 @@ extension Card {
   public func getPrice(for currency: Currency) -> String? {
     switch currency {
     case .usd: return prices.usd
-    case .eur: return prices.eur
-    case .tix: return prices.tix
     case .usdFoil: return prices.usdFoil
     case .usdEtched: return prices.usdEtched
+    case .eur: return prices.eur
+    case .eurFoil: return prices.eurFoil
+    case .eurEtched: return prices.eurEtched
+    case .tix: return prices.tix
     }
   }
 }
