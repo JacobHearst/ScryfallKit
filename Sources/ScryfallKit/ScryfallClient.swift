@@ -13,8 +13,10 @@ public final class ScryfallClient: Sendable {
   /// - Parameters:
   ///   - userAgent: The value for the HTTP User-Agent header; required by Scryfall's API usage terms
   ///   - logger: The logger to use. Pass nil to disable logging
-  public init(userAgent: String? = nil, logger: Logger? = nil) {
-    self.networkService = NetworkService(userAgent: userAgent, logger: logger)
+  ///   - rateLimiter: An optional ``RateLimiter`` to throttle outgoing requests. Pass nil (the default) to
+  ///     disable throttling.
+  public init(userAgent: String? = nil, logger: Logger? = nil, rateLimiter: RateLimiter? = nil) {
+    self.networkService = NetworkService(userAgent: userAgent, logger: logger, rateLimiter: rateLimiter)
   }
 
   /// Perform a search using an array of ``CardFieldFilter`` objects.

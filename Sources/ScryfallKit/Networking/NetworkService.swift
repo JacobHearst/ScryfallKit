@@ -17,10 +17,12 @@ protocol NetworkServiceProtocol: Sendable {
 struct NetworkService: NetworkServiceProtocol, Sendable {
   let userAgent: String?
   let logger: Logger?
+  let rateLimiter: RateLimiter?
 
-  init(userAgent: String?, logger: Logger?) {
+  init(userAgent: String?, logger: Logger?, rateLimiter: RateLimiter?) {
     self.userAgent = userAgent
     self.logger = logger
+    self.rateLimiter = rateLimiter
   }
 
   func request<T: Decodable & Sendable>(
@@ -37,18 +39,22 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
       urlRequest.setValue(userAgent, forHTTPHeaderField: "User-Agent")
     }
 
-    logger?.trace("Starting request: \(urlRequest.debugDescription)")
-    let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-      do {
-        let result = try handle(dataType: type, data: data, response: response, error: error)
-        completion(.success(result))
-      } catch {
-        completion(.failure(error))
-      }
-    }
+    Task {
+      await rateLimiter?.waitIfNeeded()
 
-    logger?.trace("Making request to: '\(String(describing: urlRequest.url?.absoluteString))'")
-    task.resume()
+      logger?.trace("Starting request: \(urlRequest.debugDescription)")
+      let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+        do {
+          let result = try handle(dataType: type, data: data, response: response, error: error)
+          completion(.success(result))
+        } catch {
+          completion(.failure(error))
+        }
+      }
+
+      logger?.trace("Making request to: '\(String(describing: urlRequest.url?.absoluteString))'")
+      task.resume()
+    }
   }
 
   func handle<T: Decodable>(dataType: T.Type, data: Data?, response: URLResponse?, error: Error?)
