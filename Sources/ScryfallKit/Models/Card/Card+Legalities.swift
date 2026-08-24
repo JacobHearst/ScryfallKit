@@ -22,12 +22,14 @@ extension Card {
     public let gladiator: Legality?
     public let oathbreaker: Legality?
     public let standardbrawl: Legality?
+    public let competitivebrawl: Legality?
     public let alchemy: Legality?
     public let paupercommander: Legality?
     public let duel: Legality?
     public let oldschool: Legality?
     public let premodern: Legality?
     public let predh: Legality?
+    public let tlr: Legality?
 
     public init(
       standard: Legality?,
@@ -45,12 +47,14 @@ extension Card {
       gladiator: Legality?,
       oathbreaker: Legality?,
       standardbrawl: Legality?,
+      competitivebrawl: Legality?,
       alchemy: Legality?,
       paupercommander: Legality?,
       duel: Legality?,
       oldschool: Legality?,
       premodern: Legality?,
       predh: Legality?,
+      tlr: Legality?,
     ) {
       self.standard = standard
       self.historic = historic
@@ -67,12 +71,14 @@ extension Card {
       self.gladiator = gladiator
       self.oathbreaker = oathbreaker
       self.standardbrawl = standardbrawl
+      self.competitivebrawl = competitivebrawl
       self.alchemy = alchemy
       self.paupercommander = paupercommander
       self.duel = duel
       self.oldschool = oldschool
       self.premodern = premodern
       self.predh = predh
+      self.tlr = tlr
     }
   }
 }

@@ -30,13 +30,19 @@ public struct Catalog: Codable, Sendable {
     case watermarks
   }
 
+  /// A link to the current catalog on Scryfall’s API
+  /// - Note: Scryfall's documentation lists this as required but it's absent from the catalog
+  ///   returned by /cards/autocomplete
+  public var uri: String?
+
   /// The number of items in the `data` array
   public var totalValues: Int
 
   /// An array of data points
   public var data: [String]
 
-  public init(totalValues: Int, data: [String]) {
+  public init(uri: String? = nil, totalValues: Int, data: [String]) {
+    self.uri = uri
     self.totalValues = totalValues
     self.data = data
   }

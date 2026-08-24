@@ -24,7 +24,9 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   /// The identifier of the etched version of this card on TCGPlayer
   public var tcgplayerEtchedId: Int?
   /// The identifier of this card on Card Market
-  public var cardMarketId: Int?
+  public var cardmarketId: Int?
+  /// The identifier of this card on Wizards of the Coast's [Gatherer](https://gatherer.wizards.com/Pages/Default.aspx)
+  public var resourceId: String?
   /// The identifier for this card’s oracle identity.
   ///
   /// For more information on this property, see [Scryfall's documentation](https://scryfall.com/docs/api/cards#core-card-fields)
@@ -87,6 +89,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   public var name: String
   /// The oracle text for this card
   public var oracleText: String?
+  /// This card’s rank/popularity on Penny Dreadful. Not all cards are ranked.
+  public var pennyRank: Int?
   /// True if this card is an oversized card
   public var oversized: Bool
   /// The power of this card if it's a creature
@@ -104,6 +108,10 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   // MARK: Print fields
   /// The name of the artist who illustrated this card
   public var artist: String?
+  /// The identifiers of the artists who illustrated this card
+  public var artistIds: [UUID]?
+  /// The lit Unfinity attraction lights on this card, if any
+  public var attractionLights: [Int]?
   /// True if this card was printed in booster packs
   public var booster: Bool
   /// The color of this card's border
@@ -175,6 +183,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   public var setUri: String
   /// This card's set code
   public var set: String
+  /// The identifier of this card's set on Scryfall
+  public var setId: UUID
   /// True if this was a story spotlight card
   public var storySpotlight: Bool
   /// True if this card doesn't have any text on it
@@ -183,6 +193,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   public var variation: Bool
   /// The id of the card this card is a variation of
   public var variationOf: UUID?
+  /// The security stamp on this card, if any
+  public var securityStamp: SecurityStamp?
   /// This card's watermark, if any
   public var watermark: String?
   /// An object with information on when this card was previewed and by whom
@@ -196,7 +208,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     multiverseIds: [Int]? = nil,
     tcgplayerId: Int? = nil,
     tcgplayerEtchedId: Int? = nil,
-    cardMarketId: Int? = nil,
+    cardmarketId: Int? = nil,
+    resourceId: String? = nil,
     id: UUID,
     oracleId: String,
     lang: String,
@@ -222,6 +235,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     manaCost: String? = nil,
     name: String,
     oracleText: String? = nil,
+    pennyRank: Int? = nil,
     oversized: Bool,
     power: String? = nil,
     producedMana: [Color]? = nil,
@@ -229,6 +243,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     toughness: String? = nil,
     typeLine: String? = nil,
     artist: String? = nil,
+    artistIds: [UUID]? = nil,
+    attractionLights: [Int]? = nil,
     booster: Bool,
     borderColor: BorderColor,
     cardBackId: UUID? = nil,
@@ -263,10 +279,12 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     setType: MTGSet.Kind,
     setUri: String,
     set: String,
+    setId: UUID,
     storySpotlight: Bool,
     textless: Bool,
     variation: Bool,
     variationOf: UUID? = nil,
+    securityStamp: SecurityStamp? = nil,
     watermark: String? = nil,
     preview: Preview? = nil
   ) {
@@ -276,7 +294,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     self.multiverseIds = multiverseIds
     self.tcgplayerId = tcgplayerId
     self.tcgplayerEtchedId = tcgplayerEtchedId
-    self.cardMarketId = cardMarketId
+    self.cardmarketId = cardmarketId
+    self.resourceId = resourceId
     self.id = id
     self.oracleId = oracleId
     self.lang = lang
@@ -302,6 +321,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     self.manaCost = manaCost
     self.name = name
     self.oracleText = oracleText
+    self.pennyRank = pennyRank
     self.oversized = oversized
     self.power = power
     self.producedMana = producedMana
@@ -309,6 +329,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     self.toughness = toughness
     self.typeLine = typeLine
     self.artist = artist
+    self.artistIds = artistIds
+    self.attractionLights = attractionLights
     self.booster = booster
     self.borderColor = borderColor
     self.cardBackId = cardBackId
@@ -343,10 +365,12 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     self.setType = setType
     self.setUri = setUri
     self.set = set
+    self.setId = setId
     self.storySpotlight = storySpotlight
     self.textless = textless
     self.variation = variation
     self.variationOf = variationOf
+    self.securityStamp = securityStamp
     self.watermark = watermark
     self.preview = preview
   }
