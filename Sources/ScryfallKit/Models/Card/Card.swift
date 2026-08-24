@@ -96,7 +96,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
   /// The power of this card if it's a creature
   public var power: String?
   /// The colors of mana that this card _could_ produce
-  public var producedMana: [Color]?
+  public var producedMana: [ProducedColor]?
   /// True if this card is on the Reserved List
   public var reserved: Bool
   /// The toughness of this card if it's a creature
@@ -238,7 +238,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     pennyRank: Int? = nil,
     oversized: Bool,
     power: String? = nil,
-    producedMana: [Color]? = nil,
+    producedMana: [ProducedColor]? = nil,
     reserved: Bool,
     toughness: String? = nil,
     typeLine: String? = nil,

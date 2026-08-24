@@ -174,6 +174,9 @@ final class SmokeTests: XCTestCase {
   }
 
   private func checkForUnknowns(in cards: [Card]) {
+    // Note that `producedMana` is deliberately not checked here: an unknown ProducedColor is
+    // expected rather than a gap in ScryfallKit, because Scryfall reports values that aren't
+    // colors at all (Unfinity's Sole Performer produces "T").
     for card in cards {
       if let frameEffects = card.frameEffects {
         for effect in frameEffects {
@@ -181,6 +184,20 @@ final class SmokeTests: XCTestCase {
             XCTFail("Unknown frame effect: \(string)")
           }
         }
+      }
+
+      if case .unknown(let string) = card.layout {
+        XCTFail("Unknown layout: \(string) on \(card.name)")
+      }
+
+      for face in card.cardFaces ?? [] {
+        if case .unknown(let string) = face.layout {
+          XCTFail("Unknown face layout: \(string) on \(card.name)")
+        }
+      }
+
+      if case .unknown(let string) = card.setType {
+        XCTFail("Unknown set type: \(string) on \(card.name)")
       }
     }
   }

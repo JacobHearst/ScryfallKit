@@ -22,7 +22,14 @@ extension UnknownDecodable {
   }
 }
 
+extension Card.BorderColor: UnknownDecodable {}
+extension Card.Finish: UnknownDecodable {}
+extension Card.Frame: UnknownDecodable {}
 extension Card.FrameEffect: UnknownDecodable {}
+extension Card.ProducedColor: UnknownDecodable {}
 extension Card.Layout: UnknownDecodable {}
+extension Card.RelatedCard.Component: UnknownDecodable {}
+extension Card.Ruling.Source: UnknownDecodable {}
 extension Card.SecurityStamp: UnknownDecodable {}
+extension Game: UnknownDecodable {}
 extension MTGSet.Kind: UnknownDecodable {}
