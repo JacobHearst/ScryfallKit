@@ -11,7 +11,7 @@ final class SmokeTests: XCTestCase {
 
   override func setUp() {
     let logger = Logger(subsystem: "dev.hearst.ScryfallKitTests", category: "SmokeTests")
-    self.client = ScryfallClient(logger: logger, rateLimiter: RateLimiter(requestsPerSecond: 15))
+    self.client = ScryfallClient(logger: logger, rateLimiter: RateLimiter(requestsPerSecond: 5))
   }
 
   func testLayouts() async throws {
