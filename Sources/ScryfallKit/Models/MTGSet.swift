@@ -64,6 +64,8 @@ public struct MTGSet: Codable, Identifiable, Hashable, Sendable {
   public var code: String
   /// The unique code for this set on MTGO, which may differ from the regular code.
   public var mtgoCode: String?
+  /// The unique code for this set on MTG Arena, which may differ from the regular code.
+  public var arenaCode: String?
   /// This set’s ID on [TCGplayer’s API](https://docs.tcgplayer.com/docs), also known as the groupId.
   public var tcgplayerId: Int?
   /// The English name of the set.
@@ -103,6 +105,7 @@ public struct MTGSet: Codable, Identifiable, Hashable, Sendable {
     id: UUID,
     code: String,
     mtgoCode: String? = nil,
+    arenaCode: String? = nil,
     tcgplayerId: Int? = nil,
     name: String,
     setType: Kind,
@@ -123,6 +126,7 @@ public struct MTGSet: Codable, Identifiable, Hashable, Sendable {
     self.id = id
     self.code = code
     self.mtgoCode = mtgoCode
+    self.arenaCode = arenaCode
     self.tcgplayerId = tcgplayerId
     self.name = name
     self.setType = setType

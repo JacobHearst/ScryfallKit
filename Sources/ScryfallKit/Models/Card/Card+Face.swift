@@ -17,6 +17,8 @@ extension Card {
     public var oracleId: String?
     /// The name of the artist who illustrated this card
     public var artist: String?
+    /// The identifier of the artist who illustrated this card face
+    public var artistId: UUID?
     /// An array of the colors in this card’s color indicator or nil if it doesn't have one
     ///
     /// Color indicators are used to specify the color of a card that has no mana symbols
@@ -33,6 +35,8 @@ extension Card {
     public var illustrationId: UUID?
     /// An object listing available imagery for this card.
     public var imageUris: ImageUris?
+    /// The layout of this card face, if the card is reversible
+    public var layout: Layout?
     /// This card's starting loyalty counters if it's a planeswalker
     public var loyalty: String?
     /// The mana cost for this card.
@@ -63,6 +67,7 @@ extension Card {
 
     public init(
       artist: String? = nil,
+      artistId: UUID? = nil,
       colorIndicator: [Card.Color]? = nil,
       colors: [Card.Color]? = nil,
       defense: String? = nil,
@@ -70,6 +75,7 @@ extension Card {
       flavorText: String? = nil,
       illustrationId: UUID? = nil,
       imageUris: ImageUris? = nil,
+      layout: Layout? = nil,
       loyalty: String? = nil,
       manaCost: String,
       name: String,
@@ -83,6 +89,7 @@ extension Card {
       watermark: String? = nil
     ) {
       self.artist = artist
+      self.artistId = artistId
       self.colorIndicator = colorIndicator
       self.colors = colors
       self.defense = defense
@@ -90,6 +97,7 @@ extension Card {
       self.flavorText = flavorText
       self.illustrationId = illustrationId
       self.imageUris = imageUris
+      self.layout = layout
       self.loyalty = loyalty
       self.manaCost = manaCost
       self.name = name

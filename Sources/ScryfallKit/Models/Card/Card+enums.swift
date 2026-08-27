@@ -121,6 +121,26 @@ extension Card {
     }
   }
 
+  /// The security stamp printed on a card
+  public enum SecurityStamp: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable
+  {
+    case oval, triangle, acorn, circle, arena, heart
+    /// A security stamp that hasn't been added to ScryfallKit yet
+    case unknown(String)
+
+    /// All known security stamps
+    public static let allCases: [Card.SecurityStamp] = [
+      .oval, .triangle, .acorn, .circle, .arena, .heart,
+    ]
+
+    public var rawValue: String {
+      switch self {
+      case .unknown(let unknownRawValue): unknownRawValue
+      default: String(describing: self)
+      }
+    }
+  }
+
   /// Layouts for a Magic card
   ///
   /// [Scryfall documentation](https://scryfall.com/docs/api/layouts)
@@ -198,7 +218,7 @@ extension Card {
   }
 
   /// Effects applied to a Magic card frame
-  /// 
+  ///
   /// [Scryfall documentation](https://scryfall.com/docs/api/frames#frame-effects)
   public enum FrameEffect: RawRepresentable, Codable, Sendable, CaseIterable, Equatable, Hashable {
     case legendary, miracle, draft, devoid, tombstone, showcase, companion, etched, snow, lesson, battle, gravestone, vehicle, borderless, extended, spree, textless, enchantment, inverted

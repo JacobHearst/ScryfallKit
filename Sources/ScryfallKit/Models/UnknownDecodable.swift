@@ -24,4 +24,5 @@ extension UnknownDecodable {
 
 extension Card.FrameEffect: UnknownDecodable {}
 extension Card.Layout: UnknownDecodable {}
+extension Card.SecurityStamp: UnknownDecodable {}
 extension MTGSet.Kind: UnknownDecodable {}

@@ -110,6 +110,23 @@ final class CaseIterableTests: XCTestCase {
     XCTAssertTrue(contains)
   }
 
+  func testSecurityStamp() {
+    let stub = Card.SecurityStamp.oval
+    let contains = switch stub {
+    case .oval: Card.SecurityStamp.allCases.contains(.oval)
+    case .triangle: Card.SecurityStamp.allCases.contains(.triangle)
+    case .acorn: Card.SecurityStamp.allCases.contains(.acorn)
+    case .circle: Card.SecurityStamp.allCases.contains(.circle)
+    case .arena: Card.SecurityStamp.allCases.contains(.arena)
+    case .heart: Card.SecurityStamp.allCases.contains(.heart)
+    case .unknown(let string):
+      // Unknown case shouldn't be in allCases
+      !Card.SecurityStamp.allCases.contains(.unknown(string))
+    }
+
+    XCTAssertTrue(contains)
+  }
+
   func testSetType() {
     let stub = MTGSet.Kind.funny
     let contains = switch stub {
