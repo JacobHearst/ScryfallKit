@@ -10,15 +10,30 @@ extension Card {
   /// - Note: In the documentation of this struct, "this card" will refer to the `RelatedCard` object while "the original card" will refer to the `Card` object that contains this object
   public struct RelatedCard: Codable, Identifiable, Hashable, Sendable {
     /// The type of relationship
-    public enum Component: String, Codable, CaseIterable, Hashable, Sendable {
+    public enum Component: RawRepresentable, Codable, CaseIterable, Hashable, Sendable, Equatable {
       /// This card is a token that's made by the original card
       case token
       /// This card melds with the original card
-      case meldPart = "meld_part"
+      case meldPart
       /// This card is the result of melding the original card with its other half
-      case meldResult = "meld_result"
+      case meldResult
       /// This card combos with the original card
-      case comboPiece = "combo_piece"
+      case comboPiece
+      /// A relationship that hasn't been added to ScryfallKit yet
+      case unknown(String)
+
+      /// All known relationships
+      public static let allCases: [Component] = [.token, .meldPart, .meldResult, .comboPiece]
+
+      public var rawValue: String {
+        switch self {
+        case .meldPart: "meld_part"
+        case .meldResult: "meld_result"
+        case .comboPiece: "combo_piece"
+        case .unknown(let unknownRawValue): unknownRawValue
+        default: String(describing: self)
+        }
+      }
     }
 
     /// The Scryfall ID of this card

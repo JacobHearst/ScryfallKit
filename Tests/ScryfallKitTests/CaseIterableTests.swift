@@ -97,14 +97,125 @@ final class CaseIterableTests: XCTestCase {
     case .case: Card.Layout.allCases.contains(.case)
     case .mutate: Card.Layout.allCases.contains(.mutate)
     case .prototype: Card.Layout.allCases.contains(.prototype)
+    case .prepare: Card.Layout.allCases.contains(.prepare)
     case .modalDfc: Card.Layout.allCases.contains(.modalDfc)
     case .doubleSided: Card.Layout.allCases.contains(.doubleSided)
     case .doubleFacedToken: Card.Layout.allCases.contains(.doubleFacedToken)
     case .artSeries: Card.Layout.allCases.contains(.artSeries)
     case .reversibleCard: Card.Layout.allCases.contains(.reversibleCard)
+    case .frontCard: Card.Layout.allCases.contains(.frontCard)
     case .unknown(let string):
       // Unknown case shouldn't be in allCases
       !Card.Layout.allCases.contains(.unknown(string))
+    }
+
+    XCTAssertTrue(contains)
+  }
+
+  func testFinish() {
+    let stub = Card.Finish.foil
+    let contains = switch stub {
+    case .nonfoil: Card.Finish.allCases.contains(.nonfoil)
+    case .foil: Card.Finish.allCases.contains(.foil)
+    case .etched: Card.Finish.allCases.contains(.etched)
+    case .glossy: Card.Finish.allCases.contains(.glossy)
+    case .unknown(let string):
+      // Unknown case shouldn't be in allCases
+      !Card.Finish.allCases.contains(.unknown(string))
+    }
+
+    XCTAssertTrue(contains)
+  }
+
+  func testBorderColor() {
+    let stub = Card.BorderColor.black
+    let contains = switch stub {
+    case .black: Card.BorderColor.allCases.contains(.black)
+    case .borderless: Card.BorderColor.allCases.contains(.borderless)
+    case .gold: Card.BorderColor.allCases.contains(.gold)
+    case .silver: Card.BorderColor.allCases.contains(.silver)
+    case .white: Card.BorderColor.allCases.contains(.white)
+    case .yellow: Card.BorderColor.allCases.contains(.yellow)
+    case .unknown(let string):
+      // Unknown case shouldn't be in allCases
+      !Card.BorderColor.allCases.contains(.unknown(string))
+    }
+
+    XCTAssertTrue(contains)
+  }
+
+  func testFrame() {
+    let stub = Card.Frame.v2015
+    let contains = switch stub {
+    case .v1993: Card.Frame.allCases.contains(.v1993)
+    case .v1997: Card.Frame.allCases.contains(.v1997)
+    case .v2003: Card.Frame.allCases.contains(.v2003)
+    case .v2015: Card.Frame.allCases.contains(.v2015)
+    case .future: Card.Frame.allCases.contains(.future)
+    case .unknown(let string):
+      // Unknown case shouldn't be in allCases
+      !Card.Frame.allCases.contains(.unknown(string))
+    }
+
+    XCTAssertTrue(contains)
+  }
+
+  func testGame() {
+    let stub = Game.paper
+    let contains = switch stub {
+    case .paper: Game.allCases.contains(.paper)
+    case .mtgo: Game.allCases.contains(.mtgo)
+    case .arena: Game.allCases.contains(.arena)
+    case .astral: Game.allCases.contains(.astral)
+    case .sega: Game.allCases.contains(.sega)
+    case .unknown(let string):
+      // Unknown case shouldn't be in allCases
+      !Game.allCases.contains(.unknown(string))
+    }
+
+    XCTAssertTrue(contains)
+  }
+
+  func testComponent() {
+    let stub = Card.RelatedCard.Component.token
+    let contains = switch stub {
+    case .token: Card.RelatedCard.Component.allCases.contains(.token)
+    case .meldPart: Card.RelatedCard.Component.allCases.contains(.meldPart)
+    case .meldResult: Card.RelatedCard.Component.allCases.contains(.meldResult)
+    case .comboPiece: Card.RelatedCard.Component.allCases.contains(.comboPiece)
+    case .unknown(let string):
+      // Unknown case shouldn't be in allCases
+      !Card.RelatedCard.Component.allCases.contains(.unknown(string))
+    }
+
+    XCTAssertTrue(contains)
+  }
+
+  func testRulingSource() {
+    let stub = Card.Ruling.Source.wotc
+    let contains = switch stub {
+    case .scryfall: Card.Ruling.Source.allCases.contains(.scryfall)
+    case .wotc: Card.Ruling.Source.allCases.contains(.wotc)
+    case .unknown(let string):
+      // Unknown case shouldn't be in allCases
+      !Card.Ruling.Source.allCases.contains(.unknown(string))
+    }
+
+    XCTAssertTrue(contains)
+  }
+
+  func testProducedColor() {
+    let stub = Card.ProducedColor.W
+    let contains = switch stub {
+    case .W: Card.ProducedColor.allCases.contains(.W)
+    case .U: Card.ProducedColor.allCases.contains(.U)
+    case .B: Card.ProducedColor.allCases.contains(.B)
+    case .R: Card.ProducedColor.allCases.contains(.R)
+    case .G: Card.ProducedColor.allCases.contains(.G)
+    case .C: Card.ProducedColor.allCases.contains(.C)
+    case .unknown(let string):
+      // Unknown case shouldn't be in allCases
+      !Card.ProducedColor.allCases.contains(.unknown(string))
     }
 
     XCTAssertTrue(contains)

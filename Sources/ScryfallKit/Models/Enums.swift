@@ -5,8 +5,20 @@
 import Foundation
 
 /// Environments to play Magic: The Gathering in
-public enum Game: String, Codable, CaseIterable, Sendable {
+public enum Game: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable {
   case paper, mtgo, arena, astral, sega
+  /// A game that hasn't been added to ScryfallKit yet
+  case unknown(String)
+
+  /// All known games
+  public static let allCases: [Game] = [.paper, .mtgo, .arena, .astral, .sega]
+
+  public var rawValue: String {
+    switch self {
+    case .unknown(let unknownRawValue): unknownRawValue
+    default: String(describing: self)
+    }
+  }
 }
 
 /// Comparison strategies for determining what makes a card "unique"

@@ -89,8 +89,20 @@ extension Card {
   }
 
   /// Finishes for a printed card
-  public enum Finish: String, Codable, CaseIterable, Sendable {
+  public enum Finish: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable {
     case nonfoil, foil, etched, glossy
+    /// A finish that hasn't been added to ScryfallKit yet
+    case unknown(String)
+
+    /// All known finishes
+    public static let allCases: [Card.Finish] = [.nonfoil, .foil, .etched, .glossy]
+
+    public var rawValue: String {
+      switch self {
+      case .unknown(let unknownRawValue): unknownRawValue
+      default: String(describing: self)
+      }
+    }
   }
 
   /// Status of Scryfall's image asset for this card
@@ -146,14 +158,14 @@ extension Card {
   /// [Scryfall documentation](https://scryfall.com/docs/api/layouts)
   public enum Layout: RawRepresentable, CaseIterable, Codable, Sendable, Equatable, Hashable {
     case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard,
-         token, emblem, augment, host, `class`, battle, `case`, mutate, prototype, modalDfc, doubleSided, doubleFacedToken, artSeries, reversibleCard
+         token, emblem, augment, host, `class`, battle, `case`, mutate, prototype, prepare, modalDfc, doubleSided, doubleFacedToken, artSeries, reversibleCard, frontCard
 
     /// A layout that hasn't been added to ScryfallKit yet
     case unknown(String)
 
     /// All known Magic: the Gathering card layouts
     public static let allCases: [Card.Layout] = [
-      .normal, .split, .flip, .transform, .meld, .leveler, .saga, .adventure, .planar, .scheme, .vanguard, .token, .emblem, .augment, .host, .class, .battle, .case, .mutate, .prototype, .modalDfc, .doubleSided, .doubleFacedToken, .artSeries, .reversibleCard,
+      .normal, .split, .flip, .transform, .meld, .leveler, .saga, .adventure, .planar, .scheme, .vanguard, .token, .emblem, .augment, .host, .class, .battle, .case, .mutate, .prototype, .prepare, .modalDfc, .doubleSided, .doubleFacedToken, .artSeries, .reversibleCard, .frontCard,
     ]
 
     public var rawValue: String {
@@ -162,6 +174,7 @@ extension Card {
       case .doubleSided: "double_sided"
       case .doubleFacedToken: "double_faced_token"
       case .artSeries: "art_series"
+      case .frontCard: "front_card"
       case .reversibleCard: "reversible_card"
       case .unknown(let string): string
       default: String(describing: self)
@@ -201,20 +214,72 @@ extension Card {
     }
   }
 
+  /// A value that a card can produce, as reported by `producedMana`
+  ///
+  /// As of this writing, only one card (Unfinity's Sole Performer) can produce "mana" that isn't a
+  /// normal color, so this enumeration is split from the core Color enumeration for convenience in
+  /// the overwhelmingly common cases.
+  public enum ProducedColor: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable
+  {
+    // swiftlint:disable:next identifier_name
+    case W, U, B, R, G, C
+    /// A produced value that isn't a color, or that hasn't been added to ScryfallKit yet
+    case unknown(String)
+
+    /// All the produced values that are also colors, in the order Scryfall sorts them
+    public static let allCases: [Card.ProducedColor] = [.W, .U, .B, .R, .G, .C]
+
+    public var rawValue: String {
+      switch self {
+      case .unknown(let unknownRawValue): unknownRawValue
+      default: String(describing: self)
+      }
+    }
+
+    /// The equivalent ``Card/Color``, or nil if this value isn't one of Magic's colors
+    public var color: Color? { Color(rawValue: rawValue) }
+  }
+
   /// Card border colors
-  public enum BorderColor: String, Codable, CaseIterable, Sendable {
+  public enum BorderColor: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable {
     case black, borderless, gold, silver, white, yellow
+    /// A border color that hasn't been added to ScryfallKit yet
+    case unknown(String)
+
+    /// All known border colors
+    public static let allCases: [Card.BorderColor] = [
+      .black, .borderless, .gold, .silver, .white, .yellow,
+    ]
+
+    public var rawValue: String {
+      switch self {
+      case .unknown(let unknownRawValue): unknownRawValue
+      default: String(describing: self)
+      }
+    }
   }
 
   /// Card frames
   ///
   /// [Scryfall documentation](https://scryfall.com/docs/api/frames)
-  public enum Frame: String, Codable, CaseIterable, Sendable {
-    case v1993 = "1993"
-    case v1997 = "1997"
-    case v2003 = "2003"
-    case v2015 = "2015"
-    case future
+  public enum Frame: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable {
+    case v1993, v1997, v2003, v2015, future
+    /// A frame that hasn't been added to ScryfallKit yet
+    case unknown(String)
+
+    /// All known frames
+    public static let allCases: [Card.Frame] = [.v1993, .v1997, .v2003, .v2015, .future]
+
+    public var rawValue: String {
+      switch self {
+      case .v1993: "1993"
+      case .v1997: "1997"
+      case .v2003: "2003"
+      case .v2015: "2015"
+      case .unknown(let unknownRawValue): unknownRawValue
+      default: String(describing: self)
+      }
+    }
   }
 
   /// Effects applied to a Magic card frame
