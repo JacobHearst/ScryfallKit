@@ -21,6 +21,7 @@ jobs:
     - name: Generate docs
       run: |
         xcodes select 26.1.1
+        swift package add-dependency https://github.com/apple/swift-docc-plugin --from 1.0.0
         swift package \
           --allow-writing-to-directory github-pages \
           generate-documentation \
