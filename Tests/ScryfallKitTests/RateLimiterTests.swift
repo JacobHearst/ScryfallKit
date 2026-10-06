@@ -56,9 +56,7 @@ struct RateLimiterTests {
         let limiter = RateLimiter(requestsPerSecond: 10)  // 0.1s interval
 
         // When
-        let duration = await elapsed {
-            for _ in 0..<4 { await limiter.waitIfNeeded() }
-        }
+        let duration = await elapsed { for _ in 0..<4 { await limiter.waitIfNeeded() } }
 
         // Then: 3 enforced gaps of 0.1s after the free first call
         #expect(duration >= 0.28)

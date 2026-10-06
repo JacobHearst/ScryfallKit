@@ -373,5 +373,5 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
         self.securityStamp = securityStamp
         self.watermark = watermark
         self.preview = preview
-    }// swiftlint:enable function_body_length
+    }  // swiftlint:enable function_body_length
 }

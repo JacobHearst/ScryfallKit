@@ -26,8 +26,6 @@ public actor RateLimiter {
         nextAvailableTime = slot.addingTimeInterval(minInterval)
 
         let remaining = slot.timeIntervalSince(now)
-        if remaining > 0 {
-            try? await Task.sleep(nanoseconds: UInt64(remaining * 1_000_000_000))
-        }
+        if remaining > 0 { try? await Task.sleep(nanoseconds: UInt64(remaining * 1_000_000_000)) }
     }
 }

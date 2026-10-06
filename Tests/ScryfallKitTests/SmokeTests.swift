@@ -64,7 +64,9 @@ struct SmokeTests {
         _ = try await client.getCard(identifier: identifier)
     }
 
-    @Test func getCatalog() async throws { _ = try await client.getCatalog(catalogType: .cardNames) }
+    @Test func getCatalog() async throws {
+        _ = try await client.getCatalog(catalogType: .cardNames)
+    }
 
     @Test func getSets() async throws { _ = try await client.getSets() }
 
