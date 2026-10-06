@@ -23,11 +23,6 @@ extension Card {
         public var representsMana: Bool
         /// The amount that this symbol adds to a card's mana value
         public var manaValue: Double?
-        /// The amount that this symbol adds to a card's converted mana cost
-        ///
-        /// - Note: Scryfall no longer documents this property, but every symbol in a symbology
-        /// response still includes it, so it is included here for completeness.
-        @available(*, deprecated, renamed: "manaValue") public var cmc: Double?
         /// True if this symbol _could_ appear in a card's mana cost
         public var appearsInManaCosts: Bool
         /// True if this symbol is funny
@@ -53,7 +48,6 @@ extension Card {
             transposable: Bool,
             representsMana: Bool,
             manaValue: Double? = nil,
-            cmc: Double? = nil,
             appearsInManaCosts: Bool,
             funny: Bool,
             colors: [Color],
@@ -68,7 +62,6 @@ extension Card {
             self.transposable = transposable
             self.representsMana = representsMana
             self.manaValue = manaValue
-            self.cmc = cmc
             self.appearsInManaCosts = appearsInManaCosts
             self.funny = funny
             self.colors = colors
