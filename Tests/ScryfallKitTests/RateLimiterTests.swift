@@ -2,18 +2,19 @@
 //  RateLimiterTests.swift
 //
 
-import XCTest
+import Foundation
+import Testing
 
 @testable import ScryfallKit
 
-class RateLimiterTests: XCTestCase {
+struct RateLimiterTests {
     private func elapsed(_ block: () async -> Void) async -> TimeInterval {
         let start = Date()
         await block()
         return Date().timeIntervalSince(start)
     }
 
-    func testFirstCallDoesNotWait() async {
+    @Test func firstCallDoesNotWait() async {
         // Given
         let limiter = RateLimiter(requestsPerSecond: 2)
 
@@ -21,10 +22,10 @@ class RateLimiterTests: XCTestCase {
         let duration = await elapsed { await limiter.waitIfNeeded() }
 
         // Then
-        XCTAssertLessThan(duration, 0.2)
+        #expect(duration < 0.2)
     }
 
-    func testSecondCallWaitsForMinInterval() async {
+    @Test func secondCallWaitsForMinInterval() async {
         // Given
         let limiter = RateLimiter(requestsPerSecond: 5)  // 0.2s interval
         await limiter.waitIfNeeded()
@@ -33,11 +34,11 @@ class RateLimiterTests: XCTestCase {
         let duration = await elapsed { await limiter.waitIfNeeded() }
 
         // Then
-        XCTAssertGreaterThanOrEqual(duration, 0.18)
-        XCTAssertLessThan(duration, 0.5)
+        #expect(duration >= 0.18)
+        #expect(duration < 0.5)
     }
 
-    func testCallAfterIntervalHasElapsedDoesNotWait() async throws {
+    @Test func callAfterIntervalHasElapsedDoesNotWait() async throws {
         // Given
         let limiter = RateLimiter(requestsPerSecond: 20)  // 0.05s interval
         await limiter.waitIfNeeded()
@@ -47,10 +48,10 @@ class RateLimiterTests: XCTestCase {
         let duration = await elapsed { await limiter.waitIfNeeded() }
 
         // Then
-        XCTAssertLessThan(duration, 0.04)
+        #expect(duration < 0.04)
     }
 
-    func testSequentialCallsAreSpacedOut() async {
+    @Test func sequentialCallsAreSpacedOut() async {
         // Given
         let limiter = RateLimiter(requestsPerSecond: 10)  // 0.1s interval
 
@@ -60,10 +61,10 @@ class RateLimiterTests: XCTestCase {
         }
 
         // Then: 3 enforced gaps of 0.1s after the free first call
-        XCTAssertGreaterThanOrEqual(duration, 0.28)
+        #expect(duration >= 0.28)
     }
 
-    func testConcurrentCallsAreSpacedOut() async {
+    @Test func concurrentCallsAreSpacedOut() async {
         // Given
         let limiter = RateLimiter(requestsPerSecond: 10)  // 0.1s interval
 
@@ -75,6 +76,6 @@ class RateLimiterTests: XCTestCase {
         }
 
         // Then: concurrent callers must still be serialized into 0.1s slots
-        XCTAssertGreaterThanOrEqual(duration, 0.28)
+        #expect(duration >= 0.28)
     }
 }

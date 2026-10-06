@@ -2,19 +2,18 @@
 //  SmokeTests.swift
 //
 import OSLog
-import XCTest
+import Testing
 
 @testable import ScryfallKit
 
-final class SmokeTests: XCTestCase {
-    var client: ScryfallClient!
+struct SmokeTests {
+    let client = ScryfallClient(
+        logger: Logger(subsystem: "dev.hearst.ScryfallKitTests", category: "SmokeTests"),
+        // The most restrictive rate limit in Scryfall's docs is 2 requests/second
+        rateLimiter: RateLimiter(requestsPerSecond: 2)
+    )
 
-    override func setUp() {
-        let logger = Logger(subsystem: "dev.hearst.ScryfallKitTests", category: "SmokeTests")
-        self.client = ScryfallClient(logger: logger, rateLimiter: RateLimiter(requestsPerSecond: 5))
-    }
-
-    func testLayouts() async throws {
+    @Test func layouts() async throws {
         // Verify that we can handle all layout types
         // Skip double sided because there aren't any double_sided or battle cards being returned by Scryfall
         for layout in Card.Layout.allCases where ![.doubleSided, .battle].contains(layout) {
@@ -25,92 +24,92 @@ final class SmokeTests: XCTestCase {
         }
     }
 
-    func testTransformers() async throws {
+    @Test func transformers() async throws {
         _ = try await client.getCardByName(fuzzy: "optimus prime hero")
     }
 
-    func testSearchCardsWithFilters() async throws {
+    @Test func searchCardsWithFilters() async throws {
         let filters: [CardFieldFilter] = [.cmc("3", .greaterThan), .colorIdentity("WU")]
         _ = try await client.searchCards(filters: filters)
     }
 
-    func testSearchCards() async throws { _ = try await client.searchCards(query: "Sigarda") }
+    @Test func searchCards() async throws { _ = try await client.searchCards(query: "Sigarda") }
 
-    func testSearchCardsMultiplePages() async throws {
+    @Test func searchCardsMultiplePages() async throws {
         let query = "a"  // Some broad query that will return multiple pages
         let firstPage = try await client.searchCards(query: query)
         let secondPage = try await client.searchCards(query: query, page: 2)
 
-        XCTAssertNotEqual(firstPage.data[0].name, secondPage.data[0].name)
+        #expect(firstPage.data[0].name != secondPage.data[0].name)
     }
 
-    func testGetCardByExactName() async throws {
+    @Test func getCardByExactName() async throws {
         _ = try await client.getCardByName(exact: "Narset, Enlightened Master")
     }
 
-    func testGetCardByFuzzyName() async throws {
+    @Test func getCardByFuzzyName() async throws {
         _ = try await client.getCardByName(fuzzy: "narset enlight mast")
     }
 
-    func testGetCardNameAutocomplete() async throws {
+    @Test func getCardNameAutocomplete() async throws {
         let results = try await client.getCardNameAutocomplete(query: "Nars")
-        XCTAssertFalse(results.data.isEmpty)
+        #expect(!results.data.isEmpty)
     }
 
-    func testGetRandomCard() async throws { _ = try await client.getRandomCard() }
+    @Test func getRandomCard() async throws { _ = try await client.getRandomCard() }
 
-    func testGetCardById() async throws {
+    @Test func getCardById() async throws {
         // Flumph
         let identifier = Card.Identifier.scryfallID(id: "cdc86e78-8911-4a0d-ba3a-7802f8d991ef")
         _ = try await client.getCard(identifier: identifier)
     }
 
-    func testGetCatalog() async throws { _ = try await client.getCatalog(catalogType: .cardNames) }
+    @Test func getCatalog() async throws { _ = try await client.getCatalog(catalogType: .cardNames) }
 
-    func testGetSets() async throws { _ = try await client.getSets() }
+    @Test func getSets() async throws { _ = try await client.getSets() }
 
-    func testGetSetByCode() async throws {
+    @Test func getSetByCode() async throws {
         let identifier = MTGSet.Identifier.code(code: "afr")
         _ = try await client.getSet(identifier: identifier)
     }
 
-    func testGetSet() async throws {
+    @Test func getSet() async throws {
         // Ultimate Masters
         let identifier = MTGSet.Identifier.scryfallID(id: "2ec77b94-6d47-4891-a480-5d0b4e5c9372")
         _ = try await client.getSet(identifier: identifier)
     }
 
-    func testGetRulings() async throws {
+    @Test func getRulings() async throws {
         let identifier = Card.Ruling.Identifier.scryfallID(
             id: "cdc86e78-8911-4a0d-ba3a-7802f8d991ef"
         )
         _ = try await client.getRulings(identifier)
     }
 
-    func testGetSymbology() async throws { _ = try await client.getSymbology() }
+    @Test func getSymbology() async throws { _ = try await client.getSymbology() }
 
-    func testParseManaCost() async throws { _ = try await client.parseManaCost("{X}{W}{U}{R}") }
+    @Test func parseManaCost() async throws { _ = try await client.parseManaCost("{X}{W}{U}{R}") }
 
-    func testSearchWithFieldFilters() async throws {
+    @Test func searchWithFieldFilters() async throws {
         let filters: [CardFieldFilter] = [
             CardFieldFilter.type("forest"), CardFieldFilter.type("creature"),
         ]
         let cards = try await client.searchCards(filters: filters)
 
-        XCTAssertEqual(cards.totalCards, 1)
+        #expect(cards.totalCards == 1)
     }
 
-    func testSearchWithFieldFiltersWithComparison() async throws {
+    @Test func searchWithFieldFiltersWithComparison() async throws {
         let filters: [CardFieldFilter] = [
             CardFieldFilter.cmc("0", .lessThanOrEqual), CardFieldFilter.type("Creature"),
             CardFieldFilter.colors("0", .equal),
         ]
 
         let cards = try await client.searchCards(filters: filters)
-        XCTAssert(cards.totalCards ?? 0 > 1)
+        #expect((cards.totalCards ?? 0) > 1)
     }
 
-    func testSearchWithCompoundFieldFilters() async throws {
+    @Test func searchWithCompoundFieldFilters() async throws {
         let filters: [CardFieldFilter] = [
             CardFieldFilter.type("forest"), CardFieldFilter.type("creature"),
         ]
@@ -118,10 +117,10 @@ final class SmokeTests: XCTestCase {
         let compoundFilter = CardFieldFilter.compoundOr(filters)
 
         let cards = try await client.searchCards(filters: [compoundFilter])
-        XCTAssert(cards.totalCards ?? 0 > 1)
+        #expect((cards.totalCards ?? 0) > 1)
     }
 
-    func testGetCardCollection() async throws {
+    @Test func getCardCollection() async throws {
         let identifiers: [Card.CollectionIdentifier] = [
             .scryfallID(id: "683a5707-cddb-494d-9b41-51b4584ded69"), .name("Ancient Tomb"),
             .collectorNoAndSet(collectorNo: "150", set: "mrd"),
@@ -130,7 +129,7 @@ final class SmokeTests: XCTestCase {
         _ = try await client.getCardCollection(identifiers: identifiers)
     }
 
-    func testAllNewCards() async throws {
+    @Test func allNewCards() async throws {
         // Get sets that released in the past 30 days
         let sets = try await client.getSets().data
             .filter { mtgSet in
@@ -170,23 +169,23 @@ final class SmokeTests: XCTestCase {
             if let frameEffects = card.frameEffects {
                 for effect in frameEffects {
                     if !Card.FrameEffect.allCases.contains(effect) {
-                        XCTFail("Unknown frame effect: \(effect.rawValue)")
+                        Issue.record("Unknown frame effect: \(effect.rawValue)")
                     }
                 }
             }
 
             if !Card.Layout.allCases.contains(card.layout) {
-                XCTFail("Unknown layout: \(card.layout.rawValue) on \(card.name)")
+                Issue.record("Unknown layout: \(card.layout.rawValue) on \(card.name)")
             }
 
             for face in card.cardFaces ?? [] {
                 if let layout = face.layout, !Card.Layout.allCases.contains(layout) {
-                    XCTFail("Unknown face layout: \(layout.rawValue) on \(card.name)")
+                    Issue.record("Unknown face layout: \(layout.rawValue) on \(card.name)")
                 }
             }
 
             if !MTGSet.Kind.allCases.contains(card.setType) {
-                XCTFail("Unknown set type: \(card.setType.rawValue) on \(card.name)")
+                Issue.record("Unknown set type: \(card.setType.rawValue) on \(card.name)")
             }
         }
     }

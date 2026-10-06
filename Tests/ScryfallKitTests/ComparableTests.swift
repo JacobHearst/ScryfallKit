@@ -3,10 +3,10 @@
 //
 
 import ScryfallKit
-import XCTest
+import Testing
 
-class ComparableTests: XCTestCase {
-    func testColorSort() {
+struct ComparableTests {
+    @Test func colorSort() {
         // Given
         let colors: [Card.Color] = [.B, .C, .W, .U, .G, .R]
 
@@ -15,10 +15,10 @@ class ComparableTests: XCTestCase {
 
         // Then
         let expected: [Card.Color] = [.W, .U, .B, .R, .G, .C]
-        XCTAssertEqual(result, expected)
+        #expect(result == expected)
     }
 
-    func testRaritySort() {
+    @Test func raritySort() {
         // Given
         let rarities: [Card.Rarity] = [.mythic, .common, .rare, .uncommon, .bonus, .special]
 
@@ -27,6 +27,6 @@ class ComparableTests: XCTestCase {
 
         // Then
         let expected: [Card.Rarity] = [.bonus, .special, .common, .uncommon, .rare, .mythic]
-        XCTAssertEqual(result, expected)
+        #expect(result == expected)
     }
 }

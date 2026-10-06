@@ -44,4 +44,4 @@ The ScryfallClient will emit trace and debug logs if supplied with an `Logger` i
 ## Contributing
 Contributions are always welcome, simply fork this repo, make and test your changes, and then open a pull request. I will try and review it within a reasonable amount of time.
 
-Please run `./format.sh` before committing; it applies the style defined in `.swift-format`.
+Please run `./scripts/format.sh` before committing; it applies the style defined in `.swift-format`.
