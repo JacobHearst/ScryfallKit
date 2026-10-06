@@ -7,11 +7,4 @@
 
 import SwiftUI
 
-@main
-struct ScryfallSearcherApp: App {
-  var body: some Scene {
-    WindowGroup {
-      SearchView()
-    }
-  }
-}
+@main struct ScryfallSearcherApp: App { var body: some Scene { WindowGroup { SearchView() } } }

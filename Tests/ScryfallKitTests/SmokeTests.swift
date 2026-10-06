@@ -18,7 +18,9 @@ final class SmokeTests: XCTestCase {
         // Verify that we can handle all layout types
         // Skip double sided because there aren't any double_sided or battle cards being returned by Scryfall
         for layout in Card.Layout.allCases where ![.doubleSided, .battle].contains(layout) {
-            let cards = try await client.searchCards(query: "layout:\(layout.rawValue.lowercased())")
+            let cards = try await client.searchCards(
+                query: "layout:\(layout.rawValue.lowercased())"
+            )
             checkForUnknowns(in: cards.data)
         }
     }
@@ -32,9 +34,7 @@ final class SmokeTests: XCTestCase {
         _ = try await client.searchCards(filters: filters)
     }
 
-    func testSearchCards() async throws {
-        _ = try await client.searchCards(query: "Sigarda")
-    }
+    func testSearchCards() async throws { _ = try await client.searchCards(query: "Sigarda") }
 
     func testSearchCardsMultiplePages() async throws {
         let query = "a"  // Some broad query that will return multiple pages
@@ -57,9 +57,7 @@ final class SmokeTests: XCTestCase {
         XCTAssertFalse(results.data.isEmpty)
     }
 
-    func testGetRandomCard() async throws {
-        _ = try await client.getRandomCard()
-    }
+    func testGetRandomCard() async throws { _ = try await client.getRandomCard() }
 
     func testGetCardById() async throws {
         // Flumph
@@ -67,13 +65,9 @@ final class SmokeTests: XCTestCase {
         _ = try await client.getCard(identifier: identifier)
     }
 
-    func testGetCatalog() async throws {
-        _ = try await client.getCatalog(catalogType: .cardNames)
-    }
+    func testGetCatalog() async throws { _ = try await client.getCatalog(catalogType: .cardNames) }
 
-    func testGetSets() async throws {
-        _ = try await client.getSets()
-    }
+    func testGetSets() async throws { _ = try await client.getSets() }
 
     func testGetSetByCode() async throws {
         let identifier = MTGSet.Identifier.code(code: "afr")
@@ -87,22 +81,19 @@ final class SmokeTests: XCTestCase {
     }
 
     func testGetRulings() async throws {
-        let identifier = Card.Ruling.Identifier.scryfallID(id: "cdc86e78-8911-4a0d-ba3a-7802f8d991ef")
+        let identifier = Card.Ruling.Identifier.scryfallID(
+            id: "cdc86e78-8911-4a0d-ba3a-7802f8d991ef"
+        )
         _ = try await client.getRulings(identifier)
     }
 
-    func testGetSymbology() async throws {
-        _ = try await client.getSymbology()
-    }
+    func testGetSymbology() async throws { _ = try await client.getSymbology() }
 
-    func testParseManaCost() async throws {
-        _ = try await client.parseManaCost("{X}{W}{U}{R}")
-    }
+    func testParseManaCost() async throws { _ = try await client.parseManaCost("{X}{W}{U}{R}") }
 
     func testSearchWithFieldFilters() async throws {
         let filters: [CardFieldFilter] = [
-            CardFieldFilter.type("forest"),
-            CardFieldFilter.type("creature"),
+            CardFieldFilter.type("forest"), CardFieldFilter.type("creature"),
         ]
         let cards = try await client.searchCards(filters: filters)
 
@@ -111,8 +102,7 @@ final class SmokeTests: XCTestCase {
 
     func testSearchWithFieldFiltersWithComparison() async throws {
         let filters: [CardFieldFilter] = [
-            CardFieldFilter.cmc("0", .lessThanOrEqual),
-            CardFieldFilter.type("Creature"),
+            CardFieldFilter.cmc("0", .lessThanOrEqual), CardFieldFilter.type("Creature"),
             CardFieldFilter.colors("0", .equal),
         ]
 
@@ -122,8 +112,7 @@ final class SmokeTests: XCTestCase {
 
     func testSearchWithCompoundFieldFilters() async throws {
         let filters: [CardFieldFilter] = [
-            CardFieldFilter.type("forest"),
-            CardFieldFilter.type("creature"),
+            CardFieldFilter.type("forest"), CardFieldFilter.type("creature"),
         ]
 
         let compoundFilter = CardFieldFilter.compoundOr(filters)
@@ -134,8 +123,7 @@ final class SmokeTests: XCTestCase {
 
     func testGetCardCollection() async throws {
         let identifiers: [Card.CollectionIdentifier] = [
-            .scryfallID(id: "683a5707-cddb-494d-9b41-51b4584ded69"),
-            .name("Ancient Tomb"),
+            .scryfallID(id: "683a5707-cddb-494d-9b41-51b4584ded69"), .name("Ancient Tomb"),
             .collectorNoAndSet(collectorNo: "150", set: "mrd"),
         ]
 
@@ -144,17 +132,18 @@ final class SmokeTests: XCTestCase {
 
     func testAllNewCards() async throws {
         // Get sets that released in the past 30 days
-        let sets = try await client.getSets().data.filter { mtgSet in
-            guard let date = mtgSet.date else {
-                print("Couldn't get release date for set: \(mtgSet.name)")
-                return false
+        let sets = try await client.getSets().data
+            .filter { mtgSet in
+                guard let date = mtgSet.date else {
+                    print("Couldn't get release date for set: \(mtgSet.name)")
+                    return false
+                }
+
+                let distanceInSeconds = date.distance(to: Date())
+                let distanceInDays = distanceInSeconds / 60 / 60 / 24
+
+                return distanceInDays < 30
             }
-
-            let distanceInSeconds = date.distance(to: Date())
-            let distanceInDays = distanceInSeconds / 60 / 60 / 24
-
-            return distanceInDays < 30
-        }
 
         // Filter for cards that are in any of the sets
         let filter = CardFieldFilter.compoundOr(sets.map { .set($0.code) })
