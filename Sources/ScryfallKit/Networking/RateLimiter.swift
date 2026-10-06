@@ -10,20 +10,24 @@ import Foundation
 /// ``ScryfallClient/init(userAgent:logger:rateLimiter:)`` to have every request wait its turn automatically.
 public actor RateLimiter {
     private let minInterval: TimeInterval
-    private var lastRequestTime: Date?
+    private var nextAvailableTime: Date?
 
     /// - Parameter requestsPerSecond: The maximum number of requests allowed per second. Defaults to `10`,
     ///   matching Scryfall's documented limit.
     public init(requestsPerSecond: Double = 10) { self.minInterval = 1.0 / requestsPerSecond }
 
-    /// Suspends until it's safe to send another request, then records the time of that request.
+    /// Suspends until it's safe to send another request.
+    ///
+    /// The caller's time slot is reserved before suspending, so concurrent callers (which can interleave
+    /// while this actor is suspended) each get their own slot instead of waking up together.
     func waitIfNeeded() async {
-        if let lastRequestTime {
-            let remaining = minInterval - Date().timeIntervalSince(lastRequestTime)
-            if remaining > 0 {
-                try? await Task.sleep(nanoseconds: UInt64(remaining * 1_000_000_000))
-            }
+        let now = Date()
+        let slot = max(now, nextAvailableTime ?? now)
+        nextAvailableTime = slot.addingTimeInterval(minInterval)
+
+        let remaining = slot.timeIntervalSince(now)
+        if remaining > 0 {
+            try? await Task.sleep(nanoseconds: UInt64(remaining * 1_000_000_000))
         }
-        lastRequestTime = Date()
     }
 }
