@@ -1,5 +1,6 @@
 // swift-tools-version:6.2
 
+import CompilerPluginSupport
 import PackageDescription
 
 let package = Package(
@@ -11,11 +12,11 @@ let package = Package(
       targets: ["ScryfallKit"])
   ],
   dependencies: [
-    .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
+    .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
   ],
   targets: [
     .target(
-      name: "ScryfallKit"
+      name: "ScryfallKit",
     ),
     .testTarget(
       name: "ScryfallKitTests",
