@@ -89,19 +89,23 @@ extension Card {
   }
 
   /// Finishes for a printed card
-  public enum Finish: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable {
-    case nonfoil, foil, etched, glossy
-    /// A finish that hasn't been added to ScryfallKit yet
-    case unknown(String)
+  public struct Finish: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable {
+    public static let nonfoil = Finish(rawValue: "nonfoil")
+    public static let foil = Finish(rawValue: "foil")
+    public static let etched = Finish(rawValue: "etched")
+    public static let glossy = Finish(rawValue: "glossy")
 
-    /// All known finishes
-    public static let allCases: [Card.Finish] = [.nonfoil, .foil, .etched, .glossy]
+    public static let allCases: [Finish] = [
+      .nonfoil,
+      .foil,
+      .etched,
+      .glossy,
+    ]
 
-    public var rawValue: String {
-      switch self {
-      case .unknown(let unknownRawValue): unknownRawValue
-      default: String(describing: self)
-      }
+    public let rawValue: String
+
+    public init(rawValue: String) {
+      self.rawValue = rawValue
     }
   }
 
@@ -134,51 +138,98 @@ extension Card {
   }
 
   /// The security stamp printed on a card
-  public enum SecurityStamp: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable
+  public struct SecurityStamp: RawRepresentable, Codable, CaseIterable, Sendable, Equatable,
+    Hashable
   {
-    case oval, triangle, acorn, circle, arena, heart
-    /// A security stamp that hasn't been added to ScryfallKit yet
-    case unknown(String)
+    public static let oval = SecurityStamp(rawValue: "oval")
+    public static let triangle = SecurityStamp(rawValue: "triangle")
+    public static let acorn = SecurityStamp(rawValue: "acorn")
+    public static let circle = SecurityStamp(rawValue: "circle")
+    public static let arena = SecurityStamp(rawValue: "arena")
+    public static let heart = SecurityStamp(rawValue: "heart")
 
-    /// All known security stamps
-    public static let allCases: [Card.SecurityStamp] = [
-      .oval, .triangle, .acorn, .circle, .arena, .heart,
+    public static let allCases: [SecurityStamp] = [
+      .oval,
+      .triangle,
+      .acorn,
+      .circle,
+      .arena,
+      .heart,
     ]
 
-    public var rawValue: String {
-      switch self {
-      case .unknown(let unknownRawValue): unknownRawValue
-      default: String(describing: self)
-      }
+    public let rawValue: String
+
+    public init(rawValue: String) {
+      self.rawValue = rawValue
     }
   }
 
   /// Layouts for a Magic card
   ///
   /// [Scryfall documentation](https://scryfall.com/docs/api/layouts)
-  public enum Layout: RawRepresentable, CaseIterable, Codable, Sendable, Equatable, Hashable {
-    case normal, split, flip, transform, meld, leveler, saga, adventure, planar, scheme, vanguard,
-         token, emblem, augment, host, `class`, battle, `case`, mutate, prototype, prepare, modalDfc, doubleSided, doubleFacedToken, artSeries, reversibleCard, frontCard
+  public struct Layout: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable {
+    public static let normal = Layout(rawValue: "normal")
+    public static let split = Layout(rawValue: "split")
+    public static let flip = Layout(rawValue: "flip")
+    public static let transform = Layout(rawValue: "transform")
+    public static let meld = Layout(rawValue: "meld")
+    public static let leveler = Layout(rawValue: "leveler")
+    public static let saga = Layout(rawValue: "saga")
+    public static let adventure = Layout(rawValue: "adventure")
+    public static let planar = Layout(rawValue: "planar")
+    public static let scheme = Layout(rawValue: "scheme")
+    public static let vanguard = Layout(rawValue: "vanguard")
+    public static let token = Layout(rawValue: "token")
+    public static let emblem = Layout(rawValue: "emblem")
+    public static let augment = Layout(rawValue: "augment")
+    public static let host = Layout(rawValue: "host")
+    public static let `class` = Layout(rawValue: "class")
+    public static let battle = Layout(rawValue: "battle")
+    public static let `case` = Layout(rawValue: "case")
+    public static let mutate = Layout(rawValue: "mutate")
+    public static let prototype = Layout(rawValue: "prototype")
+    public static let prepare = Layout(rawValue: "prepare")
+    public static let modalDfc = Layout(rawValue: "modal_dfc")
+    public static let doubleSided = Layout(rawValue: "double_sided")
+    public static let doubleFacedToken = Layout(rawValue: "double_faced_token")
+    public static let artSeries = Layout(rawValue: "art_series")
+    public static let reversibleCard = Layout(rawValue: "reversible_card")
+    public static let frontCard = Layout(rawValue: "front_card")
 
-    /// A layout that hasn't been added to ScryfallKit yet
-    case unknown(String)
-
-    /// All known Magic: the Gathering card layouts
-    public static let allCases: [Card.Layout] = [
-      .normal, .split, .flip, .transform, .meld, .leveler, .saga, .adventure, .planar, .scheme, .vanguard, .token, .emblem, .augment, .host, .class, .battle, .case, .mutate, .prototype, .prepare, .modalDfc, .doubleSided, .doubleFacedToken, .artSeries, .reversibleCard, .frontCard,
+    public static let allCases: [Layout] = [
+      .normal,
+      .split,
+      .flip,
+      .transform,
+      .meld,
+      .leveler,
+      .saga,
+      .adventure,
+      .planar,
+      .scheme,
+      .vanguard,
+      .token,
+      .emblem,
+      .augment,
+      .host,
+      .`class`,
+      .battle,
+      .`case`,
+      .mutate,
+      .prototype,
+      .prepare,
+      .modalDfc,
+      .doubleSided,
+      .doubleFacedToken,
+      .artSeries,
+      .reversibleCard,
+      .frontCard,
     ]
 
-    public var rawValue: String {
-      switch self {
-      case .modalDfc: "modal_dfc"
-      case .doubleSided: "double_sided"
-      case .doubleFacedToken: "double_faced_token"
-      case .artSeries: "art_series"
-      case .frontCard: "front_card"
-      case .reversibleCard: "reversible_card"
-      case .unknown(let string): string
-      default: String(describing: self)
-      }
+    public let rawValue: String
+
+    public init(rawValue: String) {
+      self.rawValue = rawValue
     }
   }
 
@@ -219,21 +270,29 @@ extension Card {
   /// As of this writing, only one card (Unfinity's Sole Performer) can produce "mana" that isn't a
   /// normal color, so this enumeration is split from the core Color enumeration for convenience in
   /// the overwhelmingly common cases.
-  public enum ProducedColor: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable
+  public struct ProducedColor: RawRepresentable, Codable, CaseIterable, Sendable, Equatable,
+    Hashable
   {
-    // swiftlint:disable:next identifier_name
-    case W, U, B, R, G, C
-    /// A produced value that isn't a color, or that hasn't been added to ScryfallKit yet
-    case unknown(String)
+    public static let W = ProducedColor(rawValue: "W")
+    public static let U = ProducedColor(rawValue: "U")
+    public static let B = ProducedColor(rawValue: "B")
+    public static let R = ProducedColor(rawValue: "R")
+    public static let G = ProducedColor(rawValue: "G")
+    public static let C = ProducedColor(rawValue: "C")
 
-    /// All the produced values that are also colors, in the order Scryfall sorts them
-    public static let allCases: [Card.ProducedColor] = [.W, .U, .B, .R, .G, .C]
+    public static let allCases: [ProducedColor] = [
+      .W,
+      .U,
+      .B,
+      .R,
+      .G,
+      .C,
+    ]
 
-    public var rawValue: String {
-      switch self {
-      case .unknown(let unknownRawValue): unknownRawValue
-      default: String(describing: self)
-      }
+    public let rawValue: String
+
+    public init(rawValue: String) {
+      self.rawValue = rawValue
     }
 
     /// The equivalent ``Card/Color``, or nil if this value isn't one of Magic's colors
@@ -241,94 +300,133 @@ extension Card {
   }
 
   /// Card border colors
-  public enum BorderColor: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable {
-    case black, borderless, gold, silver, white, yellow
-    /// A border color that hasn't been added to ScryfallKit yet
-    case unknown(String)
+  public struct BorderColor: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable
+  {
+    public static let black = BorderColor(rawValue: "black")
+    public static let borderless = BorderColor(rawValue: "borderless")
+    public static let gold = BorderColor(rawValue: "gold")
+    public static let silver = BorderColor(rawValue: "silver")
+    public static let white = BorderColor(rawValue: "white")
+    public static let yellow = BorderColor(rawValue: "yellow")
 
-    /// All known border colors
-    public static let allCases: [Card.BorderColor] = [
-      .black, .borderless, .gold, .silver, .white, .yellow,
+    public static let allCases: [BorderColor] = [
+      .black,
+      .borderless,
+      .gold,
+      .silver,
+      .white,
+      .yellow,
     ]
 
-    public var rawValue: String {
-      switch self {
-      case .unknown(let unknownRawValue): unknownRawValue
-      default: String(describing: self)
-      }
+    public let rawValue: String
+
+    public init(rawValue: String) {
+      self.rawValue = rawValue
     }
   }
 
   /// Card frames
   ///
   /// [Scryfall documentation](https://scryfall.com/docs/api/frames)
-  public enum Frame: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable {
-    case v1993, v1997, v2003, v2015, future
-    /// A frame that hasn't been added to ScryfallKit yet
-    case unknown(String)
+  public struct Frame: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable {
+    public static let v1993 = Frame(rawValue: "1993")
+    public static let v1997 = Frame(rawValue: "1997")
+    public static let v2003 = Frame(rawValue: "2003")
+    public static let v2015 = Frame(rawValue: "2015")
+    public static let future = Frame(rawValue: "future")
 
-    /// All known frames
-    public static let allCases: [Card.Frame] = [.v1993, .v1997, .v2003, .v2015, .future]
+    public static let allCases: [Frame] = [
+      .v1993,
+      .v1997,
+      .v2003,
+      .v2015,
+      .future,
+    ]
 
-    public var rawValue: String {
-      switch self {
-      case .v1993: "1993"
-      case .v1997: "1997"
-      case .v2003: "2003"
-      case .v2015: "2015"
-      case .unknown(let unknownRawValue): unknownRawValue
-      default: String(describing: self)
-      }
+    public let rawValue: String
+
+    public init(rawValue: String) {
+      self.rawValue = rawValue
     }
   }
 
   /// Effects applied to a Magic card frame
   ///
   /// [Scryfall documentation](https://scryfall.com/docs/api/frames#frame-effects)
-  public enum FrameEffect: RawRepresentable, Codable, Sendable, CaseIterable, Equatable, Hashable {
-    case legendary, miracle, draft, devoid, tombstone, showcase, companion, etched, snow, lesson, battle, gravestone, vehicle, borderless, extended, spree, textless, enchantment, inverted
-    case nyxTouched
-    case colorShifted
-    case sunMoonDfc
-    case compassLandDfc
-    case originPwDfc
-    case moonEldraziDfc
-    case waxingAndWaningMoonDfc
-    case extendedArt
-    case convertDfc
-    case fAndFc
-    case fullArt
-    case shatteredGlass
-    case upsideDownDfc
-    /// A layout that hasn't been added to ScryfallKit yet
-    case unknown(String)
+  public struct FrameEffect: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable
+  {
+    public static let legendary = FrameEffect(rawValue: "legendary")
+    public static let miracle = FrameEffect(rawValue: "miracle")
+    public static let draft = FrameEffect(rawValue: "draft")
+    public static let devoid = FrameEffect(rawValue: "devoid")
+    public static let tombstone = FrameEffect(rawValue: "tombstone")
+    public static let showcase = FrameEffect(rawValue: "showcase")
+    public static let companion = FrameEffect(rawValue: "companion")
+    public static let etched = FrameEffect(rawValue: "etched")
+    public static let snow = FrameEffect(rawValue: "snow")
+    public static let lesson = FrameEffect(rawValue: "lesson")
+    public static let battle = FrameEffect(rawValue: "battle")
+    public static let gravestone = FrameEffect(rawValue: "gravestone")
+    public static let vehicle = FrameEffect(rawValue: "vehicle")
+    public static let borderless = FrameEffect(rawValue: "borderless")
+    public static let extended = FrameEffect(rawValue: "extended")
+    public static let spree = FrameEffect(rawValue: "spree")
+    public static let textless = FrameEffect(rawValue: "textless")
+    public static let enchantment = FrameEffect(rawValue: "enchantment")
+    public static let inverted = FrameEffect(rawValue: "inverted")
+    public static let nyxTouched = FrameEffect(rawValue: "nyxtouched")
+    public static let colorShifted = FrameEffect(rawValue: "colorshifted")
+    public static let sunMoonDfc = FrameEffect(rawValue: "sunmoondfc")
+    public static let compassLandDfc = FrameEffect(rawValue: "compasslanddfc")
+    public static let originPwDfc = FrameEffect(rawValue: "originpwdfc")
+    public static let moonEldraziDfc = FrameEffect(rawValue: "mooneldrazidfc")
+    public static let waxingAndWaningMoonDfc = FrameEffect(rawValue: "waxingandwaningmoondfc")
+    public static let extendedArt = FrameEffect(rawValue: "extendedart")
+    public static let convertDfc = FrameEffect(rawValue: "convertdfc")
+    public static let fAndFc = FrameEffect(rawValue: "fandfc")
+    public static let fullArt = FrameEffect(rawValue: "fullart")
+    public static let shatteredGlass = FrameEffect(rawValue: "shatteredglass")
+    public static let upsideDownDfc = FrameEffect(rawValue: "upsidedowndfc")
 
-    /// All known Magic: the Gathering frame effects
-    public static let allCases: [Card.FrameEffect] = [
-      .legendary, .miracle, .nyxTouched, .draft, .devoid, .tombstone, .colorShifted, .inverted,
-        .sunMoonDfc, .compassLandDfc, .originPwDfc, .moonEldraziDfc, .waxingAndWaningMoonDfc, .showcase,
-        .extendedArt, .companion, .etched, .snow, .lesson, .convertDfc, .fAndFc, .battle, .gravestone, .fullArt,
-        .vehicle, .borderless, .extended, .spree, .textless, .enchantment, .shatteredGlass, .upsideDownDfc,
+    public static let allCases: [FrameEffect] = [
+      .legendary,
+      .miracle,
+      .draft,
+      .devoid,
+      .tombstone,
+      .showcase,
+      .companion,
+      .etched,
+      .snow,
+      .lesson,
+      .battle,
+      .gravestone,
+      .vehicle,
+      .borderless,
+      .extended,
+      .spree,
+      .textless,
+      .enchantment,
+      .inverted,
+      .nyxTouched,
+      .colorShifted,
+      .sunMoonDfc,
+      .compassLandDfc,
+      .originPwDfc,
+      .moonEldraziDfc,
+      .waxingAndWaningMoonDfc,
+      .extendedArt,
+      .convertDfc,
+      .fAndFc,
+      .fullArt,
+      .shatteredGlass,
+      .upsideDownDfc,
     ]
 
-    public var rawValue: String {
-      switch self {
-      case .unknown(let unknownRawValue): unknownRawValue
-      case .nyxTouched: "nyxtouched"
-      case .colorShifted: "colorshifted"
-      case .sunMoonDfc: "sunmoondfc"
-      case .compassLandDfc: "compasslanddfc"
-      case .originPwDfc: "originpwdfc"
-      case .moonEldraziDfc: "mooneldrazidfc"
-      case .waxingAndWaningMoonDfc: "waxingandwaningmoondfc"
-      case .extendedArt: "extendedart"
-      case .convertDfc: "convertdfc"
-      case .fAndFc: "fandfc"
-      case .fullArt: "fullart"
-      case .shatteredGlass: "shatteredglass"
-      case .upsideDownDfc: "upsidedowndfc"
-      default: String(describing: self)
-      }
+    public let rawValue: String
+
+    public init(rawValue: String) {
+      self.rawValue = rawValue
     }
   }
 }

@@ -5,19 +5,25 @@
 import Foundation
 
 /// Environments to play Magic: The Gathering in
-public enum Game: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable {
-  case paper, mtgo, arena, astral, sega
-  /// A game that hasn't been added to ScryfallKit yet
-  case unknown(String)
+public struct Game: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable {
+  public static let paper = Game(rawValue: "paper")
+  public static let mtgo = Game(rawValue: "mtgo")
+  public static let arena = Game(rawValue: "arena")
+  public static let astral = Game(rawValue: "astral")
+  public static let sega = Game(rawValue: "sega")
 
-  /// All known games
-  public static let allCases: [Game] = [.paper, .mtgo, .arena, .astral, .sega]
+  public static let allCases: [Game] = [
+    .paper,
+    .mtgo,
+    .arena,
+    .astral,
+    .sega,
+  ]
 
-  public var rawValue: String {
-    switch self {
-    case .unknown(let unknownRawValue): unknownRawValue
-    default: String(describing: self)
-    }
+  public let rawValue: String
+
+  public init(rawValue: String) {
+    self.rawValue = rawValue
   }
 }
 
@@ -32,7 +38,8 @@ public enum UniqueMode: String, Codable, CaseIterable, Sendable {
 ///
 /// [Scryfall documentation](https://scryfall.com/docs/api/cards/search#sorting-cards)
 public enum SortMode: String, Codable, CaseIterable, Sendable {
-  case name, set, released, rarity, color, usd, tix, eur, cmc, power, toughness, edhrec, artist, spoiled
+  case name, set, released, rarity, color, usd, tix, eur, cmc, power, toughness, edhrec, artist,
+    spoiled
 }
 
 /// Directions that Scryfall can order cards in

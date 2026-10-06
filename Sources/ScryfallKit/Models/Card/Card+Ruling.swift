@@ -17,20 +17,19 @@ extension Card {
     }
 
     /// A computer-readable string indicating which company produced this ruling
-    public enum Source: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable {
-      case scryfall
-      case wotc
-      /// A source that hasn't been added to ScryfallKit yet
-      case unknown(String)
+    public struct Source: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable {
+      public static let scryfall = Source(rawValue: "scryfall")
+      public static let wotc = Source(rawValue: "wotc")
 
-      /// All known ruling sources
-      public static let allCases: [Source] = [.scryfall, .wotc]
+      public static let allCases: [Source] = [
+        .scryfall,
+        .wotc,
+      ]
 
-      public var rawValue: String {
-        switch self {
-        case .unknown(let unknownRawValue): unknownRawValue
-        default: String(describing: self)
-        }
+      public let rawValue: String
+
+      public init(rawValue: String) {
+        self.rawValue = rawValue
       }
     }
 

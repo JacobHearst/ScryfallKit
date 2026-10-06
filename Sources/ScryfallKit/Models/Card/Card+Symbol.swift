@@ -44,7 +44,6 @@ extension Card {
     /// A link to an SVG of this symbol
     public var svgUri: String?
 
-
     /// A computed ID for this symbol which is just the `symbol` property
     public var id: String { symbol }
 

@@ -20,8 +20,10 @@ extension Card {
     /// The price of this card's etched printing in eur
     public var eurEtched: String?
 
-    public init(tix: String? = nil, usd: String? = nil, usdFoil: String? = nil, usdEtched: String? = nil, eur: String? = nil, eurFoil: String? = nil, eurEtched: String? = nil)
-    {
+    public init(
+      tix: String? = nil, usd: String? = nil, usdFoil: String? = nil, usdEtched: String? = nil,
+      eur: String? = nil, eurFoil: String? = nil, eurEtched: String? = nil
+    ) {
       self.tix = tix
       self.usd = usd
       self.usdFoil = usdFoil

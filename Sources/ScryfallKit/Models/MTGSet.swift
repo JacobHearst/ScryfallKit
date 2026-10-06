@@ -30,31 +30,63 @@ public struct MTGSet: Codable, Identifiable, Hashable, Sendable {
   /// A machine-readable value describing the type of set this is.
   ///
   /// See [Scryfall's docs](https://scryfall.com/docs/api/sets#set-types) for more information on set types
-  public enum Kind: RawRepresentable, Codable, Sendable, CaseIterable, Hashable, Equatable {
-    // While "masters" is in fact not inclusive, it's also a name that we can't control
-    // swiftlint:disable:next inclusive_language
-    case core, expansion, masters, masterpiece, spellbook, commander, planechase, archenemy,
-         vanguard, funny, starter, box, promo, token, memorabilia, arsenal, alchemy, minigame,
-         eternal, fromTheVault, premiumDeck, duelDeck, draftInnovation, treasureChest
-    /// A layout that hasn't been added to ScryfallKit yet
-    case unknown(String)
+  public struct Kind: RawRepresentable, Codable, CaseIterable, Sendable, Equatable, Hashable {
+    public static let core = Kind(rawValue: "core")
+    public static let expansion = Kind(rawValue: "expansion")
+    public static let masters = Kind(rawValue: "masters")
+    public static let masterpiece = Kind(rawValue: "masterpiece")
+    public static let spellbook = Kind(rawValue: "spellbook")
+    public static let commander = Kind(rawValue: "commander")
+    public static let planechase = Kind(rawValue: "planechase")
+    public static let archenemy = Kind(rawValue: "archenemy")
+    public static let vanguard = Kind(rawValue: "vanguard")
+    public static let funny = Kind(rawValue: "funny")
+    public static let starter = Kind(rawValue: "starter")
+    public static let box = Kind(rawValue: "box")
+    public static let promo = Kind(rawValue: "promo")
+    public static let token = Kind(rawValue: "token")
+    public static let memorabilia = Kind(rawValue: "memorabilia")
+    public static let arsenal = Kind(rawValue: "arsenal")
+    public static let alchemy = Kind(rawValue: "alchemy")
+    public static let minigame = Kind(rawValue: "minigame")
+    public static let eternal = Kind(rawValue: "eternal")
+    public static let fromTheVault = Kind(rawValue: "from_the_vault")
+    public static let premiumDeck = Kind(rawValue: "premium_deck")
+    public static let duelDeck = Kind(rawValue: "duel_deck")
+    public static let draftInnovation = Kind(rawValue: "draft_innovation")
+    public static let treasureChest = Kind(rawValue: "treasure_chest")
 
     public static let allCases: [Kind] = [
-      .core, .expansion, .masters, .masterpiece, .spellbook, .commander, .planechase, .archenemy,
-      .vanguard, .funny, .starter, .box, .promo, .token, .memorabilia, .arsenal, .alchemy, .minigame,
-      .eternal, .fromTheVault, .premiumDeck, .duelDeck, .draftInnovation, .treasureChest
+      .core,
+      .expansion,
+      .masters,
+      .masterpiece,
+      .spellbook,
+      .commander,
+      .planechase,
+      .archenemy,
+      .vanguard,
+      .funny,
+      .starter,
+      .box,
+      .promo,
+      .token,
+      .memorabilia,
+      .arsenal,
+      .alchemy,
+      .minigame,
+      .eternal,
+      .fromTheVault,
+      .premiumDeck,
+      .duelDeck,
+      .draftInnovation,
+      .treasureChest,
     ]
 
-    public var rawValue: String {
-      switch self {
-      case .fromTheVault: "from_the_vault"
-      case .premiumDeck: "premium_deck"
-      case .duelDeck: "duel_deck"
-      case .draftInnovation: "draft_innovation"
-      case .treasureChest: "treasure_chest"
-      case .unknown(let unknownValue): unknownValue
-      default: String(describing: self)
-      }
+    public let rawValue: String
+
+    public init(rawValue: String) {
+      self.rawValue = rawValue
     }
   }
 
