@@ -1,0 +1,93 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Test
+
+# Controls when the workflow will run
+on:
+  schedule:
+    - cron: 0 0 * * 0
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+# Kill any previous run still executing
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build package
+        run: |
+          xcodes select 26.1.1
+          swift build -v
+
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Check allCases is complete
+        id: all-cases
+        run: |
+          xcodes select 26.1.1
+          swift Scripts/check-all-cases.swift Sources
+
+      - name: Smoke test package
+        id: smoke-test
+        run: |
+          set -o pipefail
+          xcodes select 26.1.1
+          swift test -v 2>&1 | tee "$RUNNER_TEMP/test.log"
+
+      - name: Summarize failures
+        id: summary
+        if: ${{ failure() && github.event_name == 'schedule' }}
+        run: |
+          log="$RUNNER_TEMP/test.log"
+          {
+            echo "tests<<EOF"
+            grep -E "^. Test .* failed after" "$log" 2>/dev/null | grep -v "^. Test run with" | sed -E 's/^. Test (.*) failed after.*/- \1/' | awk '!seen[$0]++' | head -50 || true
+            echo "EOF"
+            echo "reasons<<EOF"
+            grep -E "recorded an issue|^ *↳|error:" "$log" 2>/dev/null | sed -E 's/^. Test //' | awk '!seen[$0]++' | head -60 || true
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: CINotify Email
+        if: ${{ failure() && github.event_name == 'schedule' }}
+        uses: cinotify/github-action@v1.1.0
+        with:
+          # Recipient email address
+          to: jhearst@protonmail.ch
+          # Email subject
+          subject: "ScryfallKit ${{ github.event_name }} failure on ${{ github.head_ref || github.ref_name }}"
+          # Email body
+          body: |
+            ScryfallKit tests failed.
+
+            Failed step: ${{ steps.all-cases.outcome == 'failure' && 'Check allCases is complete' || 'Smoke test package' }}
+            Branch: ${{ github.head_ref || github.ref_name }}
+            Commit: ${{ github.sha }} (${{ github.actor }})
+            Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            Failed tests:
+            ${{ steps.summary.outputs.tests || 'None found in the log (the failure may be a build error or the allCases check).' }}
+
+            Why:
+            ${{ steps.summary.outputs.reasons || 'No failure messages found in the log; see the run for details.' }}
+
+  lint:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Lint with swift-format
+        run: |
+          xcodes select 26.1.1
+          swift format lint --strict --recursive Package.swift Sources Tests SampleCode
