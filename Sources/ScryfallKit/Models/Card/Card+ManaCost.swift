@@ -7,10 +7,10 @@ import Foundation
 extension Card {
   /// The mana cost of a card
   ///
-  /// Returned by ``ScryfallClient/parseManaCost(_:completion:)``
+  /// Returned by ``ScryfallClient/parseManaCost(_:)``
   ///
   /// [Scryfall documentation](https://scryfall.com/docs/api/colors)
-  public struct ManaCost: Codable {
+  public struct ManaCost: Codable, Sendable {
     /// The normalized cost, with correctly-ordered and wrapped mana symbols.
     public var cost: String
     /// The mana value. If you submit Un-set mana symbols, this decimal could include fractional parts.

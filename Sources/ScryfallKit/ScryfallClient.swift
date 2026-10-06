@@ -34,7 +34,6 @@ public final class ScryfallClient: Sendable {
   ///   - includeMultilingual: If true, cards in every language supported by Scryfall will be included. Defaults to `false`.
   ///   - includeVariations: If true, rare care variants will be included, like the Hairy Runesword. Defaults to `false`.
   ///   - page: The page number to return. Defaults to `1`
-  ///   - completion: A function/block to be called when the search is complete
   public func searchCards(
     filters: [CardFieldFilter],
     unique: UniqueMode? = nil,
@@ -43,11 +42,10 @@ public final class ScryfallClient: Sendable {
     includeExtras: Bool? = nil,
     includeMultilingual: Bool? = nil,
     includeVariations: Bool? = nil,
-    page: Int? = nil,
-    completion: @Sendable @escaping (Result<ObjectList<Card>, Error>) -> Void
-  ) {
+    page: Int? = nil
+  ) async throws -> ObjectList<Card> {
     let query = filters.map { $0.filterString }.joined(separator: " ")
-    searchCards(
+    return try await searchCards(
       query: query,
       unique: unique,
       order: order,
@@ -55,8 +53,7 @@ public final class ScryfallClient: Sendable {
       includeExtras: includeExtras,
       includeMultilingual: includeMultilingual,
       includeVariations: includeVariations,
-      page: page,
-      completion: completion)
+      page: page)
   }
 
   /// Perform a search using a string conforming to Scryfall query syntax.
@@ -72,7 +69,6 @@ public final class ScryfallClient: Sendable {
   ///   - includeMultilingual: If true, cards in every language supported by Scryfall will be included. Defaults to `false`.
   ///   - includeVariations: If true, rare care variants will be included, like the Hairy Runesword. Defaults to `false`.
   ///   - page: The page number to return. Defaults to `1`
-  ///   - completion: A function/block to be called when the search is complete
   public func searchCards(
     query: String,
     unique: UniqueMode? = nil,
@@ -81,10 +77,8 @@ public final class ScryfallClient: Sendable {
     includeExtras: Bool? = nil,
     includeMultilingual: Bool? = nil,
     includeVariations: Bool? = nil,
-    page: Int? = nil,
-    completion: @Sendable @escaping (Result<ObjectList<Card>, Error>) -> Void
-  ) {
-
+    page: Int? = nil
+  ) async throws -> ObjectList<Card> {
     let request = SearchCards(
       query: query,
       unique: unique,
@@ -95,7 +89,7 @@ public final class ScryfallClient: Sendable {
       includeVariations: includeVariations,
       page: page)
 
-    networkService.request(request, as: ObjectList<Card>.self, completion: completion)
+    return try await networkService.request(request, as: ObjectList<Card>.self)
   }
 
   /// Get a card with the exact name supplied
@@ -105,12 +99,10 @@ public final class ScryfallClient: Sendable {
   /// - Parameters:
   ///   - exact: The exact card name to search for, case insenstive.
   ///   - set: A set code to limit the search to one set.
-  ///   - completion: A function/block to be called when the search is complete
   public func getCardByName(
-    exact: String, set: String? = nil, completion: @Sendable @escaping (Result<Card, Error>) -> Void
-  ) {
+    exact: String, set: String? = nil) async throws -> Card {
     let request = GetCardNamed(exact: exact, set: set)
-    networkService.request(request, as: Card.self, completion: completion)
+    return try await networkService.request(request, as: Card.self)
   }
 
   /// Get a card with a name close to what was entered
@@ -120,12 +112,10 @@ public final class ScryfallClient: Sendable {
   /// - Parameters:
   ///   - fuzzy: The exact card name to search for, case insenstive.
   ///   - set: A set code to limit the search to one set.
-  ///   - completion: A function/block to be called when the search is complete
   public func getCardByName(
-    fuzzy: String, set: String? = nil, completion: @Sendable @escaping (Result<Card, Error>) -> Void
-  ) {
+    fuzzy: String, set: String? = nil) async throws -> Card {
     let request = GetCardNamed(fuzzy: fuzzy, set: set)
-    networkService.request(request, as: Card.self, completion: completion)
+    return try await networkService.request(request, as: Card.self)
   }
 
   /// Retrieve up to 20 card name autocomplete suggestions for a given string.
@@ -135,14 +125,11 @@ public final class ScryfallClient: Sendable {
   /// - Parameters:
   ///   - query: The string to autocomplete
   ///   - includeExtras: If true, extra cards (tokens, planes, vanguards, etc) will be included. Defaults to false.
-  ///   - completion: A function/block to be called when the search is complete
-  /// - Returns: A ``Catalog`` of card names or an error
+  /// - Returns: A ``Catalog`` of card names
   public func getCardNameAutocomplete(
-    query: String, includeExtras: Bool? = nil,
-    completion: @Sendable @escaping (Result<Catalog, Error>) -> Void
-  ) {
+    query: String, includeExtras: Bool? = nil) async throws -> Catalog {
     let request = GetCardAutocomplete(query: query, includeExtras: includeExtras)
-    networkService.request(request, as: Catalog.self, completion: completion)
+    return try await networkService.request(request, as: Catalog.self)
   }
 
   /// Get a single random card
@@ -151,12 +138,10 @@ public final class ScryfallClient: Sendable {
   ///
   /// - Parameters:
   ///   - query: An optional fulltext search query to filter the pool of random cards.
-  ///   - completion: A function/block to call when the request is complete
   public func getRandomCard(
-    query: String? = nil, completion: @Sendable @escaping (Result<Card, Error>) -> Void
-  ) {
+    query: String? = nil) async throws -> Card {
     let request = GetRandomCard(query: query)
-    networkService.request(request, as: Card.self, completion: completion)
+    return try await networkService.request(request, as: Card.self)
   }
 
   /// Get a single card using a Card identifier.
@@ -167,12 +152,10 @@ public final class ScryfallClient: Sendable {
   ///
   /// - Parameters:
   ///   - identifier: The identifier for the desired card
-  ///   - completion: A function/block to call when the request is complete
   public func getCard(
-    identifier: Card.Identifier, completion: @Sendable @escaping (Result<Card, Error>) -> Void
-  ) {
+    identifier: Card.Identifier) async throws -> Card {
     let request = GetCard(identifier: identifier)
-    networkService.request(request, as: Card.self, completion: completion)
+    return try await networkService.request(request, as: Card.self)
   }
 
   /// Bulk request up to 75 cards at a time.
@@ -181,13 +164,10 @@ public final class ScryfallClient: Sendable {
   ///
   /// - Parameters:
   ///   - identifiers: The array of identifiers
-  ///   - completion: A function/block to call when the request is complete
   public func getCardCollection(
-    identifiers: [Card.CollectionIdentifier],
-    completion: @Sendable @escaping (Result<ObjectList<Card>, Error>) -> Void
-  ) {
+    identifiers: [Card.CollectionIdentifier]) async throws -> ObjectList<Card> {
     let request = GetCardCollection(identifiers: identifiers)
-    networkService.request(request, as: ObjectList<Card>.self, completion: completion)
+    return try await networkService.request(request, as: ObjectList<Card>.self)
   }
 
   /// Get a catalog of Magic datapoints (keyword abilities, artist names, spell types, etc)
@@ -196,21 +176,18 @@ public final class ScryfallClient: Sendable {
   ///
   /// - Parameters:
   ///   - catalogType: The type of catalog to retrieve
-  ///   - completion: A function/block to call when the request is complete
   public func getCatalog(
-    catalogType: Catalog.`Type`, completion: @Sendable @escaping (Result<Catalog, Error>) -> Void
-  ) {
+    catalogType: Catalog.`Type`) async throws -> Catalog {
     let request = GetCatalog(catalogType: catalogType)
-    networkService.request(request, as: Catalog.self, completion: completion)
+    return try await networkService.request(request, as: Catalog.self)
   }
 
   /// Get all MTG sets
   ///
   /// [Scryfall documentation](https://scryfall.com/docs/api/sets/all)
   ///
-  /// - Parameter completion: A function/block to call when the request is complete
-  public func getSets(completion: @Sendable @escaping (Result<ObjectList<MTGSet>, Error>) -> Void) {
-    networkService.request(GetSets(), as: ObjectList<MTGSet>.self, completion: completion)
+  public func getSets() async throws -> ObjectList<MTGSet> {
+    return try await networkService.request(GetSets(), as: ObjectList<MTGSet>.self)
   }
 
   /// Get a specific MTG set
@@ -221,12 +198,10 @@ public final class ScryfallClient: Sendable {
   ///
   /// - Parameters:
   ///   - identifier: The set's identifier
-  ///   - completion: A function/block to call when the request is complete
   public func getSet(
-    identifier: MTGSet.Identifier, completion: @Sendable @escaping (Result<MTGSet, Error>) -> Void
-  ) {
+    identifier: MTGSet.Identifier) async throws -> MTGSet {
     let request = GetSet(identifier: identifier)
-    networkService.request(request, as: MTGSet.self, completion: completion)
+    return try await networkService.request(request, as: MTGSet.self)
   }
 
   /// Get the rulings for a specific card.
@@ -237,24 +212,18 @@ public final class ScryfallClient: Sendable {
   ///
   /// - Parameters:
   ///   - identifier: An identifier for the ruling you wish to retrieve
-  ///   - completion: A function/block to call when the request is complete
   public func getRulings(
-    _ identifier: Card.Ruling.Identifier,
-    completion: @Sendable @escaping (Result<ObjectList<Card.Ruling>, Error>) -> Void
-  ) {
+    _ identifier: Card.Ruling.Identifier) async throws -> ObjectList<Card.Ruling> {
     let request = GetRulings(identifier: identifier)
-    networkService.request(request, as: ObjectList<Card.Ruling>.self, completion: completion)
+    return try await networkService.request(request, as: ObjectList<Card.Ruling>.self)
   }
 
   /// Get all MTG symbology
   ///
   /// [Scryfall documentation](https://scryfall.com/docs/api/card-symbols/all)
   ///
-  /// - Parameter completion: A function/block to call when the request is complete
-  public func getSymbology(
-    completion: @Sendable @escaping (Result<ObjectList<Card.Symbol>, Error>) -> Void
-  ) {
-    networkService.request(GetSymbology(), as: ObjectList<Card.Symbol>.self, completion: completion)
+  public func getSymbology() async throws -> ObjectList<Card.Symbol> {
+    return try await networkService.request(GetSymbology(), as: ObjectList<Card.Symbol>.self)
   }
 
   /// Parse a string representing a mana cost and retun Scryfall's interpretation
@@ -263,11 +232,9 @@ public final class ScryfallClient: Sendable {
   ///
   /// - Parameters:
   ///   - cost: The string to parse
-  ///   - completion: A function/block to call when the request is complete
   public func parseManaCost(
-    _ cost: String, completion: @Sendable @escaping (Result<Card.ManaCost, Error>) -> Void
-  ) {
+    _ cost: String) async throws -> Card.ManaCost {
     let request = ParseManaCost(cost: cost)
-    networkService.request(request, as: Card.ManaCost.self, completion: completion)
+    return try await networkService.request(request, as: Card.ManaCost.self)
   }
 }

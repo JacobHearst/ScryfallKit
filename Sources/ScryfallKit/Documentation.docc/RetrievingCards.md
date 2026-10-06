@@ -52,7 +52,7 @@ print(narsetEnlightenedMaster.collectorNumber) // Prints "190"
 ## By Identifier
 Scryfall's data contains the unique IDs used by several other services and marketplaces. In addition, cards are uniquely identifiable by the combination of their set code, collector number, and language. These identifiers are reflected in ``Card/Identifier``
 
-You can use these identifiers to retrieve individual cards with ``ScryfallKit/ScryfallClient/getCard(identifier:completion:)`` or to retrieve up to 75 cards at once with ``ScryfallClient/getCardCollection(identifiers:completion:)``
+You can use these identifiers to retrieve individual cards with ``ScryfallKit/ScryfallClient/getCard(identifier:)`` or to retrieve up to 75 cards at once with ``ScryfallClient/getCardCollection(identifiers:)``
 
 #### Retrieving a single card
 ```swift
@@ -84,8 +84,8 @@ print(names) // ["Pore Over the Pages", "Lotus Field", "Hidden Strings"]
 ```
 
 ## See Also
-- ``ScryfallKit/ScryfallClient/getRandomCard(query:completion:)``
-- ``ScryfallKit/ScryfallClient/searchCards(filters:unique:order:sortDirection:includeExtras:includeMultilingual:includeVariations:page:completion:)``
-- ``ScryfallKit/ScryfallClient/searchCards(query:unique:order:sortDirection:includeExtras:includeMultilingual:includeVariations:page:completion:)``
-- ``ScryfallKit/ScryfallClient/getCardByName(fuzzy:set:completion:)`` 
-- ``ScryfallKit/ScryfallClient/getCardByName(exact:set:completion:)``
+- ``ScryfallKit/ScryfallClient/getRandomCard(query:)``
+- ``ScryfallKit/ScryfallClient/searchCards(filters:unique:order:sortDirection:includeExtras:includeMultilingual:includeVariations:page:)``
+- ``ScryfallKit/ScryfallClient/searchCards(query:unique:order:sortDirection:includeExtras:includeMultilingual:includeVariations:page:)``
+- ``ScryfallKit/ScryfallClient/getCardByName(fuzzy:set:)`` 
+- ``ScryfallKit/ScryfallClient/getCardByName(exact:set:)``
