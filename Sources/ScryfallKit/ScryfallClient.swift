@@ -16,7 +16,8 @@ public final class ScryfallClient: Sendable {
   ///   - rateLimiter: An optional ``RateLimiter`` to throttle outgoing requests. Pass nil (the default) to
   ///     disable throttling.
   public init(userAgent: String? = nil, logger: Logger? = nil, rateLimiter: RateLimiter? = nil) {
-    self.networkService = NetworkService(userAgent: userAgent, logger: logger, rateLimiter: rateLimiter)
+    self.networkService = NetworkService(
+      userAgent: userAgent, logger: logger, rateLimiter: rateLimiter)
   }
 
   /// Perform a search using an array of ``CardFieldFilter`` objects.
@@ -100,7 +101,8 @@ public final class ScryfallClient: Sendable {
   ///   - exact: The exact card name to search for, case insenstive.
   ///   - set: A set code to limit the search to one set.
   public func getCardByName(
-    exact: String, set: String? = nil) async throws -> Card {
+    exact: String, set: String? = nil
+  ) async throws -> Card {
     let request = GetCardNamed(exact: exact, set: set)
     return try await networkService.request(request, as: Card.self)
   }
@@ -113,7 +115,8 @@ public final class ScryfallClient: Sendable {
   ///   - fuzzy: The exact card name to search for, case insenstive.
   ///   - set: A set code to limit the search to one set.
   public func getCardByName(
-    fuzzy: String, set: String? = nil) async throws -> Card {
+    fuzzy: String, set: String? = nil
+  ) async throws -> Card {
     let request = GetCardNamed(fuzzy: fuzzy, set: set)
     return try await networkService.request(request, as: Card.self)
   }
@@ -127,7 +130,8 @@ public final class ScryfallClient: Sendable {
   ///   - includeExtras: If true, extra cards (tokens, planes, vanguards, etc) will be included. Defaults to false.
   /// - Returns: A ``Catalog`` of card names
   public func getCardNameAutocomplete(
-    query: String, includeExtras: Bool? = nil) async throws -> Catalog {
+    query: String, includeExtras: Bool? = nil
+  ) async throws -> Catalog {
     let request = GetCardAutocomplete(query: query, includeExtras: includeExtras)
     return try await networkService.request(request, as: Catalog.self)
   }
@@ -139,7 +143,8 @@ public final class ScryfallClient: Sendable {
   /// - Parameters:
   ///   - query: An optional fulltext search query to filter the pool of random cards.
   public func getRandomCard(
-    query: String? = nil) async throws -> Card {
+    query: String? = nil
+  ) async throws -> Card {
     let request = GetRandomCard(query: query)
     return try await networkService.request(request, as: Card.self)
   }
@@ -153,7 +158,8 @@ public final class ScryfallClient: Sendable {
   /// - Parameters:
   ///   - identifier: The identifier for the desired card
   public func getCard(
-    identifier: Card.Identifier) async throws -> Card {
+    identifier: Card.Identifier
+  ) async throws -> Card {
     let request = GetCard(identifier: identifier)
     return try await networkService.request(request, as: Card.self)
   }
@@ -165,7 +171,8 @@ public final class ScryfallClient: Sendable {
   /// - Parameters:
   ///   - identifiers: The array of identifiers
   public func getCardCollection(
-    identifiers: [Card.CollectionIdentifier]) async throws -> ObjectList<Card> {
+    identifiers: [Card.CollectionIdentifier]
+  ) async throws -> ObjectList<Card> {
     let request = GetCardCollection(identifiers: identifiers)
     return try await networkService.request(request, as: ObjectList<Card>.self)
   }
@@ -177,7 +184,8 @@ public final class ScryfallClient: Sendable {
   /// - Parameters:
   ///   - catalogType: The type of catalog to retrieve
   public func getCatalog(
-    catalogType: Catalog.`Type`) async throws -> Catalog {
+    catalogType: Catalog.`Type`
+  ) async throws -> Catalog {
     let request = GetCatalog(catalogType: catalogType)
     return try await networkService.request(request, as: Catalog.self)
   }
@@ -199,7 +207,8 @@ public final class ScryfallClient: Sendable {
   /// - Parameters:
   ///   - identifier: The set's identifier
   public func getSet(
-    identifier: MTGSet.Identifier) async throws -> MTGSet {
+    identifier: MTGSet.Identifier
+  ) async throws -> MTGSet {
     let request = GetSet(identifier: identifier)
     return try await networkService.request(request, as: MTGSet.self)
   }
@@ -213,7 +222,8 @@ public final class ScryfallClient: Sendable {
   /// - Parameters:
   ///   - identifier: An identifier for the ruling you wish to retrieve
   public func getRulings(
-    _ identifier: Card.Ruling.Identifier) async throws -> ObjectList<Card.Ruling> {
+    _ identifier: Card.Ruling.Identifier
+  ) async throws -> ObjectList<Card.Ruling> {
     let request = GetRulings(identifier: identifier)
     return try await networkService.request(request, as: ObjectList<Card.Ruling>.self)
   }
@@ -233,7 +243,8 @@ public final class ScryfallClient: Sendable {
   /// - Parameters:
   ///   - cost: The string to parse
   public func parseManaCost(
-    _ cost: String) async throws -> Card.ManaCost {
+    _ cost: String
+  ) async throws -> Card.ManaCost {
     let request = ParseManaCost(cost: cost)
     return try await networkService.request(request, as: Card.ManaCost.self)
   }

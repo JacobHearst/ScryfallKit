@@ -6,7 +6,8 @@ import Foundation
 import OSLog
 
 protocol NetworkServiceProtocol: Sendable {
-  func request<T: Decodable & Sendable>(_ request: EndpointRequest, as type: T.Type) async throws -> T
+  func request<T: Decodable & Sendable>(_ request: EndpointRequest, as type: T.Type) async throws
+    -> T
 }
 
 struct NetworkService: NetworkServiceProtocol, Sendable {
@@ -20,7 +21,9 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
     self.rateLimiter = rateLimiter
   }
 
-  func request<T: Decodable & Sendable>(_ request: EndpointRequest, as type: T.Type) async throws -> T {
+  func request<T: Decodable & Sendable>(_ request: EndpointRequest, as type: T.Type) async throws
+    -> T
+  {
     guard var urlRequest = request.urlRequest else {
       logger?.error("Invalid url request")
       throw ScryfallKitError.invalidUrl
@@ -43,7 +46,9 @@ struct NetworkService: NetworkServiceProtocol, Sendable {
       throw ScryfallKitError.failedToCast("httpStatus property of response to HTTPURLResponse")
     }
 
-    logger?.debug("HTTP \(httpStatus): \(String(data: data, encoding: .utf8) ?? "Couldn't represent response body as string")")
+    logger?.debug(
+      "HTTP \(httpStatus): \(String(data: data, encoding: .utf8) ?? "Couldn't represent response body as string")"
+    )
 
     let content = data
 
