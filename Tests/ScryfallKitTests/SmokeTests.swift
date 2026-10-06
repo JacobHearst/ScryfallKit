@@ -7,10 +7,14 @@ import Testing
 @testable import ScryfallKit
 
 struct SmokeTests {
+    // Swift Testing creates a new suite instance per test and runs tests in parallel, so the limiter
+    // must be static to be shared by every test's client. The most restrictive rate limit in
+    // Scryfall's docs is 2 requests/second
+    static let rateLimiter = RateLimiter(requestsPerSecond: 2)
+
     let client = ScryfallClient(
         logger: Logger(subsystem: "dev.hearst.ScryfallKitTests", category: "SmokeTests"),
-        // The most restrictive rate limit in Scryfall's docs is 2 requests/second
-        rateLimiter: RateLimiter(requestsPerSecond: 2)
+        rateLimiter: SmokeTests.rateLimiter
     )
 
     @Test func layouts() async throws {
