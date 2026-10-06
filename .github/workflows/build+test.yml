@@ -28,6 +28,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Check allCases is complete
+        run: |
+          xcodes select 26.1.1
+          swift Scripts/check-all-cases.swift Sources
+
       - name: Smoke test package
         run: |
           xcodes select 26.1.1
