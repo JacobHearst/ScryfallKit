@@ -304,13 +304,14 @@ extension Card {
         public static let fullArt = FrameEffect(rawValue: "fullart")
         public static let shatteredGlass = FrameEffect(rawValue: "shatteredglass")
         public static let upsideDownDfc = FrameEffect(rawValue: "upsidedowndfc")
+        public static let surgeFoil = FrameEffect(rawValue: "surgefoil")
 
         public static let allCases: [FrameEffect] = [
             .legendary, .miracle, .draft, .devoid, .tombstone, .showcase, .companion, .etched,
             .snow, .lesson, .battle, .gravestone, .vehicle, .borderless, .extended, .spree,
             .textless, .enchantment, .inverted, .nyxTouched, .colorShifted, .sunMoonDfc,
             .compassLandDfc, .originPwDfc, .moonEldraziDfc, .waxingAndWaningMoonDfc, .extendedArt,
-            .convertDfc, .fAndFc, .fullArt, .shatteredGlass, .upsideDownDfc,
+            .convertDfc, .fAndFc, .fullArt, .shatteredGlass, .upsideDownDfc, .surgeFoil,
         ]
 
         public let rawValue: String
