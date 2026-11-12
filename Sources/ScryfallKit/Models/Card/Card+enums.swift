@@ -94,9 +94,22 @@ extension Card {
     ///
     /// [Scryfall documentation](https://scryfall.com/docs/api/images)
     public enum ImageType: String, Codable, CaseIterable {
-        case png, large, normal, small
+        case thumb, grid, display, art, crop, jpeg, png
+
+        @available(*, deprecated, message: "Use .display instead")
+        case large
+        @available(*, deprecated, message: "Use .grid instead")
+        case normal
+        @available(*, deprecated, message: "Use .thumb instead")
+        case small
+        @available(*, deprecated, message: "Use .art instead")
         case artCrop = "art_crop"
+        @available(*, deprecated, message: "Use .crop instead")
         case borderCrop = "border_crop"
+
+        public static var allCases: [ImageType] {
+            [.thumb, .grid, .display, .art, .crop, .jpeg, .png, .large, .normal, .small, .artCrop, .borderCrop]
+        }
     }
 
     /// Card rarities
