@@ -9,22 +9,17 @@ extension Card {
     public struct ImageUris: Codable, Hashable, Sendable {
         /// A link to a small full card image.
         /// - Note: Designed for use as thumbnail or list icon.
-        @available(*, deprecated, message: "Use thumb instead")
-        public let small: String?
+        @available(*, deprecated, message: "Use thumb instead") public let small: String?
         /// A link to a medium-sized full card image
-        @available(*, deprecated, message: "Use grid instead")
-        public let normal: String?
+        @available(*, deprecated, message: "Use grid instead") public let normal: String?
         /// A link to a large full card image
-        @available(*, deprecated, message: "Use display instead")
-        public let large: String?
+        @available(*, deprecated, message: "Use display instead") public let large: String?
         /// A link to a rectangular crop of the card’s art only.
         /// - Note: Not guaranteed to be perfect for cards with outlier designs or strange frame arrangements
-        @available(*, deprecated, message: "Use art instead")
-        public let artCrop: String?
+        @available(*, deprecated, message: "Use art instead") public let artCrop: String?
         /// A link to a full card image with the rounded corners and the majority of the border cropped off.
         /// - Note: Designed for dated contexts where rounded images can’t be used.
-        @available(*, deprecated, message: "Use crop instead")
-        public let borderCrop: String?
+        @available(*, deprecated, message: "Use crop instead") public let borderCrop: String?
 
         /// A transparent, rounded full card PNG. This is the best image to use for videos or other high-quality content.
         public let png: String?
@@ -40,7 +35,6 @@ extension Card {
         public let crop: String?
         /// A medium-sized full card image, replaces normal
         public let jpeg: String?
-
 
         public init(
             small: String?,

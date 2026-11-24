@@ -96,19 +96,17 @@ extension Card {
     public enum ImageType: String, Codable, CaseIterable {
         case thumb, grid, display, art, crop, jpeg, png
 
-        @available(*, deprecated, message: "Use .display instead")
-        case large
-        @available(*, deprecated, message: "Use .grid instead")
-        case normal
-        @available(*, deprecated, message: "Use .thumb instead")
-        case small
-        @available(*, deprecated, message: "Use .art instead")
-        case artCrop = "art_crop"
-        @available(*, deprecated, message: "Use .crop instead")
-        case borderCrop = "border_crop"
+        @available(*, deprecated, message: "Use .display instead") case large
+        @available(*, deprecated, message: "Use .grid instead") case normal
+        @available(*, deprecated, message: "Use .thumb instead") case small
+        @available(*, deprecated, message: "Use .art instead") case artCrop = "art_crop"
+        @available(*, deprecated, message: "Use .crop instead") case borderCrop = "border_crop"
 
         public static var allCases: [ImageType] {
-            [.thumb, .grid, .display, .art, .crop, .jpeg, .png, .large, .normal, .small, .artCrop, .borderCrop]
+            [
+                .thumb, .grid, .display, .art, .crop, .jpeg, .png, .large, .normal, .small,
+                .artCrop, .borderCrop,
+            ]
         }
     }
 
