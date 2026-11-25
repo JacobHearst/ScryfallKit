@@ -35,6 +35,8 @@ extension Card {
         case .oldschool: return legalities.oldschool ?? .notLegal
         case .premodern: return legalities.premodern ?? .notLegal
         case .predh: return legalities.predh ?? .notLegal
+        case .competitivebrawl: return legalities.competitivebrawl ?? .notLegal
+        case .tlr: return legalities.tlr ?? .notLegal
         }
     }
 

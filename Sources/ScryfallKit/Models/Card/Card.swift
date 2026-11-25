@@ -147,6 +147,8 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
     public var illustrationId: UUID?
     /// A computer-readable indicator for the state of this card’s image
     public var imageStatus: ImageStatus
+    /// You can use this field to detect when we have changed a card’s image.
+    public var imageUpdatedAt: String?
     /// An object listing available imagery for this card.
     public var imageUris: ImageUris?
     /// An object containing daily price information for this card
@@ -261,6 +263,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
         highresImage: Bool,
         illustrationId: UUID? = nil,
         imageStatus: ImageStatus,
+        imageUpdatedAt: String? = nil,
         imageUris: ImageUris? = nil,
         prices: Prices,
         printedName: String? = nil,
@@ -347,6 +350,7 @@ public struct Card: Codable, Identifiable, Hashable, Sendable {
         self.highresImage = highresImage
         self.illustrationId = illustrationId
         self.imageStatus = imageStatus
+        self.imageUpdatedAt = imageUpdatedAt
         self.imageUris = imageUris
         self.prices = prices
         self.printedName = printedName
